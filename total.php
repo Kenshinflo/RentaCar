@@ -1,6 +1,6 @@
 <?php
 session_start();
-sleep(1.5);
+sleep(1.6);
 //  $_SESSION["item_n"] = $item['item_name'];
 //  $_SESSION["item_p"] = $item['item_price'];
 
