@@ -2,8 +2,8 @@
 <!-----------------------------------------------FOOTER------------------------------------------------------------->
 <footer class="footer mt-auto bg-dark bg-gradient">
     <section>
-        <div class="container justify-content-center">
-            <div class="row d-flex justify-content-center">
+        <div class="container">
+            <div class="row">
 
                 <div class="footer-col">
                     <h4>company</h4>

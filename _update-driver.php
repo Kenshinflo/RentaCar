@@ -59,7 +59,7 @@ if(isset($_POST['update'])){
 
         if($result){
             echo "updated successfully";
-            header('location:_manage-drivers.php');
+            header('location:_manage-drivers2.php');
     }else{
             die("Invalid Query: " . $con->error);
     }

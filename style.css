@@ -359,13 +359,11 @@ span{
 }
 #banner_ad .adv img{
     height:400px;
-    /* margin-left: -100px; */
     margin-bottom: 50px;
     
 }
 #banner_ad .img-prod img{
     height:auto;
-    max-width: 100%;
     
     margin-bottom: 50px;
     
@@ -405,7 +403,6 @@ span{
     /* background-repeat: no-repeat; */
     background-size:cover;
     position: relative;
-    
 }
 
 .wallp3{
@@ -584,28 +581,6 @@ span{
     background: #6B6B6B;
 }
 
-.result-box{
-    max-height: 300px;
-    overflow-y: scroll;
-    
-}
-.result-box ul{
-    padding:0px 10px;
-}
-
-.result-box ul li{
-    list-style: none;
-    padding: 15px 10px;
-    cursor:pointer;
-    
-}
-
-.result-box ul li:hover{
-    list-style: none;
-    padding: 15px 10px;
-    cursor:pointer;
-    
-}
 /*   For Navbar */
 .navbar{
     font-family: "Poppins", sans-serif;
@@ -863,6 +838,7 @@ footer{
 .footer .row{
 	display: flex;
 	flex-wrap: wrap;
+    justify-content: center;
 }
 .footer ul{
 	list-style: none;

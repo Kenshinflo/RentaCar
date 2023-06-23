@@ -1,18 +1,22 @@
 <?php
-  ob_start();
+ 
   //include header.php file
   include ('connection.php');
 
-  if(isset($_POST['change_pass'])){
-
-    $update_id = $_POST['user_id'];
-	$password=$_POST['new_pass'];
-
-	$password = md5($password);
-
-    mysqli_query($con, "UPDATE user SET pass_word = '$password' WHERE id= '$update_id'") or die('query failed');
-    $message[] = 'quantity updated!';
-	}
+  $id=$_SESSION["user_id"];
+	  $findresult = mysqli_query($con, "SELECT * FROM user WHERE user_id= '$id'");
+		  if($res = mysqli_fetch_array($findresult))
+  {
+  $id = $res['user_id'];
+  $firstname = $res['first_name'];
+  $lastname = $res['last_name']; 
+  $username =$res['user_name'];
+  $oldusername =$res['user_name'];
+  $email = $res['email'];   
+  $phonenumber = $res['contact_num'];  
+  $image= $res['pic_ID'];
+  }
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,57 +33,114 @@
 </head>
 <body>
 <form action="" method="post">
-	<div class="container mt-6 mb-6">
+	<?php if(isset($_GET['error'])) { ?>
+	<div class="alert alert-warning alert-dismissible fade show center-block" role="alert">
+  			<strong>Error!</strong> <?php echo $_GET['error']; ?>
+  				<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
+  			</button>
+		</div>
+	<?php } ?>
+
+	<?php if(isset($_GET['status'])) { ?>
+	<div class="alert alert-warning alert-dismissible fade show center-block" role="alert">
+  			<strong>Success!</strong> <?php echo $_GET['status']; ?>
+  				<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
+  			</button>
+		</div>
+	<?php } ?>
+
 		<div class="row">
-			<div class="col-md-4 color_left ">
-				<?php
-				if(isset($_SESSION['username'])){
-					$stmt = $con->prepare("SELECT * FROM user WHERE username='".$_SESSION['user_name']."' ");
-				}else{
-					$stmt = $con->prepare('SELECT * FROM user WHERE 1 = 0');
+			<div class="col-3 color_left ">
+				
+			<?php
+  				if(isset($_POST['change_pass'])){
+				
+					$current_password = $_POST['current_password'];
+					$new_password = $_POST['new_password'];
+					$confirm_password = $_POST['confirm_password'];
+
+
+				if ($new_password != $confirm_password) {
+					header("location: password.php?error=New password and confirm password do not match");
+					exit;
+				  }
+				  
+				$sql = "SELECT pass_word FROM user WHERE user_id = '$id'";
+				$result = mysqli_query($con, $sql);
+								
+				if (mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
+					$current_password_hash = $row["pass_word"];
+				} else {
+					header("location: password.php?error=User not found");
+					exit;
 				}
-					$stmt->execute();
-    				$result = $stmt->get_result();
-    				while ($row = $result->fetch_assoc()):
+    			
+				if (md5($current_password) != $current_password_hash) {
+					header("location: password.php?error=Current password is incorrect");
+					exit;
+				  }
+				  
+
+				  $new_password_hash = md5($new_password);
+
+					$sql = "UPDATE user SET pass_word = '$new_password_hash' WHERE user_id = '$id'";
+
+					if (mysqli_query($con, $sql)) {
+						header("location: password.php?status=Your password has been updated");
+					} else {
+					echo "Error updating password: " . mysqli_error($con);
+					}
+
+					mysqli_close($con);
+
+				}
 				?>
-				<div class="d-flex flex-column align-items-center text-center p-3 py-1"><img class="rounded-circle mt-5" width="150px" src="user_profile/profile.png">
-					
+
+				<div class="d-flex flex-column align-items-center text-center p-3 py-1">
+				<?php if($image==NULL){
+							echo '<img src="assets/user_profile/profile.png" style="height:150px; width: 150px;" class="rounded-circle mt-5">';
+						} else { 
+							echo '<img src="images/'.$image.'" style="height:150px; width: 150px;" class="rounded-circle mt-5">';
+						}
+						?>
+						<div class="row mt-1"></div>
 				<div class="row mt-2"></div>	
-					<span class="font-weight-bold"><?= $row['full_name'] ?></span><span class=><?= $row['email'] ?></span><span> </span></div>
-					<nav id="navbar" class="nav-menu navbar">
+					<span class="font-weight-bold"><?php echo $firstname;?></span><span class=><?php echo $email;?></span><span> </span></div>
+					<nav class="side-nav navbar">
 						<ul style="list-style: none;">
-						  <li><a href="index.php" class="nav-link scrollto"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-						  <div class="dropdown" li><a href="user1MyAccount.php" class="nav-link scrollto active"><i class="fa-solid fa-user "></i> My Account <span style="padding-left:5px" class=" fa fa-caret-down"></span>					
-							<div class="dropdown-content">
-							  <a href="user1MyAccount.php">User Profile</a>
-							  <a href="user2ChangePassword.php">Change Password</a>
-							</div>
-						  </div> 
-						  <li><a href="cart.php" class="nav-link scrollto"><i class="fa-solid fa-cart-shopping"></i> <span>My Purchase</span></a></li>
-						  <li><a href="#notif" class="nav-link scrollto"><i class="fa-solid fa-bell"></i> <span>Notification</span></a></li>
-						  <li><a href="#voucher" class="nav-link scrollto"><i class="fa-sharp fa-solid fa-ticket-simple"></i> <span>My Vouchers</span></a></li>
-						  <li><a href="#shoppe-coins" class="nav-link scrollto"><i class="fa-sharp fa-solid fa-circle-dollar-to-slot"></i> <span>My Shopee Coins</span></a></li>
+						<li><a href="index.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+						  <li><a href="userreservation.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-calendar-check"></i> <span>My Reservation</span></a></li>
+						  <li><a href="#notif" class="nav-link scrollto ml-4"><i class="fa-solid fa-key"></i> <span style="padding-left:5px">My Rented Cars</span></a></li>
+						  <li><a href="password.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-user"></i> <span>Change Password</span></a></li>						  
 						</ul>
 					</nav>
 				</div>
-			<div class="col-md-8 color_right border-right">
+			<div class="col-6 color_right">
 				<div class="p-5 py-5">
-					<div class="d-flex justify-content-between align-items-center mb-3">
+					<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
 						<h4 class="text-right">Change Password</h4>
-					</div>
-					<div class="row mt-2">
-						<input type="hidden" name="user_id" value="<?php echo $fetch_cart['id'];?>">
+						
+					</div>				
+					<div class="row mt-2 border-top">
+						<input type="hidden" name="user_id" value="<?php echo $fetch_cart['user_id'];?>">
 
-						<div class="col-md-8"><label class="labels">New Password</label>
-							<input type="password" class="form-control" name = "new_pass" placeholder="Enter New Password">
+						<div class="mt-3 col-md-6"><label class="labels" style="font-size: 17px;">Current Password</label>
+							<input type="password" class="form-control"  name = "current_password" placeholder="Enter Old Password">
+						</div>
+						 
+						<div class="mt-3 col-md-6"><label class="labels" style="font-size: 17px;">New Password</label>
+							<input type="password" class="form-control" name = "new_password" placeholder="Enter New Password">
 						</div>
 						
-						<div class="mt-3 col-md-8"><label class="labels">Confirm New Password</label>
-							<input type="password" class="form-control" placeholder="Confirm New Password">
+						<div class="mt-3 col-md-6"><label class="labels" style="font-size: 17px;">Confirm New Password</label>
+							<input type="password" class="form-control" name = "confirm_password" placeholder="Confirm New Password">
 						</div>
+						
 					</div>
-
-					<div class="mt-5 text-center password-button color_left font-size=10px">
+					
+					<div class="row mt-2 border-top mt-4" id = "buttonUp">
+					<div class="mt-4 col-md-2 text-center password-button">
 						<input type="submit" value="Change Password" name="change_pass">
 					</div>
 				</div>
@@ -88,10 +149,9 @@
 	</div>
 </div>
 </form>
-<?php endwhile; ?>
-		</div>
-	</div>
-	</div>
+</div>
+</div>
+</div>
    
 </body>
 </html>
