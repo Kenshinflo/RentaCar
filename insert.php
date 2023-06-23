@@ -1,7 +1,23 @@
 <?php
-session_start();
+
 $con = mysqli_connect("localhost","root","","rentacar");
 
+//NOTE: TEST For Notification System
+if(isset($_POST['comment_pass'])){
+    // include("connection.php");
+
+    $subject = mysqli_real_escape_string($con, $_POST["subject"]);
+    $comment = mysqli_real_escape_string($con, $_POST["comment"]);
+    $query_ins = "INSERT INTO notification_user(notif_subject, notif_message)VALUES ('$subject', '$comment')";
+    $query_runs= mysqli_query($con, $query_ins);
+
+    // if ($query_runs){
+    //     header("Location: ../index.php");
+    // } else{
+    //     $em = "Sorry, yours.";
+    //     header("Location: ../product.php?error=$em");
+    // }
+}
 
 if(isset($_POST['remove'])){
     $product = $_POST['remove'];

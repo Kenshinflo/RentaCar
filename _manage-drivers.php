@@ -129,7 +129,7 @@ session_start();
                                     <td> <img height="250" width="250" src="../assets/driver_pic/<?php echo $license ?>"> </td>
                                     <td> <img height="250" width="250" src="../assets/driver_pic/<?php echo $profile ?>"> </td>
                                     <td> 
-                                        <form action="_update-driver.php" class="d-inline">
+                                        <form action="_update-driver.php"  class="d-inline">
                                             <button type="submit" name="updateDriver" value="<?=$row['driver_id'];?>" class="btn btn-primary btn-sm">Update</button>
                                          </form>
                                          

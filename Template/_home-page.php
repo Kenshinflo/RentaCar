@@ -9,7 +9,7 @@
  
 //  $_SESSION["dateFrom"]=$dF;
 //  $_SESSION["dateTo"]=$dT;
-
+$con = mysqli_connect("localhost","root","","rentacar");
 $dated = date("Y-m-d H:m");
 if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
     
@@ -50,6 +50,8 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
     
     
 }
+
+
 ?>
 <section class="banner-section" id="banner">
     <div class="masthead justify-content-center  align-items-center" id="backg"  style="background-image: url('assets/6wall.jpg'); ">
@@ -105,7 +107,7 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                 </div>
 
                 <div>
-
+                 
                 </div>
             </div>
         </div>

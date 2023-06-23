@@ -83,9 +83,13 @@
             </ul>
             <ul class="navbar-nav align-items-center col-sm-3 ">
                 <li class="pe-3">
-                    <button type="button" class="btn btn-dark border position-relative fa fa-bell" style="background-color: transparent;">
+                    <!-- <button type="button" class="btn btn-dark border position-relative fa fa-bell" style="background-color: transparent;">
                          <span class="position-absolute top-0 start-75 translate-middle badge   rounded-circle bg-danger p-2"><span class="visually-hidden">unread messages</span></span>
-                    </button>
+                    </button> -->
+                    <a href="#" class="dropdown-toggle1" data-toggle="dropdown"><span class="  fa fa-bell label label-pill label-danger count" style="border-radius:10px;"></span> <span class="glyphicon glyphicon-bell" style="font-size:18px;"></span></a>
+                        <ul class="dropdown-menu1">
+
+                        </ul>
                 </li>
                 <li>
 
@@ -196,6 +200,26 @@
     //         $('nav').stop().fadeOut(250);
     //     };
     // });   
+     $(document).ready(function() {
+            // Function to load notifications
+            function loadNotifications() {
+                $.ajax({
+                    url: 'get_notifications.php',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#notifications').html(response);
+                    }
+                });
+            }
+
+            // Load notifications initially
+            loadNotifications();
+
+            // Refresh notifications every 5 seconds
+            setInterval(function() {
+                loadNotifications();
+            }, 5000);
+        });
 </script>
 
     

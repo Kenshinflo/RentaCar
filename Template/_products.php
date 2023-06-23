@@ -1,4 +1,5 @@
 <?php
+include ('insert.php');
     $item_id = $_GET['item_id']??1;
     $_SESSION["item_id"] = $item_id;
     $userid = $_SESSION["user_id"];
@@ -396,9 +397,23 @@
             </div>
             <div class="col-12">
                 <h6 class="font-rubik font-size-20">Vehicle Description</h6>
+
                 <hr>
                 <!--<p class="font-rale font-size-16">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat inventore vero numquam error est ipsa, consequuntur temporibus debitis nobis sit, delectus officia ducimus dolorum sed corrupti. Sapiente optio sunt provident, accusantium eligendi eius reiciendis animi? Laboriosam, optio qui? Numquam, quo fuga. Maiores minus, accusantium velit numquam a aliquam vitae vel?</p>
                 <p class="font-rale font-size-16">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat inventore vero numquam error est ipsa, consequuntur temporibus debitis nobis sit, delectus officia ducimus dolorum sed corrupti. Sapiente optio sunt provident, accusantium eligendi eius reiciendis animi? Laboriosam, optio qui? Numquam, quo fuga. Maiores minus, accusantium velit numquam a aliquam vitae vel?</p>-->
+                <form method="post" id="comment_form">
+                    <div class="form-group">
+                        <label>Enter Subject</label>
+                        <input type="text" name="subject" id="subject" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Enter Comment</label>
+                        <textarea name="comment" id="comment" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="comment_pass" id="comment_pass" class="btn btn-info" value="Post" />
+                    </div>
+                </form>                  
             </div>
         </div>
     </div>
@@ -488,7 +503,44 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript">
-        
+
+        $(document).ready(function(){
+
+        load_unseen_notification();
+
+        // submit form and get new records
+        $('#comment_form').on('submit', function(event){
+            event.preventDefault();
+            if($('#subject').val() != '' && $('#comment').val() != '')
+            {
+                var form_data = $(this).serialize();
+                $.ajax({
+                url:"insert.php",
+                method:"POST",
+                data:form_data,
+                success:function(data)
+                {
+                    $('#comment_form')[0].reset();
+                    load_unseen_notification();
+                }
+                });
+            }
+            else
+            {
+                alert("Both Fields are Required");
+            }
+        });
+
+        // load new notifications
+        $(document).on('click', '.dropdown-toggle1', function(){
+            $('.count').html('');
+                load_unseen_notification('yes');
+            });
+            setInterval(function(){
+                load_unseen_notification();;
+            }, 5000);
+        });
+
             // $(document).ready(function(){
             //     $("#dateTo,#dateFrom").keyup(function()){
             //         $price = $_SESSION["item_p"] ?? 0;
@@ -552,7 +604,24 @@
                 // });
             });
             
-
+        // updating the view with notifications using ajax
+        // function load_unseen_notification(view = '')
+        // {
+        //     $.ajax({
+        //     url:"fetch.php",
+        //     method:"POST",
+        //     data:{view:view},
+        //     dataType:"json",
+        //     success:function(data)
+        //     {
+            //     $('.dropdown-menu1').html(data.notification);
+            //     if(data.unseen_notification > 0)
+            //     {
+            //         $('.count').html(data.unseen_notification);
+            //     }
+        //     }
+        //     });
+        // }
                        
     </script>
     <script src="index.js"></script>

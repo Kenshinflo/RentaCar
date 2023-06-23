@@ -295,19 +295,19 @@
                     <table class="my-3 d-flex align-items-center justify-content-center">
                         <tr class="font-rale font-size-16">
                                 <td>Shop Name: </td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['shopname'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['shopname'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
                             </tr>
                             <tr class="font-rale font-size-16">
                                 <td>Email: </td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['email'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['email'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
                             </tr>
                             <tr class="font-rale font-size-16">
                                 <td>Contact Number: </td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['contact_num'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['contact_num'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
                             </tr>
                             <tr class="font-rale font-size-16">
                                 <td>Address:</td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['address'] ?? 0; ?></span></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['address'] ?? 0; ?></span></td>
                             </tr>
                             
                     </table>

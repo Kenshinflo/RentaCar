@@ -57,11 +57,12 @@ if(isset($_POST['update'])){
 
         $result=$con->query($sql);
 
-        if($result){
+    if($result){
             echo "updated successfully";
             header('location:_manage-drivers.php');
     }else{
-            die("Invalid Query: " . $con->error);
+        echo "Connection failed: " ;    
+        die("Invalid Query: " . $con->error);
     }
 }
 }
