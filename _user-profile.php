@@ -72,6 +72,7 @@ $image= $res['pic_ID'];
 	}
 	?>
 	<div class="mt-6 mb-6">
+		
 	<?php
 	if(isset($_POST['update_prof'])){
 		$firstname=$_POST['first_name'];
@@ -208,6 +209,7 @@ $image= $res['pic_ID'];
 						<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
 							<h4 class="text-right"></h4>
 						</div>
+
 						<div class="d-flex flex-column align-items-center text-center p-1 py-6">
 							<?php if($image==NULL){
 								echo '<img src="user_profile/profile.png">';
@@ -215,6 +217,7 @@ $image= $res['pic_ID'];
 								echo '<img src="images/'.$image.'" style="height:80px; width: 80px; " class="rounded-circle mt-5>';
 							}
 							?>
+							
 						<div class="form-group">
 							<br>
 							<label>Change Image &#8595;</label>
@@ -225,6 +228,7 @@ $image= $res['pic_ID'];
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

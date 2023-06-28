@@ -1,6 +1,60 @@
 <?php
 session_start();
+
+include ('connection.php');
 ?>
+
+
+<?php
+if(isset($_POST['update_car'])){
+    $name=$_POST['item_name'];
+    $brand=$_POST['item_brand'];
+    $capacity=$_POST['item_capacity'];
+    $transmission=$_POST['item_transmission'];
+    $color=$_POST['item_color'];
+    $license=$_POST['item_license_plate'];
+    $price=$_POST['item_price'];
+
+	$folder='images/cars/';
+	$file = $_FILES['pic_CAR']['tmp_name'];
+    $file_name = $_FILES['pic_CAR']['name'];
+    $file_name_array = explode(".", $file_name); 
+		$extension = end($file_name_array);
+
+		$new_image_name ='Car_'.rand() . '.' . $extension;
+		if ($_FILES["pic_CAR"]["size"] >10000000) {
+		$error[] = 'Sorry, your image is too large. Upload less than 10 MB in size .';
+		}
+
+		if($file != ""){
+			if($extension!= "jpg" && $extension!= "png" && $extension!= "jpeg"
+			&& $extension!= "gif" && $extension!= "PNG" && $extension!= "JPG" && $extension!= "GIF" && $extension!= "JPEG"){
+				$error[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';   
+			}
+		}
+
+		if(!isset($error)){ 
+			if($file!= ""){
+			  	$stmt = mysqli_query($con,"SELECT item_image FROM product WHERE item_id='$id'");
+			  	$row = mysqli_fetch_array($stmt); 
+			  	$deleteimage=$row['item_image'];
+				unlink($folder.$deleteimage);
+				move_uploaded_file($file, $folder . $new_image_name); 
+				mysqli_query($con,"UPDATE product SET item_image='$new_image_name' WHERE item_id='$id'");
+			}
+		  
+			 $result = mysqli_query($con,"UPDATE product SET item_name='$name', item_brand='$brand', item_capacity='$capacity', item_transmission='$transmission', item_color='$color', item_license_plate='$license', item_price='$price' WHERE item_id='$id'");
+			 
+			 if($result){
+				//$_SESSION['status'] = "Your profile has been updated";
+		 		header("location:_manage-cars2.php");
+			 } else {
+			  	$error[]='Something went wrong';
+			 }
+  
+	  }
+	}
+	?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +63,7 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>Cars</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 	    <!----css3---->
@@ -46,24 +100,24 @@ session_start();
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="dash">
-		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>dashboard </a>
+		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard</a>
 		  </li>
 		  
 		  <li class="active">
 		  <a  href="#">
-		  <i class="material-icons">aspect_ratio</i>Car Management
+		  <i class="material-icons">directions_car</i>Car Management
 		  </a>
 		  </li>
 
 		  <li class="reserve">
 		  <a  href="_manage-reservations2.php">
-		  <i class="material-icons">aspect_ratio</i>Car Reservation
+		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
 
 		  <li class="reserve">
 		  <a  href="_manage-drivers2.php">
-		  <i class="material-icons">aspect_ratio</i>Drivers
+		  <i class="material-icons">person</i>Drivers
 		  </a>
 		  </li>
 		  
@@ -246,7 +300,7 @@ session_start();
 				 </div>
 				 
 				 <div class="xp-breadcrumbbar text-center">
-				    <h4 class="page-title">Dashboard</h4>
+				    <h4 class="page-title">Cars</h4>
 					<!--<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
 					  <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
@@ -296,8 +350,8 @@ session_start();
 							<th>Seating Capacity</th>
 							<th>Color</th>
                             <th>License Plate</th>
-                            <th>Car Picture</th>
                             <th>Price</th>
+                            <th>Car Picture</th>
                             <th>Action</th>
 							
 							</tr>
@@ -349,20 +403,31 @@ session_start();
                                     <td> <?php echo $capacity ?> </td>
                                     <td> <?php echo $color ?> </td>
                                     <td> <?php echo $license ?> </td>
-                                    <td> <img height="100" width="120" src=".<?php echo $car_pic ?>"> </td>
                                     <td> <?php echo $price ?> </td>
+									<td> <img height="100" width="140" <?php echo '<img src="images/cars/'.$car_pic.'" ' ?>> </td>
                                     <td>
-                                        <form action="_update-car.php" class="d-inline">
-                                            <button type="submit" name="updateCar" value="<?=$row['item_id'];?>" class="btn btn-primary btn-sm" id="btnUp">Update</button>
-                                         </form>
-
-										<a href="#editEmployeeModal" class="edit" data-toggle="modal" value="<?=$row['item_id'];?>">
+									
+									<!-- <form action="_update-car2.php" class="d-inline">
+                                        <button type="submit" name="updateCar" value="<?=$row['item_id'];?>" class="btn btn-primary btn-sm">
 										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-										</a>
+										</button>
+                                    </form>
 
-                                         <form action="insert.php" method="POST" class="d-inline">
-                                            <button type="submit" name="removeCar" value="<?=$row['item_id'];?>" class="btn btn-danger btn-sm" onclick= 'return checkDelete()'>Delete</button>
-                                         </form>
+									<form action="insert.php" method="POST" class="d-inline">
+                                    	<button type="submit" name="removeCar" value="<?=$row['item_id'];?>" class="btn btn-danger btn-sm" onclick= 'return checkDelete()'>
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+										</button>
+                                    </form> -->
+
+									<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+							   		<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+							   		</a> -->
+
+									
+                                        <button href="#editEmployeeModal" type="submit" value="<?=$row['item_id'];?>" class="btn btn-primary btn-sm" data-toggle="modal">
+										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+										</button>
+                                    
                                     </td>
                                 </tr>
                             <?php
@@ -455,26 +520,60 @@ session_start();
         </button>
       </div>
       <div class="modal-body">
+	  <div class="row">
         <div class="form-group">
 		    <label>Name</label>
-			<input type="text" class="form-control" required>
+			<input type="text" class="form-control" name="item_name" value="<?php echo $name; ?>">
 		</div>
+		
+		<div class="form-group ml-5">
+		    <label>Brand</label>
+			<input type="text" class="form-control" name="item_brand" value="<?php echo $brand; ?>">
+		</div>
+
 		<div class="form-group">
-		    <label>Email</label>
-			<input type="emil" class="form-control" required>
+		    <label>Transmission Type</label>
+			<input type="text" class="form-control" name="item_transmission" value="<?php echo $transmission; ?>">
 		</div>
+		
+		<div class="form-group ml-5">
+		    <label>Capacity</label>
+			<input type="text" class="form-control" name="item_capacity" value="<?php echo $capacity; ?>">
+		</div>
+
 		<div class="form-group">
-		    <label>Address</label>
-			<textarea class="form-control" required></textarea>
+		    <label>Color</label>
+			<input type="text" class="form-control" name=item_color" value="<?php echo $color; ?>">
 		</div>
-		<div class="form-group">
-		    <label>Phone</label>
-			<input type="text" class="form-control" required>
+
+		<div class="form-group ml-5">
+		    <label>License Plate</label>
+			<input type="text" class="form-control" name="item_license_plate" value="<?php echo $license; ?>">
 		</div>
-      </div>
+
+		<div class="form-group mb-5">
+		    <label>Price</label>
+			<input type="text" class="form-control" name="item_price" value="<?php echo $price; ?>">
+		</div>
+
+		<div class="form-group ml-5 mb-5">
+		    
+		</div>
+
+		<div class="form-group col-10">
+            <label for="pic_CAR" style="font-size:20px; font-weight:bold;">Please upload Car's photo</label><br>
+				<input class="form-control" type="file" name="pic_CAR" style="width:100%;" >
+                <!--<input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_ID">-->
+				<br>
+				<label>File size: maximum 10 MB</label>
+				<label>File extension: .JPEG, .PNG, .JPG</label>
+        </div>
+		</div>
+    </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-success" name="update_car">Save</button>
       </div>
     </div>
   </div>
@@ -561,10 +660,10 @@ session_start();
 		  $('.xp-menubar,.body-overlay').on('click',function(){
 		     $("#sidebar,.body-overlay").toggleClass('show-nav');
 		  });
+
 		  
 	   });
   </script>
-  
   
 
 

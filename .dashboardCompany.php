@@ -9,7 +9,7 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>Dashboard</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 	    <!----css3---->
@@ -51,19 +51,19 @@ session_start();
 		  
 		  <li class="dropdown">
 		  <a  href="_manage-cars2.php">
-		  <i class="material-icons">aspect_ratio</i>Car Management
+		  <i class="material-icons">directions_car</i>Car Management
 		  </a>
 		  </li>
 
 		  <li class="reserve">
 		  <a  href="_manage-reservations2.php">
-		  <i class="material-icons">aspect_ratio</i>Car Reservation
+		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
 
-		  <li class="reserve">
+		  <li class="drivers">
 		  <a  href="_manage-drivers2.php">
-		  <i class="material-icons">aspect_ratio</i>Drivers
+		  <i class="material-icons">person</i>Drivers
 		  </a>
 		  </li>
 		  
@@ -211,7 +211,7 @@ session_start();
 								 </a>
 							   </li>
 
-							   <i class="fas fa-user me-2"></i><?php echo $_SESSION['shopname'] ?>
+							   <i class="fas ml-3 me-2"></i><?php echo $_SESSION['shopname'] ?>
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								  <img src="img/white.png" style="width:60px; border-radius:50%;"/>

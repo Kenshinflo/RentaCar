@@ -1,71 +1,6 @@
 <?php
 session_start();
-$servername = "localhost";
-$user = "root";
-$password = "";
-$database = "rentacar";
 
-$con = new mysqli($servername, $user, $password, $database);
-
-$id=$_GET['updateDriver'];
-
-$sql="SELECT * FROM drivers WHERE driver_id=$id";
-$result=mysqli_query($con,$sql);
-$row=mysqli_fetch_assoc($result);
-$id=$row['driver_id'];
-$name=$row['driver_name'];
-$age=$row['driver_age'];
-$contact=$row['driver_contact'];
-$address=$row['driver_address'];
-
-if(isset($_POST['update'])){
-    $name=$_POST['driver_name'];
-    $age=$_POST['driver_age'];
-    $contact=$_POST['driver_contact'];
-    $address=$_POST['driver_address'];
-
-    $img_name = $_FILES['pic_ID']['name'];
-    $img_size = $_FILES['pic_ID']['size'];
-    $tmp_name = $_FILES['pic_ID']['tmp_name'];
-    $error = $_FILES['pic_ID']['error'];
-
-    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-    $img_ex_lc = strtolower($img_ex);
-
-    $img_name1 = $_FILES['pic_PROFILE']['name'];
-    $img_size1 = $_FILES['pic_PROFILE']['size'];
-    $tmp_name1 = $_FILES['pic_PROFILE']['tmp_name'];
-    $error1 = $_FILES['pic_PROFILE']['error'];
-
-    $img_ex1 = pathinfo($img_name1, PATHINFO_EXTENSION);
-    $img_ex_lc1 = strtolower($img_ex1);
-
-    $allowed_exs = array("jpg", "jpeg", "png"); 
-
-    if (in_array($img_ex_lc, $allowed_exs)) {
-        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
-        $img_upload_path = 'assets/driver_pic/'.$new_img_name;
-        move_uploaded_file($tmp_name, $img_upload_path);
-
-        if (in_array($img_ex_lc1, $allowed_exs)) {
-            $new_img_name1 = uniqid("IMG-", true).'.'.$img_ex_lc1;
-            $img_upload_path1 = 'assets/driver_pic/'.$new_img_name1;
-            move_uploaded_file($tmp_name1, $img_upload_path1);
-
-    $sql = "UPDATE drivers SET driver_name='$name', driver_age='$age', driver_contact='$contact', 
-    driver_address='$address', driver_license='$new_img_name', driver_image='$new_img_name1' WHERE driver_id=$id";
-
-        $result=$con->query($sql);
-
-        if($result){
-            echo "updated successfully";
-            header('location:_manage-drivers.php');
-    }else{
-            die("Invalid Query: " . $con->error);
-    }
-}
-}
-}
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +10,7 @@ if(isset($_POST['update'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>Drivers</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 	    <!----css3---->
@@ -117,19 +52,19 @@ if(isset($_POST['update'])){
 		  
 		  <li class="cars">
 		  <a  href="_manage-cars2.php">
-		  <i class="material-icons">aspect_ratio</i>Car Management
+		  <i class="material-icons">directions_car</i>Car Management
 		  </a>
 		  </li>
 
 		  <li class="reserve">
 		  <a  href="_manage-reservations2.php">
-		  <i class="material-icons">aspect_ratio</i>Car Reservation
+		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
 
 		  <li class="active">
 		  <a  href="#">
-		  <i class="material-icons">aspect_ratio</i>Drivers
+		  <i class="material-icons">person</i>Drivers
 		  </a>
 		  </li>
 		  
@@ -312,7 +247,7 @@ if(isset($_POST['update'])){
 				 </div>
 				 
 				 <div class="xp-breadcrumbbar text-center">
-				    <h4 class="page-title">Dashboard</h4>
+				    <h4 class="page-title">Drivers</h4>
 					<!--<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
 					  <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
@@ -335,7 +270,7 @@ if(isset($_POST['update'])){
 					   <div class="table-title">
 					     <div class="row">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-							    <h2 class="ml-lg-2">Manage  Cars</h2>
+							    <h2 class="ml-lg-2">Manage  Drivers</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 							   <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
@@ -409,21 +344,27 @@ if(isset($_POST['update'])){
                                 <td> <?php echo $age ?> </td>
                                 <td> <?php echo $contact ?> </td>
                                 <td> <?php echo $address ?> </td>
-                                <td> <img height="150" width="200" src="../assets/driver_pic/<?php echo $license ?>"> </td>
-                                <td> <img height="150" width="220" src="../assets/driver_pic/<?php echo $profile ?>"> </td>
+                                <td> <img height="150" width="200" <?php echo '<img src="images/drivers/'.$license.'" ' ?>> </td>
+                                <td> <img height="150" width="220" <?php echo '<img src="images/drivers/'.$profile.'" ' ?>> </td>
                                 <td>
 
                                 
-								<form action="_manage-drivers2.php" class="d-inline">
+								<!--<form action="_manage-drivers2.php" class="d-inline">
 									<a href="#editEmployeeModal" class="edit" type="submit" name="updateDriver" value="<?=$row['driver_id'];?>" data-toggle="modal">
 									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 									</a>
+                                </form>-->
+								
+								<form action="_update-driver2.php" class="d-inline">
+                                    <button type="submit" name="updateDriver" value="<?=$row['driver_id'];?>" class="btn btn-primary btn-sm">
+									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+									</button>
                                 </form>
 
-								
-
                                 <form action="insert.php" method="POST" class="d-inline">
-                                    <button type="submit" name="removeCar" value="<?=$row['driver_id'];?>" class="btn btn-danger btn-sm" onclick= 'return checkDelete()'>Delete</button>
+                                    <button type="submit" name="removeDriver" value="<?=$row['driver_id'];?>" class="btn btn-danger btn-sm">
+									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE872;</i>
+									</button>
                                 </form>
 
                                 </td>

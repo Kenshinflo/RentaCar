@@ -9,7 +9,7 @@ session_start();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>Reservations</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 	    <!----css3---->
@@ -51,19 +51,19 @@ session_start();
 		  
 		  <li class="cars">
 		  <a  href="_manage-cars2.php">
-		  <i class="material-icons">aspect_ratio</i>Car Management
+		  <i class="material-icons">directions_car</i>Car Management
 		  </a>
 		  </li>
 
 		  <li class="active">
 		  <a  href="#">
-		  <i class="material-icons">aspect_ratio</i>Car Reservation
+		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
 
 		  <li class="reserve">
 		  <a  href="_manage-drivers2.php">
-		  <i class="material-icons">aspect_ratio</i>Drivers
+		  <i class="material-icons">person</i>Drivers
 		  </a>
 		  </li>
 		  
@@ -246,7 +246,7 @@ session_start();
 				 </div>
 				 
 				 <div class="xp-breadcrumbbar text-center">
-				    <h4 class="page-title">Dashboard</h4>
+				    <h4 class="page-title">Reservations</h4>
 					<!--<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
 					  <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
@@ -269,7 +269,7 @@ session_start();
 					   <div class="table-title">
 					     <div class="row">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-							    <h2 class="ml-lg-2">Manage  Cars</h2>
+							    <h2 class="ml-lg-2">Manage  Reservations</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 							   <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
@@ -350,12 +350,16 @@ session_start();
                                 <td> <?php echo $price ?> </td>
                                 <td> <?php echo $status ?> </td>
                                 <td>
-                                    <form action="_update-car.php" class="d-inline">
-                                        <button type="submit" name="updateCar" value="<?=$row['item_id'];?>" class="btn btn-primary btn-sm" id="btnUp">Update</button>
+									<form action="_update-reservation2.php" class="d-inline">
+                                        <button type="submit" name="updateReserve" value="<?= $row['id']; ?>" class="btn btn-primary btn-sm">
+										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+										</button>
                                     </form>
 
                                     <form action="insert.php" method="POST" class="d-inline">
-                                        <button type="submit" name="removeCar" value="<?=$row['item_id'];?>" class="btn btn-danger btn-sm" onclick= 'return checkDelete()'>Delete</button>
+                                        <button type="submit" name="removeRes" value="<?= $row['id']; ?>" class="btn btn-danger btn-sm">
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+										</button>
                                     </form>
                                 </td>
                             </tr>
