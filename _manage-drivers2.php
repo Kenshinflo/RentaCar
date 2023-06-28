@@ -1,6 +1,74 @@
 <?php
 session_start();
 
+$con = new mysqli($servername, $user, $password, $database);
+
+
+// if(isset($_POST['updateDriver'])){
+// 	$id=$_POST['updateDriver'];
+// 	$_SESSION['com_id']=$id;
+// 	// $id=$_GET['updateDriver'];
+// 	// $id=2;
+// 	// $sql="SELECT * FROM drivers WHERE driver_id=$id";
+// 	// $result=mysqli_query($con,$sql);
+// 	// $row=mysqli_fetch_assoc($result);
+// 	// $id=$row['driver_id'];
+// 	// $name=$row['driver_name'];
+// 	// $age=$row['driver_age'];
+// 	// $contact=$row['driver_contact'];
+// 	// $address=$row['driver_address'];
+// }
+if(isset($_POST['update'])){
+    $name=$_POST['driver_name'];
+    $age=$_POST['driver_age'];
+    $contact=$_POST['driver_contact'];
+    $address=$_POST['driver_address'];
+
+    $img_name = $_FILES['pic_ID']['name'];
+    $img_size = $_FILES['pic_ID']['size'];
+    $tmp_name = $_FILES['pic_ID']['tmp_name'];
+    $error = $_FILES['pic_ID']['error'];
+
+    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+    $img_ex_lc = strtolower($img_ex);
+
+    $img_name1 = $_FILES['pic_PROFILE']['name'];
+    $img_size1 = $_FILES['pic_PROFILE']['size'];
+    $tmp_name1 = $_FILES['pic_PROFILE']['tmp_name'];
+    $error1 = $_FILES['pic_PROFILE']['error'];
+
+    $img_ex1 = pathinfo($img_name1, PATHINFO_EXTENSION);
+    $img_ex_lc1 = strtolower($img_ex1);
+
+    $allowed_exs = array("jpg", "jpeg", "png"); 
+
+    if (in_array($img_ex_lc, $allowed_exs)) {
+        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+        $img_upload_path = 'assets/driver_pic/'.$new_img_name;
+        move_uploaded_file($tmp_name, $img_upload_path);
+
+        if (in_array($img_ex_lc1, $allowed_exs)) {
+            $new_img_name1 = uniqid("IMG-", true).'.'.$img_ex_lc1;
+            $img_upload_path1 = 'assets/driver_pic/'.$new_img_name1;
+            move_uploaded_file($tmp_name1, $img_upload_path1);
+
+    		$sql = "UPDATE drivers SET driver_name='$name', driver_age='$age', driver_contact='$contact', 
+    		driver_address='$address', driver_license='$new_img_name', driver_image='$new_img_name1' WHERE driver_id=$id";
+
+			$result=$con->query($sql);
+
+			if($result){
+				echo "updated successfully";
+				header('location:_manage-drivers.php');
+			}else{
+				echo "update error";
+				header('location:_manage-drivers.php?error');
+				// die("Invalid Query: " . $con->error);
+    		}
+		}
+	}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +90,9 @@ session_start();
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 	
-	
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -319,9 +389,9 @@ session_start();
                             if ($connection->connect_error){
                                 die("Connection Failed: " . $connection->connect_error);
                             }
-                            $com_id = $_SESSION['com_id'];
-                            // echo $com_id;
-                            $sql = "SELECT * FROM drivers";
+                            
+
+                            $sql = "SELECT * FROM drivers ";
                             $result =$connection->query($sql);
 
                             if (!$result){
@@ -349,10 +419,16 @@ session_start();
                                 <td>
 
                                 
+
 								<!--<form action="_manage-drivers2.php" class="d-inline">
 									<a href="#editEmployeeModal" class="edit" type="submit" name="updateDriver" value="<?=$row['driver_id'];?>" data-toggle="modal">
 									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-									</a>
+
+								<form action="_manage-drivers2.php" class="d-inline" >
+                                	<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button" data-bs-toggle="modal" data-bs-target="#editEmployeeModal" >
+										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+									</button>
+									
                                 </form>-->
 								
 								<form action="_update-driver2.php" class="d-inline">
@@ -450,7 +526,7 @@ session_start();
 				   <!----edit-modal start--------->
 
 
-		<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -461,45 +537,55 @@ session_start();
       </div>
 
       <div class="modal-body">
-        <div class="form-group">
-		    <label>Name</label>
-			<input type="text" class="form-control" name="driver_name" value="<?php echo $name; ?>">
-		</div>
-		
-		<div class="form-group">
-		    <label>Age</label>
-			<input type="text" class="form-control" name="driver_age" value="<?php echo $age; ?>">
-		</div>
 
-		<div class="form-group">
-		    <label>Address</label>
-			<input type="text" class="form-control" name="driver_contact" value="<?php echo $contact; ?>">
+		<form action="">
+			<input id="driver_id1" name="driver_id1" type="hidden" value="" />
+
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" id="driver_name1" placeholder="enter">
+				<!-- <input type="text" class="form-control" name="driver_name" value="<?php echo $name; ?>"> -->
+			</div>
+			
+			<div class="form-group">
+				<label>Age</label>
+				<input type="text" class="form-control" id="driver_age1" placeholder="enter">
+				<!-- <input type="text" class="form-control" name="driver_age" value="<?php echo $age; ?>"> -->
+			</div>
+
+			<div class="form-group">
+				<label>Address</label>
+				<input type="text" class="form-control" id="driver_contact1" placeholder="enter">
+				<!-- <input type="text" class="form-control" name="driver_contact" value="<?php echo $contact; ?>"> -->
+			</div>
+			
+			<div class="form-group">
+				<label>Phone</label>
+				<input type="text" class="form-control" id="driver_address1" placeholder="enter">
+				<!-- <input type="text" class="form-control" name="driver_address" value="<?php echo $address; ?>"> -->
+			</div>
+
+			<div class="row">
+				<div class="form-group mb-5 border-bottom-0 col-6 mt-5">
+					<label for="pic_ID" style="font-size:20px; font-weight:bold;">Please upload Driver's License</label><br>
+					<input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_ID">
+				</div>
+						
+						
+				<div class="form-group mb-5 border-bottom-0 col-6 mt-5">
+					<label for="pic_ID" style="font-size:20px; font-weight:bold;">Please upload Profile Picture</label><br>
+					<input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_PROFILE">
+				</div>
+			</div>
+
 		</div>
-		
-		<div class="form-group">
-		    <label>Phone</label>
-			<input type="text" class="form-control" name="driver_address" value="<?php echo $address; ?>">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" href="_manage-drivers2.php">Cancel</button>
+			<button type="submit" name="update" class="btn btn-success">Save</button>
+
 		</div>
-
-		<div class="row">
-            <div class="form-group mb-5 border-bottom-0 col-6 mt-5">
-                <label for="pic_ID" style="font-size:20px; font-weight:bold;">Please upload Driver's License</label><br>
-                <input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_ID">
-            </div>
-                    
-                    
-        	<div class="form-group mb-5 border-bottom-0 col-6 mt-5">
-                <label for="pic_ID" style="font-size:20px; font-weight:bold;">Please upload Profile Picture</label><br>
-                <input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_PROFILE">
-            </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" href="_manage-drivers2.php">Cancel</button>
-		<button type="submit" name="update" class="btn btn-success">Save</button>
-
-      </div>
+	  </form>
+	
     </div>
   </div>
 </div>
@@ -573,20 +659,47 @@ session_start();
    <script src="js/popper.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
    <script src="js/jquery-3.3.1.min.js"></script>
-  
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+	</script>
   
   <script type="text/javascript">
        $(document).ready(function(){
-	      $(".xp-menubar").on('click',function(){
-		    $("#sidebar").toggleClass('active');
-			$("#content").toggleClass('active');
-		  });
-		  
-		  $('.xp-menubar,.body-overlay').on('click',function(){
-		     $("#sidebar,.body-overlay").toggleClass('show-nav');
-		  });
-		  
-	   });
+			$(".xp-menubar").on('click',function(){
+				$("#sidebar").toggleClass('active');
+				$("#content").toggleClass('active');
+			});
+			
+			$('.xp-menubar,.body-overlay').on('click',function(){
+				$("#sidebar,.body-overlay").toggleClass('show-nav');
+			});
+
+			$('.conf_button').click(function(e){
+					// $('#editEmployeeModal').modal('show');
+
+					$tr=$(this).closest('tr');
+
+					var data = $tr.children("td").map(function(){
+						return $(this).text();
+					}).get();
+
+					console.log(data);
+
+					$('#driver_id1').val(data[0]);
+					$('#driver_name1').val(data[1]);
+					$('#driver_age1').val(data[2]);
+					$('#driver_contact1').val(data[3]);
+					$('#driver_address1').val(data[4]);
+				
+			});
+		});
+	// 		$('.editBtn').click(function(e){
+	// 			// var getTxtValue = $("#updateDriver").val();
+	// 			// $("#id_val").val(getTxtValue);
+	// 			$('#editEmployeeModal').modal('show');
+				
+			
+	//    });
   </script>
   
   
