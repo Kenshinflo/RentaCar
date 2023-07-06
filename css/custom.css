@@ -429,7 +429,11 @@ background-color:rgba(0,0,0,0.09);
 		.box{
 			width: 15vw;
 		}
+		table.table td button{
+			margin-bottom: 5px;
+			}
 	  }
+
 
 	  @media (max-width:768px){
 		  .xp-searchbar{
@@ -590,6 +594,10 @@ background-color:rgba(0,0,0,0.09);
 			vertical-align:middle;
 		}
 		
+		table.table tr th, table.table tr td img{
+			padding: 5px;
+		}
+
 		table.table tr th:first-child{
 			width:60px;
 		}
@@ -607,6 +615,7 @@ background-color:rgba(0,0,0,0.09);
 	   }
 	   
 	   table.table th i{
+		
 		   font-size:17px;
 		   margin: 6px 5px;
 		   cursor:pointer;
@@ -624,6 +633,15 @@ background-color:rgba(0,0,0,0.09);
 		   text-decoration:none;
 		   outline:none!important;
 	   }
+
+	   table.table td button{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width:30px;
+		height: 30px;
+		}
+
 	    table.table td a:hover{
 			color:#2196F3;
 		}
@@ -632,7 +650,7 @@ background-color:rgba(0,0,0,0.09);
 			color:#FFC107;
 		}
 		
-	 .delete{
+	 	.delete{
 			color:#F44336;
 		}
 		

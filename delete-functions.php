@@ -60,9 +60,9 @@ if(isset($_POST['removeChau'])){
 }
 
 if(isset($_POST['removeCar'])){
-    $product = $_POST['removeCar'];
+    $id = $_POST['item_id2'];
 
-    $query = "DELETE FROM product WHERE item_id='$product' ";
+    $query = "DELETE FROM product WHERE item_id='$id' ";
     $query = mysqli_query($con, $query);
 
     if($query_run){

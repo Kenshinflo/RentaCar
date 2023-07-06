@@ -122,7 +122,7 @@ if(isset($_POST['update_reserve'])){
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="dash">
-		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>dashboard </a>
+		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
 		  
 		  <li class="car">
@@ -203,7 +203,7 @@ if(isset($_POST['update_reserve'])){
 								 </a>
 							   </li>
 
-							   <i class="fas"></i><?php echo $_SESSION['shopname'] ?>
+							   <i class="fas ml-3 me-2"></i><?php echo $_SESSION['shopname'] ?>
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								  <img src="img/white.png" style="width:60px; border-radius:50%;"/>

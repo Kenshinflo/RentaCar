@@ -125,26 +125,15 @@ session_start();
                                         <td> <?php echo $return ?> </td>
                                         <td> <?php echo $price ?> </td>
                                         <td> <?php echo $status ?> </td>
-                                        <td>
-                                            <form action="_update-reservation.php" class="d-inline">
-                                                <button type="submit" name="updateReserve" value="<?= $row['id']; ?>" class="btn btn-primary btn-sm">
-										        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-										        </button>
-                                            </form>
 
-                                            <form action="insert.php" method="POST" class="d-inline">
-                                                <button type="submit" name="removeRes" value="<?= $row['id']; ?>" class="btn btn-danger btn-sm">
-										        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-										        </button>
-                                            </form>
-                                            <!--
+                                        <td>
                                             <form action="_update-reservation.php" class="d-inline">
                                                 <button type="submit" name="updateReserve" value="<?= $row['id']; ?>" class="btn btn-primary btn-sm">Update</button>
                                             </form>
 
                                             <form action="insert.php" method="POST" class="d-inline">
                                                 <button type="submit" name="removeRes" value="<?= $row['id']; ?>" class="btn btn-danger btn-sm">Delete</button>
-                                            </form>-->
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php

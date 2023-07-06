@@ -37,8 +37,6 @@ if(isset($_POST['update_prof'])){
 	$folder='images/drivers/';
 	$file = $_FILES['pic_ID']['tmp_name'];
     $file_name = $_FILES['pic_ID']['name'];
-    //$error = $_FILES['pic_ID']['error'];
-    //$img_size = $_FILES['pic_ID']['size'];
     $file_name_array = explode(".", $file_name); 
 		$extension = end($file_name_array);
 
@@ -197,7 +195,7 @@ if(isset($_POST['update_prof'])){
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="dash">
-		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>dashboard </a>
+		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
 		  
 		  <li class="cars">
@@ -278,7 +276,7 @@ if(isset($_POST['update_prof'])){
 								 </a>
 							   </li>
 
-							   <i class="fas"></i><?php echo $_SESSION['shopname'] ?>
+							   <i class="fas ml-3 me-2"></i><?php echo $_SESSION['shopname'] ?>
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								  <img src="img/white.png" style="width:60px; border-radius:50%;"/>

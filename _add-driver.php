@@ -4,101 +4,93 @@ session_start();
 include ('connection.php');
 
 
-$id=$_GET['updateCar'];
 
-$sql="SELECT * FROM product WHERE item_id=$id";
-$result=mysqli_query($con,$sql);
-$row=mysqli_fetch_assoc($result);
-$id=$row['item_id'];
-$name=$row['item_name'];
-$brand=$row['item_brand'];
-$capacity=$row['item_capacity'];
-$transmission=$row['item_transmission'];
-$color=$row['item_color'];
-$license=$row['item_license_plate'];
-$price=$row['item_price'];  
-?>
+$name = "";
+$age = "";
+$contact = "";
+$address = "";
+
+$file = "";
+$errorMessage = "";
+$successMessage = "";
+$seller = $_SESSION['com_id'];
 
 
+$errorMessage = "";
+$successMessage = "";
 
-<?php
-if(isset($_POST['update_car'])){
-    $name=$_POST['item_name'];
-    $brand=$_POST['item_brand'];
-    $capacity=$_POST['item_capacity'];
-    $transmission=$_POST['item_transmission'];
-    $color=$_POST['item_color'];
-    $license=$_POST['item_license_plate'];
-    $price=$_POST['item_price'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' ){
+	$name = $_POST["driver_name"];
+    $age = $_POST["driver_age"];
+    $contact = $_POST["driver_contact"];
+    $address = $_POST["driver_address"];    
 
-	$folder='images/cars/';
-	$file = $_FILES['pic_CAR']['tmp_name'];
-    $file_name = $_FILES['pic_CAR']['name'];
+
+	$folder='images/drivers/';
+    $file = $_FILES['pic_ID']['tmp_name'];
+    $file_name = $_FILES['pic_ID']['name'];
     $file_name_array = explode(".", $file_name); 
-		$extension = end($file_name_array);
+	    $extension = end($file_name_array);
 
-		$new_image_name ='Car_'.rand() . '.' . $extension;
-		if ($_FILES["pic_CAR"]["size"] >10000000) {
-		$error[] = 'Sorry, your image is too large. Upload less than 10 MB in size .';
-		}
+	    $new_image_name ='license_'.rand() . '.' . $extension;
+	    if ($_FILES["pic_ID"]["size"] >10000000) {
+	    $error[] = 'Sorry, your image is too large. Upload less than 10 MB in size .';
+	    }
 
-		if($file != ""){
-			if($extension!= "jpg" && $extension!= "png" && $extension!= "jpeg"
-			&& $extension!= "gif" && $extension!= "PNG" && $extension!= "JPG" && $extension!= "GIF" && $extension!= "JPEG"){
-				$error[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';   
-			}
-		}
+    $file1 = $_FILES['pic_PROFILE']['tmp_name'];
+    $file_name1 = $_FILES['pic_PROFILE']['name'];
+    $file_name_array = explode(".", $file_name); 
+        $extension1 = end($file_name_array);
+    
+        $new_image_name1 ='profile_'.rand() . '.' . $extension;
+        if ($_FILES["pic_PROFILE"]["size"] >10000000) {
+        $error[] = 'Sorry, your image is too large. Upload less than 10 MB in size .';
+        }
 
-		if(!isset($error)){ 
-			if($file!= ""){
-			  	$stmt = mysqli_query($con,"SELECT item_image FROM product WHERE item_id='$id'");
-			  	$row = mysqli_fetch_array($stmt); 
-			  	$deleteimage=$row['item_image'];
-				unlink($folder.$deleteimage);
-				move_uploaded_file($file, $folder . $new_image_name); 
-				mysqli_query($con,"UPDATE product SET item_image='$new_image_name' WHERE item_id='$id'");
-			}
-		  
-			 $result = mysqli_query($con,"UPDATE product SET item_name='$name', item_brand='$brand', item_capacity='$capacity', item_transmission='$transmission', item_color='$color', item_license_plate='$license', item_price='$price' WHERE item_id='$id'");
-			 
-			 if($result){
-				//$_SESSION['status'] = "Your profile has been updated";
-		 		header("location:_manage-cars2.php");
-			 } else {
-			  	$error[]='Something went wrong';
-			 }
-  
-	  }
+
+	if($file != ""){
+	    if($extension!= "jpg" && $extension!= "png" && $extension!= "jpeg"
+	    && $extension!= "gif" && $extension!= "PNG" && $extension!= "JPG" && $extension!= "GIF" && $extension!= "JPEG"){
+	        $error[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';   
+	    }
 	}
 
-
-/*
-    if (in_array($img_ex_lc, $allowed_exs)) {
-        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
-        $img_upload_path = 'assets/driver_pic/'.$new_img_name;
-        move_uploaded_file($tmp_name, $img_upload_path);
-
-        if (in_array($img_ex_lc1, $allowed_exs)) {
-            $new_img_name1 = uniqid("IMG-", true).'.'.$img_ex_lc1;
-            $img_upload_path1 = 'assets/driver_pic/'.$new_img_name1;
-            move_uploaded_file($tmp_name1, $img_upload_path1);
-
-    $sql = "UPDATE drivers SET driver_name='$name', driver_age='$age', driver_contact='$contact', 
-    driver_address='$address', driver_license='$new_img_name', driver_image='$new_img_name1' WHERE driver_id=$id";
-
-        $result=$con->query($sql);
+    if($file1 != ""){
+        if($extension1!= "jpg" && $extension1!= "png" && $extension1!= "jpeg"
+        && $extension1!= "gif" && $extension1!= "PNG" && $extension1!= "JPG" && $extension1!= "GIF" && $extension1!= "JPEG"){
+            $error[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';   
+        }
+    }
+  
+	if(!isset($error)){ 
+        if($file!= ""){
+            if($file1!= ""){
+				move_uploaded_file($file, $folder . $new_image_name); 
+                move_uploaded_file($file1, $folder . $new_image_name1); 
+                
+                $result = mysqli_query($con,"INSERT INTO drivers (seller_id, driver_name, driver_age, driver_contact, driver_address, driver_license, driver_image) " .
+                "VALUES ('$seller', '$name', '$age', '$contact', '$address', '$new_image_name', '$new_image_name1')");
+                }
+			}
 
         if($result){
-            echo "updated successfully";
-            header('location:_manage-drivers2.php');
-    }else{
-            die("Invalid Query: " . $con->error);
-    }
+			//$_SESSION['status'] = "Your profile has been updated";
+			$successMessage = "Vehicle added successfully";
+			 header("location:_manage-drivers2.php");
+		 }else {
+			$error[]='Something went wrong';
+	   }
+
+       $name = "";
+       $age = "";
+       $contact = "";
+       $address = "";
+  
+
+    } 
 }
-}*/
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +99,7 @@ if(isset($_POST['update_car'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>Cars</title>
+        <title>Drivers</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 	    <!----css3---->
@@ -144,10 +136,10 @@ if(isset($_POST['update_car'])){
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="dash">
-		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
+		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>dashboard </a>
 		  </li>
 		  
-		  <li class="active">
+		  <li class="cars">
 		  <a  href="_manage-cars2.php">
 		  <i class="material-icons">directions_car</i>Car Management
 		  </a>
@@ -159,7 +151,7 @@ if(isset($_POST['update_car'])){
 		  </a>
 		  </li>
 
-		  <li class="drivers">
+		  <li class="active">
 		  <a  href="_manage-drivers2.php">
 		  <i class="material-icons">person</i>Drivers
 		  </a>
@@ -225,7 +217,7 @@ if(isset($_POST['update_car'])){
 								 </a>
 							   </li>
 
-							   <i class="fas ml-3 me-2"></i><?php echo $_SESSION['shopname'] ?>
+							   <i class="fas"></i><?php echo $_SESSION['shopname'] ?>
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								  <img src="img/white.png" style="width:60px; border-radius:50%;"/>
@@ -257,7 +249,7 @@ if(isset($_POST['update_car'])){
 				 </div>
 				 
 				 <div class="xp-breadcrumbbar text-center">
-				    <h4 class="page-title">Cars</h4>
+				    <h4 class="page-title">Drivers</h4>
 					<!--<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
 					  <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
@@ -279,59 +271,97 @@ if(isset($_POST['update_car'])){
 			<section class="container my-5 bg-dark w-60 text-light p-2" id="ReserveContainer">
                 <form method="post" class="row g-3 p-3" enctype="multipart/form-data">
 
-                    <div class="col-md-6 mb-3" id="label2">
-                        <label for="validationDefault02" class="form-label">Model</label>
-                            <input type="text" class="form-control" name="item_name" value="<?php echo $name; ?>">
+				<div class="col-md-6 mb-3" id="label2">
+                        <label for="validationDefault02" class="form-label">Name</label>
+                            <input type="text" class="form-control" autocomplete="off" name="driver_name" value="<?php echo $name; ?>" >
                     </div>
 
-                    <div class="col-md-6 mb-3" id="label1">
-                        <label for="validationDefault01" class="form-label">Brand</label>
-                            <input type="text" class="form-control" name="item_brand" value="<?php echo $brand; ?>">
-                    </div>
-
-                    <div class="col-md-6 mb-3" id="label2">
-                        <label for="validationDefault02" class="form-label">Seat Capacity</label>
-                            <input type="text" class="form-control" name="item_capacity" value="<?php echo $capacity; ?>">
+                    <div class="col-md-6" id="label1">
+                        <label for="validationDefault01" class="form-label">Age</label>
+                            <input type="text" class="form-control" autocomplete="off" name="driver_age" value="<?php echo $age; ?>" >
                     </div>
 
                     <div class="col-md-6 mb-3" id="label2">
-                        <label for="validationDefault02" class="form-label">Transmission Type</label>
-                            <input type="text" class="form-control" name="item_transmission" value="<?php echo $transmission; ?>">
+                        <label for="validationDefault02" class="form-label">Contact Number</label>
+                            <input type="text" class="form-control" autocomplete="off" name="driver_contact" value="<?php echo $contact; ?>" >
                     </div>
 
-
-                    <div class="col-md-6 mb-3" id="label2">
-                        <label for="validationDefault02" class="form-label">Color</label>
-                            <input type="text" class="form-control" name="item_color" value="<?php echo $color; ?>">
-                    </div>
-
-                    <div class="col-md-6 mb-3" id="label2">
-                        <label for="validationDefault02" class="form-label">License Plate</label>
-                            <input type="text" class="form-control" name="item_license_plate" value="<?php echo $license; ?>">
-                    </div>
-                    
-                    <div class="col-md-6 mb-5" id="label2">
-                        <label for="validationDefault02" class="form-label">Price</label>
-                            <input type="text" class="form-control" name="item_price" value="<?php echo $price; ?>">
-                    </div>
-
-                    <div class="col-md-6 mb-5" id="label2">
-                        
+                    <div class="col-md-6" id="label2">
+                        <label for="validationDefault02" class="form-label">Address</label>
+                            <input type="text" class="form-control" autocomplete="off" name="driver_address" value="<?php echo $address; ?>" >
                     </div>
                     
                     <div class="form-group mb-5 border-bottom-0 col-6 ">
-                        <label for="pic_CAR" style="font-size:20px; font-weight:bold;">Please upload Car's photo</label><br>
-						<input class="form-control" type="file" name="pic_CAR" style="width:100%;" >
+                        <label for="pic_ID" style="font-size:20px; font-weight:bold;">Upload Photo of Driver's License</label><br>
+						<input class="form-control" type="file" name="pic_ID" id="pic_ID" style="width:100%;" value="<?php echo $file; ?>">
                         <!--<input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_ID">-->
 						<br>
 							<label>File size: maximum 10 MB</label>
 							<label>File extension: .JPEG, .PNG, .JPG</label>
                     </div>
 
+                    <div class="form-group mb-5 border-bottom-0 col-6 ">
+                        <label for="pic_PROFILE" style="font-size:20px; font-weight:bold;">Upload Photo of Driver</label><br>
+						<input class="form-control" type="file" name="pic_PROFILE" id="pic_PROFILE" style="width:100%;" value="<?php echo $file; ?>">
+                        <!--<input type="file" class="form-control-file mt-3" id="pic_PROFILE" name="pic_PROFILE">-->
+						<br>
+							<label>File size: maximum 10 MB</label>
+							<label>File extension: .JPEG, .PNG, .JPG</label>
+                    </div>
+                    <!-- <div class="form-group1 border-bottom-0 col-md-6">
+                        <label for="pic_CAR" style="font-size:20px; font-weight:bold;">Upload Car Image</label><br>
+                        <input type="file" class="form-control-file " id="pic_CAR" name="pic_CAR">
+                    </div>
+					
+                    <div class="col-md-6 mb-3" id="label2">
+                        <label for="validationDefault02" class="form-label">Model</label>
+                            <input type="text" class="form-control" name="item_name">
+                    </div>
+
+                    <div class="col-md-6 mb-3" id="label1">
+                        <label for="validationDefault01" class="form-label">Brand</label>
+                            <input type="text" class="form-control" name="item_brand">
+                    </div>
+
+                    <div class="col-md-6 mb-3" id="label2">
+                        <label for="validationDefault02" class="form-label">Seat Capacity</label>
+                            <input type="text" class="form-control" name="item_capacity">
+                    </div>
+
+                    <div class="col-md-6 mb-3" id="label2">
+                        <label for="transmission" class="form-label">Transmission Type</label>
+                            <div class="row ml-0">
+                            <select id="transmission">
+                                <option value="Transmission Type">Select Type</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Manual">Manual</option>
+                            </select>
+                            </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3" id="label2">
+                        <label for="validationDefault02" class="form-label">Color</label>
+                            <input type="text" class="form-control" name="item_color">
+                    </div>
+
+                    <div class="col-md-6 mb-3" id="label2">
+                        <label for="validationDefault02" class="form-label">License Plate</label>
+                            <input type="text" class="form-control" name="item_license_plate">
+                    </div>
+                    
+                    <div class="col-md-6 mb-5" id="label2">
+                        <label for="validationDefault02" class="form-label">Price</label>
+                            <input type="text" class="form-control" name="item_price">
+                    </div> -->
+
+                    
       
                     <div class="col-12">
-                        <input type="submit" value="Update" name="update_car">
-                        <a class="btn btn-danger font-size-20 px-4" href="_manage-cars2.php">Cancel</a>
+                        <!-- <input type="submit" value="Update" name="update_car"> -->
+						<button type="submit" class="btn btn-primary font-size-20 px-4">Confirm</button>
+                        <a class="btn btn-danger font-size-20 px-4" href="_manage-drivers2.php">Cancel</a>
                     </div>				
 
 						
