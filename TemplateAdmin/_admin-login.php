@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
         $_SESSION["user_name"] = $user_name;
 
         if ($row['user_name'] === $username && $row['admin_pass'] === $password) {
-            header('Location:_index_admin.php');
+            header('Location:.dashboardAdmin.php');
         } else {
             header('Location:_admin-login.php?error=Incorrect Username or Password');
             exit();

@@ -49,6 +49,12 @@ session_start();
 		  <a href="#" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
 		  
+		  <li class="approval">
+		  <a  href="_pending-reservations2.php">
+		  <i class="material-icons">summarize</i>Pending Reservations
+		  </a>
+		  </li>
+
 		  <li class="dropdown">
 		  <a  href="_manage-cars2.php">
 		  <i class="material-icons">directions_car</i>Car Management
@@ -62,8 +68,22 @@ session_start();
 		  </li>
 
 		  <li class="drivers">
+		  <a  href="_manage-to-be-returned2.php">
+		  <i class="material-icons">fact_check</i>Cars to be Returned
+		  </a>
+		  </li>
+
+		  <li class="drivers">
 		  <a  href="_manage-drivers2.php">
 		  <i class="material-icons">person</i>Drivers
+		  </a>
+		  </li>
+
+		  <br>
+
+          <li class="reserve">
+		  <a  href="_manage-sales2.php">
+		  <i class="material-icons">summarize</i>Sales Report
 		  </a>
 		  </li>
 		  
@@ -226,7 +246,7 @@ session_start();
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
-									 <li><a href="#">
+									 <li><a href="_company-login.php">
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -268,7 +288,7 @@ session_start();
             ?><br/>
 			<i class="fa fa-car box-icon px-3" id="boxIcon1"></i>
 			</p>
-            <span>Listed Vehicles</span>
+            <span>Vehicles</span>
 			
 		</div>
 		</div>
@@ -277,13 +297,13 @@ session_start();
 		<div class="box">
         <p><?php
             $con = new mysqli("localhost", "root", "", "rentacar");
-            $query = "SELECT id FROM reservation";
+            $query = "SELECT id FROM reservation WHERE status='Reserved'";
             $result = mysqli_query($con, $query);
             $row = mysqli_num_rows($result);echo '' .$row. '';
             ?><br/>
 			<i class="fa fa-list box-icon px-3" id="boxIcon2"></i>
 			</p>
-            <span>Total Reservations</span>
+            <span>Reservations</span>
 			
 		</div>
 		</div>
@@ -313,7 +333,7 @@ session_start();
             ?><br/>
 			<i class="fa fa-user box-icon px-3" id="boxIcon"></i>
 			</p>
-            <span>Available Drivers</span>
+            <span>Drivers</span>
 			
 		</div>
 		</div>

@@ -14,11 +14,12 @@ if(isset($_POST['update_res'])){
     $name=$_POST['name1'];
     $number=$_POST['number1'];
     $vehicle=$_POST['vehicle1'];
+	$license=$_POST['license1'];
     $pickup=$_POST['pickup1'];
 	$return=$_POST['return1'];
 	$price=$_POST['price1'];
 
-	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', pickupdate='$pickup', returndate='$return', overall_price='$price' WHERE id='$id'");
+	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', license_plate='$license', pickupdate='$pickup', returndate='$return', overall_price='$price' WHERE id='$id'");
 	
 	if($result){
 		//$_SESSION['status'] = "Your profile has been updated";
@@ -54,6 +55,8 @@ if(isset($_POST['update_res'])){
 	
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
 
 
 	   <!--google material icon-->
@@ -79,6 +82,12 @@ if(isset($_POST['update_res'])){
 		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
 		  
+		  <li class="approval">
+		  <a  href="_pending-reservations2.php">
+		  <i class="material-icons">summarize</i>Pending Reservations
+		  </a>
+		  </li>
+		  
 		  <li class="cars">
 		  <a  href="_manage-cars2.php">
 		  <i class="material-icons">directions_car</i>Car Management
@@ -91,97 +100,26 @@ if(isset($_POST['update_res'])){
 		  </a>
 		  </li>
 
+		  <li class="drivers">
+		  <a  href="_manage-to-be-returned2.php">
+		  <i class="material-icons">fact_check</i>Cars to be Returned
+		  </a>
+		  </li>
+
 		  <li class="reserve">
 		  <a  href="_manage-drivers2.php">
 		  <i class="material-icons">person</i>Drivers
 		  </a>
 		  </li>
-		  
-		  <!--
-		   <li class="dropdown">
-		  <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">apps</i>widgets
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-		     <li><a href="#">Apps 1</a></li>
-			 <li><a href="#">Apps 2</a></li>
-			 <li><a href="#">Apps 3</a></li>
-		  </ul>
-		  </li>
 
-		   
-		   <li class="dropdown">
-		  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">equalizer</i>charts
+		  <br>
+
+          <li class="reserve">
+		  <a  href="_manage-sales2.php">
+		  <i class="material-icons">summarize</i>Sales Report
 		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-		     <li><a href="#">Pages 1</a></li>
-			 <li><a href="#">Pages 2</a></li>
-			 <li><a href="#">Pages 3</a></li>
-		  </ul>
 		  </li>
 		  
-		  
-		   <li class="dropdown">
-		  <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">extension</i>UI Element
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu4">
-		     <li><a href="#">Pages 1</a></li>
-			 <li><a href="#">Pages 2</a></li>
-			 <li><a href="#">Pages 3</a></li>
-		  </ul>
-		  </li>
-		  
-          
-		   <li class="dropdown">
-		  <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">border_color</i>forms
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu5">
-		     <li><a href="#">Pages 1</a></li>
-			 <li><a href="#">Pages 2</a></li>
-			 <li><a href="#">Pages 3</a></li>
-		  </ul>
-		  </li>
-		  
-          
-		  <li class="dropdown">
-		  <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">grid_on</i>tables
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu6">
-		     <li><a href="#">table 1</a></li>
-			 <li><a href="#">table 2</a></li>
-			 <li><a href="#">table 3</a></li>
-		  </ul>
-		  </li>
-		  
-		  
-		  <li class="dropdown">
-		  <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">content_copy</i>Pages
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu7">
-		     <li><a href="#">Pages 1</a></li>
-			 <li><a href="#">Pages 2</a></li>
-			 <li><a href="#">Pages 3</a></li>
-		  </ul>
-		  </li>
-		  
-		   
-		  <li class="">
-		  <a href="#" class=""><i class="material-icons">date_range</i>copy </a>
-		  </li>
-		  <li class="">
-		  <a href="#" class=""><i class="material-icons">library_books</i>calender </a>
-		  </li>-->
 		
 		</ul>
 	 </div>
@@ -259,7 +197,7 @@ if(isset($_POST['update_res'])){
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
-									 <li><a href="#">
+									 <li><a href="_company-login.php">
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -314,7 +252,7 @@ if(isset($_POST['update_res'])){
 					     </div>
 					   </div>
 					   
-					<table class="table table-striped table-hover">
+					<table class="table table-striped table-hover" id="myTable">
 					    <thead>
 						    <tr>
 							<!--<th><span class="custom-checkbox">
@@ -324,6 +262,7 @@ if(isset($_POST['update_res'])){
                             <th scope="col">Name</th>
                             <th scope="col">Contact Number</th>
                             <th scope="col">Vehicle</th>
+							<th scope="col">License Plate</th>
                             <th scope="col">Pick-up Date</th>
                             <th scope="col">Reutrn Date</th>
                             <th scope="col">Total Amount</th>
@@ -333,7 +272,7 @@ if(isset($_POST['update_res'])){
 						</thead>
 						  
 						  <tbody>
-						      <tr>
+						    
 							 <!--<th><span class="custom-checkbox">
 							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
 							 <label for="checkbox1"></label></th>-->
@@ -363,6 +302,7 @@ if(isset($_POST['update_res'])){
                                 $name = $row["user_name"];
                                 $number = $row["number"];
                                 $vehicle = $row["brand"];
+								$license = $row["license_plate"];
                                 $pickup = $row["pickupdate"];
                                 $return = $row["returndate"];
                                 $price = $row["overall_price"];
@@ -375,6 +315,7 @@ if(isset($_POST['update_res'])){
                                 <td><?php echo $name?></td>
                                 <td><?php echo $number?></td>
                                 <td><?php echo $vehicle?></td>
+								<td><?php echo $license?></td>
                                 <td><?php echo $pickup?></td>
                                 <td><?php echo $return?></td>
                                 <td><?php echo $price?></td>
@@ -399,35 +340,10 @@ if(isset($_POST['update_res'])){
                         ;}
                                
                         ?>
-							 <!--<th>
-							    <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-							   <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-							   </a>
-							   <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-							   <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-							   </a>
-							 </th>
-							 </tr>-->
-							 
-							 
-						  </tbody>
-						  
-					      
-					   </table>
-					   
-	<div class="clearfix">
-		<div class="hint-text">showing <b>3</b> out of <b>3</b></div>
-		<ul class="pagination">
-		<li class="page-item disabled"><a href="#">Previous</a></li>
-		<li class="page-item active"><a href="#"class="page-link">1</a></li>
-		<li class="page-item "><a href="#"class="page-link">2</a></li>
-		<li class="page-item "><a href="#"class="page-link">3</a></li>
-		<li class="page-item "><a href="#"class="page-link">4</a></li>
-		<li class="page-item "><a href="#"class="page-link">5</a></li>
-		<li class="page-item "><a href="#" class="page-link">Next</a></li>
-		</ul>
-	</div>  
-</div>
+						
+					</tbody>
+				</table>
+	</div>
 </div>
 					
 
@@ -585,6 +501,7 @@ if(isset($_POST['update_res'])){
    <script src="js/popper.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
    <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 	</script>
@@ -616,9 +533,10 @@ if(isset($_POST['update_res'])){
 					$('#name1').val(data[1]);
 					$('#number1').val(data[2]);
 					$('#vehicle1').val(data[3]);
-					$('#pickup1').val(data[4]);
-					$('#return1').val(data[5]);
-					$('#price1').val(data[6]);
+					$('#license1').val(data[4]);
+					$('#pickup1').val(data[5]);
+					$('#return1').val(data[6]);
+					$('#price1').val(data[7]);
 				
 			});
 		  
@@ -629,6 +547,12 @@ if(isset($_POST['update_res'])){
         function checkDelete(){
             return confirm('Are you sure you want to delete this record?');
         }
+</script>
+
+<script>
+        $(document).ready(function(){
+			$('#myTable').dataTable();
+        });
 </script>
 
   </body>

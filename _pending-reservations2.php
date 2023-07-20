@@ -23,7 +23,7 @@ if(isset($_POST['update_res'])){
 	
 	if($result){
 		//$_SESSION['status'] = "Your profile has been updated";
-			header("location:_manage-reservations-chauffeur2.php?error");
+			header("location:_manage-reservations2.php?error");
 		} else {
 			$error[]='Something went wrong';
 		}
@@ -82,8 +82,8 @@ if(isset($_POST['update_res'])){
 		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
 
-		  <li class="approval">
-		  <a  href="_pending-reservations2.php">
+          <li class="active">
+		  <a  href="#">
 		  <i class="material-icons">summarize</i>Pending Reservations
 		  </a>
 		  </li>
@@ -94,8 +94,8 @@ if(isset($_POST['update_res'])){
 		  </a>
 		  </li>
 
-		  <li class="active">
-		  <a  href="#">
+		  <li class="reserve">
+		  <a  href="_manage-reservations2.php">
 		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
@@ -197,7 +197,7 @@ if(isset($_POST['update_res'])){
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
-									 <li><a href="#">
+									 <li><a href="_company-login.php">
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -228,51 +228,51 @@ if(isset($_POST['update_res'])){
 
 		  
 
-<!------main-content-start-----------> 
-	<div class="main-content">
-		<div class="row">
-		<div class="col-md-12">
-			<div class="table-wrapper">
-				
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-					<h2 class="ml-lg-2">Manage  Reservations</h2>
-					</div>
-					<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-					<a href="_manage-reservations2.php" class="btn btn-success">
-					<i class="material-icons">&#xF217;</i>
-					<span>Reservations without Driver</span>
-					</a>
-					<!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-					<i class="material-icons">&#xE15C;</i>
-					<span>Delete</span>
-					</a>-->
-					</div>
-				</div>
-			</div>
+		   <!------main-content-start-----------> 
+		      <div class="main-content">
+			     <div class="row">
+				    <div class="col-md-12">
+					   <div class="table-wrapper">
+					     
+					   <div class="table-title">
+					     <div class="row">
+						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+							    <h2 class="ml-lg-2">Pending  Reservations</h2>
+							 </div>
+							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+							   <a href="_manage-reservations-chauffeur2.php" class="btn btn-success">
+							   <i class="material-icons">&#xF217;</i>
+							   <span>Reservations with Driver</span>
+							   </a>
+							   <!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+							   <i class="material-icons">&#xE15C;</i>
+							   <span>Delete</span>
+							   </a>-->
+							 </div>
+					     </div>
+					   </div>
 					   
-				<table class="table table-striped table-hover" id="myTable">
-					<thead>
-						
-						<!--<th><span class="custom-checkbox">
-						<input type="checkbox" id="selectAll">
-						<label for="selectAll"></label></th>-->
-						<th scope="col" width="50">#</th>
-						<th scope="col">Name</th>
-						<th scope="col">Contact Number</th>
-						<th scope="col">Vehicle</th>
-						<th scope="col">License Plate</th>
-						<th scope="col">Pick-up Date</th>
-						<th scope="col">Reutrn Date</th>
-						<th scope="col">Total Amount</th>
-						<th scope="col">Status</th>
-						<th scope="col">Action</th>
-						</tr>
-					</thead>
+					<table class="table table-striped table-hover" id="myTable">
+					    <thead>
+						    <tr>
+							<!--<th><span class="custom-checkbox">
+							<input type="checkbox" id="selectAll">
+							<label for="selectAll"></label></th>-->
+							<th scope="col" width="50">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Contact Number</th>
+                            <th scope="col">Vehicle</th>
+							<th scope="col">License Plate</th>
+                            <th scope="col">Pick-up Date</th>
+                            <th scope="col">Reutrn Date</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+							</tr>
+						</thead>
 						  
 						  <tbody>
-						
+						   
 							 <!--<th><span class="custom-checkbox">
 							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
 							 <label for="checkbox1"></label></th>-->
@@ -290,7 +290,7 @@ if(isset($_POST['update_res'])){
                             }
                             $com_id = $_SESSION['com_id'];
                             // echo $com_id;
-                            $sql = "SELECT * FROM reservation WHERE driver_stat='YES' AND status='Reserved' AND seller_id = {$com_id}";
+                            $sql = "SELECT * FROM approval WHERE status='Pending'";
                             $result =$connection->query($sql);
 
                             if (!$result){
@@ -340,8 +340,9 @@ if(isset($_POST['update_res'])){
                         ;}
                                
                         ?>
+
 							 
-					</tbody>
+					</tbody>     
 				</table>
 	</div>
 </div>
@@ -420,11 +421,6 @@ if(isset($_POST['update_res'])){
 			<div class="form-group">
 				<label>Vehicle</label>
 				<input type="text" class="form-control" autocomplete="off" name="vehicle1" id="vehicle1" <?php echo $vehicle; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Vehicle</label>
-				<input type="text" class="form-control" autocomplete="off" name="license1" id="license1" <?php echo $license; ?>">
 			</div>
 
 			<div class="form-group">

@@ -106,6 +106,8 @@ if(isset($_POST['update_car'])){
 	
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
 
 
 	   <!--google material icon-->
@@ -130,6 +132,12 @@ if(isset($_POST['update_car'])){
 		  <li class="dash">
 		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard</a>
 		  </li>
+
+		  <li class="approval">
+		  <a  href="_pending-reservations2.php">
+		  <i class="material-icons">summarize</i>Pending Reservations
+		  </a>
+		  </li>
 		  
 		  <li class="active">
 		  <a  href="#">
@@ -143,9 +151,23 @@ if(isset($_POST['update_car'])){
 		  </a>
 		  </li>
 
+		  <li class="drivers">
+		  <a  href="_manage-to-be-returned2.php">
+		  <i class="material-icons">fact_check</i>Cars to be Returned
+		  </a>
+		  </li>
+
 		  <li class="reserve">
 		  <a  href="_manage-drivers2.php">
 		  <i class="material-icons">person</i>Drivers
+		  </a>
+		  </li>
+
+		  <br>
+
+          <li class="reserve">
+		  <a  href="_manage-sales2.php">
+		  <i class="material-icons">summarize</i>Sales Report
 		  </a>
 		  </li>
 		
@@ -225,7 +247,7 @@ if(isset($_POST['update_car'])){
 								<span class="material-icons">settings</span>
 								Settings
 								</a></li>
-								<li><a href="#">
+								<li><a href="_company-login.php">
 								<span class="material-icons">logout</span>
 								Logout
 								</a></li>
@@ -280,17 +302,17 @@ if(isset($_POST['update_car'])){
 				</div>
 			</div>
 			
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover" id="myTable">
 			<thead>
 				<tr>
 				<!--<th><span class="custom-checkbox">
 				<input type="checkbox" id="selectAll">
 				<label for="selectAll"></label></th>-->
-				<th>ID</th>
+				<th width="50">ID</th>
 				<th>Model</th>
 				<th>Brand</th>
-				<th>Transimission Type</th>
-				<th>Seating Capacity</th>
+				<th width="50">Transimission Type</th>
+				<th width="90">Seating Capacity</th>
 				<th>Color</th>
 				<th>License Plate</th>
 				<th>Price</th>
@@ -301,7 +323,7 @@ if(isset($_POST['update_car'])){
 			</thead>
 				
 				<tbody>
-					<tr>
+				
 					<!--<th><span class="custom-checkbox">
 					<input type="checkbox" id="checkbox1" name="option[]" value="1">
 					<label for="checkbox1"></label></th>-->
@@ -346,7 +368,7 @@ if(isset($_POST['update_car'])){
 						<td><?php echo $color?></td>
 						<td><?php echo $license?></td>
 						<td><?php echo $price?></td>
-						<td><img height="105" width="160" <?php echo '<img src="images/cars/'.$car_pic.'" ' ?>> </td>
+						<td><img height="75" width="105" <?php echo '<img src="images/cars/'.$car_pic.'" ' ?>> </td>
 						<td>
 							
 
@@ -372,7 +394,7 @@ if(isset($_POST['update_car'])){
 			</tbody>
 		</table>
 			
-		<div class="clearfix">
+		<!-- <div class="clearfix">
 			<div class="hint-text">showing <b>3</b> out of <b>3</b></div>
 			<ul class="pagination">
 			<li class="page-item disabled"><a href="#">Previous</a></li>
@@ -383,7 +405,7 @@ if(isset($_POST['update_car'])){
 			<li class="page-item "><a href="#"class="page-link">5</a></li>
 			<li class="page-item "><a href="#" class="page-link">Next</a></li>
 			</ul>
-		</div>  
+		</div>   -->
 	</div>
 </div>
 				
@@ -406,42 +428,42 @@ if(isset($_POST['update_car'])){
 	  <div class="row">
 	  <div class="form-group">
 		    <label>Name</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_name2" id="item_name2" value="<?php echo $name2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_name2" id="item_name2" value="<?php echo $name2; ?>" required>
 		</div>
 		
 		<div class="form-group ml-5">
 		    <label>Brand</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_brand2" id="item_brand2" value="<?php echo $brand2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_brand2" id="item_brand2" value="<?php echo $brand2; ?>" required>
 		</div>
 
 		<div class="form-group">
 		    <label>Transmission Type</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_transmission2" id="item_transmission2" value="<?php echo $transmission2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_transmission2" id="item_transmission2" value="<?php echo $transmission2; ?>" required>
 		</div>
 		
 		<div class="form-group ml-5">
 		    <label>Capacity</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_capacity2" id="item_capacity2" value="<?php echo $capacity2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_capacity2" id="item_capacity2" value="<?php echo $capacity2; ?>" required>
 		</div>
 
 		<div class="form-group">
 		    <label>Color</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_color2" id="item_color2"  value="<?php echo $color2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_color2" id="item_color2"  value="<?php echo $color2; ?>" required>
 		</div>
 
 		<div class="form-group ml-5">
 		    <label>License Plate</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_license_plate2" id="item_license_plate2" value="<?php echo $license2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_license_plate2" id="item_license_plate2" value="<?php echo $license2; ?>" required>
 		</div>
 
 		<div class="form-group mb-5">
 		    <label>Price</label>
-			<input type="text" class="form-control" autocomplete="off" name="item_price2" id="item_price2" value="<?php echo $price2; ?>">
+			<input type="text" class="form-control" autocomplete="off" name="item_price2" id="item_price2" value="<?php echo $price2; ?>" required>
 		</div>
 
 		<div class="form-group col-10">
             <label for="pic_CAR" style="font-size:20px; font-weight:bold;">Please upload Car's photo</label><br>
-				<input class="form-control" type="file" name="pic_CAR" id="pic_CAR" style="width:100%;" >
+				<input class="form-control" type="file" name="pic_CAR" id="pic_CAR" style="width:100%;" required>
 				<br>
 				<label>File size: maximum 10 MB</label>
 				<label>File extension: .JPEG, .PNG, .JPG</label>
@@ -609,6 +631,7 @@ if(isset($_POST['update_car'])){
    <script src="js/popper.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
    <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 	</script>
@@ -676,6 +699,11 @@ if(isset($_POST['update_car'])){
         }
 </script>
 
+<script>
+        $(document).ready(function(){
+			$('#myTable').dataTable();
+        });
+</script>
 
   </body>
   

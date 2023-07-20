@@ -14,16 +14,15 @@ if(isset($_POST['update_res'])){
     $name=$_POST['name1'];
     $number=$_POST['number1'];
     $vehicle=$_POST['vehicle1'];
-	$license=$_POST['license1'];
     $pickup=$_POST['pickup1'];
 	$return=$_POST['return1'];
 	$price=$_POST['price1'];
 
-	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', license_plate='$license', pickupdate='$pickup', returndate='$return', overall_price='$price' WHERE id='$id'");
+	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', pickupdate='$pickup', returndate='$return', overall_price='$price' WHERE id='$id'");
 	
 	if($result){
 		//$_SESSION['status'] = "Your profile has been updated";
-			header("location:_manage-reservations-chauffeur2.php?error");
+			header("location:_manage-reservations2.php?error");
 		} else {
 			$error[]='Something went wrong';
 		}
@@ -57,7 +56,6 @@ if(isset($_POST['update_res'])){
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
-
 
 	   <!--google material icon-->
       <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
@@ -94,13 +92,13 @@ if(isset($_POST['update_res'])){
 		  </a>
 		  </li>
 
-		  <li class="active">
-		  <a  href="#">
+		  <li class="reserve">
+		  <a  href="_manage-reservations2.php">
 		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
 
-		  <li class="drivers">
+          <li class="return">
 		  <a  href="_manage-to-be-returned2.php">
 		  <i class="material-icons">fact_check</i>Cars to be Returned
 		  </a>
@@ -112,14 +110,13 @@ if(isset($_POST['update_res'])){
 		  </a>
 		  </li>
 
-		  <br>
+          <br>
 
-          <li class="reserve">
-		  <a  href="_manage-sales2.php">
+          <li class="active">
+		  <a  href="#">
 		  <i class="material-icons">summarize</i>Sales Report
 		  </a>
 		  </li>
-		  
 		
 		</ul>
 	 </div>
@@ -197,7 +194,7 @@ if(isset($_POST['update_res'])){
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
-									 <li><a href="#">
+									 <li><a href="_company-login.php">
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -226,124 +223,168 @@ if(isset($_POST['update_res'])){
 		  </div>
 		  <!------top-navbar-end-----------> 
 
+        <!------boxes-start-----------> 
+<div class="boxes">
+
+<div class="col-div-3">
+<div class="box">
+<p class="total" style="text-align: center;">
+	<?php
+	$con = new mysqli("localhost", "root", "", "rentacar");
+	$query = "SELECT id FROM salesreport";
+	$result = mysqli_query($con, $query);
+	$row = mysqli_num_rows($result);echo '' .$row. '';
+	?><br/>
+	</p>
+	<p class="txt" style="text-align: center;">Total Transactions</p>
+	
+</div>
+</div>
+
+<div class="col-div-3">
+<div class="box">
+<p class="total" style="text-align: center;"><?php
+	$con = new mysqli("localhost", "root", "", "rentacar");
+	$query2 = "SELECT SUM(additional_fee + overall_price) AS sum FROM salesreport";
+			$query2_result = mysqli_query($con, $query2);
+			while($row1 = mysqli_fetch_assoc($query2_result)){
+				$output1 = "₱".$row1['sum'];
+			}
+	?>
+	<?php echo  $output1;?>
+	
+	</p>
+	<p class="txt" style="text-align: center;">Total Income</p>
+	
+</div>
+</div>
+
+</div>
+<!------boxes-end-----------> 
 		  
 
 <!------main-content-start-----------> 
-	<div class="main-content">
-		<div class="row">
-		<div class="col-md-12">
-			<div class="table-wrapper">
-				
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-					<h2 class="ml-lg-2">Manage  Reservations</h2>
-					</div>
-					<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-					<a href="_manage-reservations2.php" class="btn btn-success">
-					<i class="material-icons">&#xF217;</i>
-					<span>Reservations without Driver</span>
-					</a>
-					<!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-					<i class="material-icons">&#xE15C;</i>
-					<span>Delete</span>
-					</a>-->
-					</div>
+<div class="main-content">
+	<div class="row">
+	<div class="col-md-12">
+		<div class="table-wrapper">
+			
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+				<h2 class="ml-lg-2">Sales  Report</h2>
 				</div>
+			
 			</div>
+		</div>
+            
+        <table class="table table-striped table-hover" id="myTable">
+            <thead>
+                <tr>
+                <!--<th><span class="custom-checkbox">
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll"></label></th>-->
+                <th width="150">ID</th>
+                <th width="200">Vehicle</th>
+				<th width="100">Plate No.</th>
+                <th width="200">Pick-up Date and Time</th>
+                <th width="200">Reutrn Date and Time</th>
+				<th width="150">Additional Fee</th>
+                <th width="300">Total Amount</th>
+                </tr>
+            </thead>
+                
+                <tbody>
+                
+                    <!--<th><span class="custom-checkbox">
+                    <input type="checkbox" id="checkbox1" name="option[]" value="1">
+                    <label for="checkbox1"></label></th>-->
+                    
+                    <?php
+                $servername = "localhost";
+                $user = "root";
+                $password = "";
+                $database = "rentacar";
+
+                $connection = new mysqli($servername, $user, $password, $database);
+
+                if ($connection->connect_error){
+                    die("Connection Failed: " . $connection->connect_error);
+                }
+                $com_id = $_SESSION['com_id'];
+                // echo $com_id;
+                $sql = "SELECT * FROM salesreport";
+                $result =$connection->query($sql);
+
+				$query1 = "SELECT SUM(additional_fee + overall_price) AS sum FROM salesreport";
+				$query1_result = mysqli_query($connection, $query1);
+				while($row = mysqli_fetch_assoc($query1_result)){
+					$output = "Total Income:"." "."₱".$row['sum'];
+				}
+
+                if (!$result){
+                    die("Invalid Query: " . $connection->error);
+                }
+
+                while($row = $result->fetch_assoc()) {
+                    $id = $row["id"];
+                    $vehicle = $row["brand"];
+					$license = $row["license_plate"];
+                    $pickup = $row["pickupdate"];
+                    $return = $row["returndate"];
+					$fee = $row["additional_fee"];
+                    $price = $row["overall_price"];
+                ?>
+
+				
+                <tr>
+                        
+                    <td><?php echo $id?></td>
+                    <td><?php echo $vehicle?></td>
+					<td><?php echo $license?></td>
+                    <td><?php echo $pickup?></td>
+                    <td><?php echo $return?></td>
+					<td><?php echo $fee?></td>
+                    <td><?php echo $price?></td>
+                   
+					
+                </tr>
+				
+				
+            <?php
+            ;}
+                    
+            ?>
+			<!-- <tr class="totalrow remove-table-hover"><td colspan="12"><?php echo  $output;?></td></tr> -->
+                    <!--<th>
+                    <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>
+                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>
+                    </th>
+                    </tr>-->
+                    
+                    
+                </tbody>
+                
+                
+            </table>
 					   
-				<table class="table table-striped table-hover" id="myTable">
-					<thead>
-						
-						<!--<th><span class="custom-checkbox">
-						<input type="checkbox" id="selectAll">
-						<label for="selectAll"></label></th>-->
-						<th scope="col" width="50">#</th>
-						<th scope="col">Name</th>
-						<th scope="col">Contact Number</th>
-						<th scope="col">Vehicle</th>
-						<th scope="col">License Plate</th>
-						<th scope="col">Pick-up Date</th>
-						<th scope="col">Reutrn Date</th>
-						<th scope="col">Total Amount</th>
-						<th scope="col">Status</th>
-						<th scope="col">Action</th>
-						</tr>
-					</thead>
-						  
-						  <tbody>
-						
-							 <!--<th><span class="custom-checkbox">
-							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
-							 <label for="checkbox1"></label></th>-->
-							 
-                             <?php
-                            $servername = "localhost";
-                            $user = "root";
-                            $password = "";
-                            $database = "rentacar";
-
-                            $connection = new mysqli($servername, $user, $password, $database);
-
-                            if ($connection->connect_error){
-                                die("Connection Failed: " . $connection->connect_error);
-                            }
-                            $com_id = $_SESSION['com_id'];
-                            // echo $com_id;
-                            $sql = "SELECT * FROM reservation WHERE driver_stat='YES' AND status='Reserved' AND seller_id = {$com_id}";
-                            $result =$connection->query($sql);
-
-                            if (!$result){
-                                die("Invalid Query: " . $connection->error);
-                            }
-
-                            while($row = $result->fetch_assoc()) {
-                                $id = $row["id"];
-                                $name = $row["user_name"];
-                                $number = $row["number"];
-                                $vehicle = $row["brand"];
-								$license = $row["license_plate"];
-                                $pickup = $row["pickupdate"];
-                                $return = $row["returndate"];
-                                $price = $row["overall_price"];
-                                $status = $row["status"];
-                            ?>
-
-                            <tr>
-                                    
-                                <td><?php echo $id?></td>
-                                <td><?php echo $name?></td>
-                                <td><?php echo $number?></td>
-                                <td><?php echo $vehicle?></td>
-								<td><?php echo $license?></td>
-                                <td><?php echo $pickup?></td>
-                                <td><?php echo $return?></td>
-                                <td><?php echo $price?></td>
-                                <td><?php echo $status?></td>
-                                <td>
-									<div class="row">
-										<form action="_manage-reservations2.php" class="d-inline" >
-										<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" data-bs-toggle="modal" data-bs-target="#editReservationModal" >
-										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-										</button>
-									</form>
-
-									<form action="_manage-reservations2.php" class="d-inline">
-										<button type="button" name="del_button" id="del_button" class="btn btn-danger del_button btn-sm" data-bs-toggle="modal" data-bs-target="#deleteReservationModal">
-										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE872;</i>
-										</button>
-									</form>
-									</div>
-                                </td>
-                            </tr>
-                        <?php
-                        ;}
-                               
-                        ?>
-							 
-					</tbody>
-				</table>
-	</div>
+	<!-- <div class="clearfix">
+		<div class="hint-text">showing <b>1</b> out of <b>5</b></div>
+		<ul class="pagination">
+		<li class="page-item disabled"><a href="#">Previous</a></li>
+		<li class="page-item active"><a href="#"class="page-link">1</a></li>
+		<li class="page-item "><a href="#"class="page-link">2</a></li>
+		<li class="page-item "><a href="#"class="page-link">3</a></li>
+		<li class="page-item "><a href="#"class="page-link">4</a></li>
+		<li class="page-item "><a href="#"class="page-link">5</a></li>
+		<li class="page-item "><a href="#" class="page-link">Next</a></li>
+		</ul>
+	</div>   -->
+</div>
 </div>
 					
 
@@ -420,11 +461,6 @@ if(isset($_POST['update_res'])){
 			<div class="form-group">
 				<label>Vehicle</label>
 				<input type="text" class="form-control" autocomplete="off" name="vehicle1" id="vehicle1" <?php echo $vehicle; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Vehicle</label>
-				<input type="text" class="form-control" autocomplete="off" name="license1" id="license1" <?php echo $license; ?>">
 			</div>
 
 			<div class="form-group">
@@ -538,10 +574,9 @@ if(isset($_POST['update_res'])){
 					$('#name1').val(data[1]);
 					$('#number1').val(data[2]);
 					$('#vehicle1').val(data[3]);
-					$('#license1').val(data[4]);
-					$('#pickup1').val(data[5]);
-					$('#return1').val(data[6]);
-					$('#price1').val(data[7]);
+					$('#pickup1').val(data[4]);
+					$('#return1').val(data[5]);
+					$('#price1').val(data[6]);
 				
 			});
 		  
