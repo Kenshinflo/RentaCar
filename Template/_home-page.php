@@ -57,7 +57,7 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
             <div class = "row justify-content-center">
                 
                 <div class ="container pb-3 col-12" id="text1"> 
-                    <p class="pt-5 " style="display:inline; padding-bottom:10px;">Looking for a</p><span style="display:inline;">vehicle</span><p style="display:inline;">?</p>
+                    <p class="pt-5 " style="display:inline; padding-bottom:10px;">Looking for a</p> <span style="display:inline;">vehicle</span><p style="display:inline;">?</p>
                     <p class="pt-1 pb-1" style=" font-size: 50px;">Find the suitable car for you.</p>
                     <!-- <p class="pt-1 pb-1" style=" font-size: 50px;">Time to venture our beautiful region.</p> -->
 
@@ -67,10 +67,10 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                 
                 <div class="form-container mb-5 col-12 h-100 font-family row">
                     <form action="" method="post" class="justify-content-center row align-items-center pt-5 pb-4" >
-                        <div class="row ">
+                        <div class="row  ">
                             <div class="input-box col-md-4 ">
                                 <span>Location</span>
-                                <input type="search" name="" id="location" placeholder="Search Places" autocomplete="off">
+                                <input type="search" name="" id="" placeholder="Search Places">
                             </div> 
 
                            <div class="input-box col-md-4">
@@ -85,14 +85,6 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                             </div>
                         </div>
                         <!-- <input type="submit" name="" id="" class="btn" value="" placeholder="Continue"> -->
-                        <div class="container result-box" hidden="hidden">
-                            <ul>
-                                <li>
-                                </li>
-                            </ul>
-
-
-                        </div>
                         <div class="container">
                            <div class="d-flex justify-content-end text-center pe-2">
                                 <button id="" type="submit" class="btn btn-primary "  name="submit">Continue</button>
@@ -111,10 +103,6 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
         </div>
     </div>
 </section>
-<script src="autocomplete.js">
-
-
-</script>
 <script type="text/javascript">
     
     // window.addEventListener("scroll", function(){

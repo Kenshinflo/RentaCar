@@ -68,10 +68,16 @@
     
 ?>
 <section class="reserve_sect" class="py-3">
-    <div class="container">
-
-        <h1 class="font-size-25 my-5 fw-bold">Your Rented Cars</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="font-size-25 mt-5 fw-bold">Your Rented Cars</h1>
+        </div>
+        <div class="col-1">
+        <a class="btn btn-danger font-size-20 px-4 mt-5" href="profile.php">Back</a>
+        </div>
     </div>
+</div>
     
    
 

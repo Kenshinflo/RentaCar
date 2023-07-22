@@ -23,10 +23,9 @@
         $username = validate($_POST['username']);
         $password = validate($_POST['password']);
         $password = md5($password);
-        //database connection
-        //$mysqli = new mysqli('localhost', 'root','','rentacar');
-
-        try{
+         //database connection
+         //$mysqli = new mysqli('localhost', 'root','','rentacar');
+         try{
 
             
             $conn = new PDO("mysql:host=localhost;dbname=$dbname", $user_name, $pass_word);
@@ -45,44 +44,44 @@
             $resultSet->execute();
             
 
-            $_SESSION["user_name"] = $username;
-            
-
-            //  Process Login
-            $row = $resultSet->fetch(PDO::FETCH_ASSOC);
-
-            
-            $verified = $row['verified'];
-            $user_id= $row['user_id'];
-            $user_name= $row['user_name'];
-            $email = $row['email'];
-            $date = $row['register_date'];
-            $contact = $row['contact_num'];
-            $date = strtotime($date);
-            $date = date('M d Y', $date);
-
-            $_SESSION["user_id"]=$user_id;
-            $_SESSION["cont_num"]=$contact;
-            $_SESSION["user_name"]=$user_name;
-            
-            if($row['user_name'] === $username && $row['pass_word'] === $password){
-                exit(header("Location:../index.php"));
-                // header();
-            } else {
-
-                exit(header("Location:_user-login.php?error=Incorrect Username or Password"));
+                $_SESSION["user_name"] = $username;
                 
-            }
-            // if($verified == 1){
+
+                //  Process Login
+                $row = $resultSet->fetch(PDO::FETCH_ASSOC);
+
                 
-            //     header('Location:index.php');
-            //     echo "<center>Account Has been Verified, Login Successfull</center>";
-            // }else{
-            //     $error = "<center>Please Verify Your Account First. To verify, please click the verification that was sent to $email on $date</center>";
-            //     echo "<script> alert('$error')</script";
+                $verified = $row['verified'];
+                $user_id= $row['user_id'];
+                $user_name= $row['user_name'];
+                $email = $row['email'];
+                $date = $row['register_date'];
+                $contact = $row['contact_num'];
+                $date = strtotime($date);
+                $date = date('M d Y', $date);
+
+                $_SESSION["user_id"]=$user_id;
+                $_SESSION["cont_num"]=$contact;
+                $_SESSION["user_name"]=$user_name;
                 
-            //     header('Location:index.php');
-            // }
+                if($row['user_name'] === $username && $row['pass_word'] === $password){
+                    exit(header("Location:index.php"));
+                    // header();
+                } else {
+
+                    exit(header("Location:_user-login.php?error=Incorrect Username or Password"));
+                    
+                }
+                // if($verified == 1){
+                    
+                //     header('Location:index.php');
+                //     echo "<center>Account Has been Verified, Login Successfull</center>";
+                // }else{
+                //     $error = "<center>Please Verify Your Account First. To verify, please click the verification that was sent to $email on $date</center>";
+                //     echo "<script> alert('$error')</script";
+                    
+                //     header('Location:index.php');
+                // }
 
             
         } catch(PDOException $e){
@@ -92,6 +91,9 @@
     }
 
 
+?>
+
+<?php
     $error = null;
 
     if(isset($_POST['seller-submit'])){
@@ -110,11 +112,15 @@
          if($resultSet->num_rows !=0){
             //Process Login
             $row = $resultSet->fetch_assoc();
+
+
             exit(header('Location:sellerdetails.php'));
 
          }
-    }
+        }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

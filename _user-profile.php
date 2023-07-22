@@ -72,6 +72,7 @@ $image= $res['pic_ID'];
 	}
 	?>
 	<div class="mt-6 mb-6">
+		
 	<?php
 	if(isset($_POST['update_prof'])){
 		$firstname=$_POST['first_name'];
@@ -151,12 +152,12 @@ $image= $res['pic_ID'];
 					<div class="row mt-1"></div>
 				<div class="row mt-2"></div>	
 					<span class="font-weight-bold"><?php echo $firstname;?></span><span class=><?php echo $email;?></span><span> </span></div>
-					<nav id="navbar" class="nav-menu navbar">
+					<nav class="side-nav navbar">
 						<ul style="list-style: none;">
 						  <li><a href="index.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
-						  <li><a href="userreservation.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-cart-shopping"></i> <span>My Reservation</span></a></li>
-						  <li><a href="#notif" class="nav-link scrollto ml-4"><i class="fa-solid fa-bell"></i> <span style="padding-left:5px">Notification</span></a></li>
-						  <li><a href="_user-change-pass.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-user"></i> <span>Change Password</span></a></li>
+						  <li><a href="userreservation.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-calendar-check"></i> <span>My Reservation</span></a></li>
+						  <li><a href="in_use.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-key"></i> <span style="padding-left:5px">My Rented Cars</span></a></li>
+						  <li><a href="password.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-user"></i> <span>Change Password</span></a></li>
 						</ul>
 					</nav>
 				</div>
@@ -190,7 +191,7 @@ $image= $res['pic_ID'];
 							</div>
 
 						<div class="row mt-2 border-top mt-4" id = "buttonUp">
-							<div class="mt-3 col-md-2 text-center profile-button">
+							<div class="mt-4 col-md-2 text-center profile-button">
 								<input type="submit" value="Update" name="update_prof">
 							</div>
 						</div>
@@ -208,6 +209,7 @@ $image= $res['pic_ID'];
 						<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
 							<h4 class="text-right"></h4>
 						</div>
+
 						<div class="d-flex flex-column align-items-center text-center p-1 py-6">
 							<?php if($image==NULL){
 								echo '<img src="user_profile/profile.png">';
@@ -215,6 +217,7 @@ $image= $res['pic_ID'];
 								echo '<img src="images/'.$image.'" style="height:80px; width: 80px; " class="rounded-circle mt-5>';
 							}
 							?>
+							
 						<div class="form-group">
 							<br>
 							<label>Change Image &#8595;</label>
@@ -225,13 +228,13 @@ $image= $res['pic_ID'];
 						</div>
 					</div>
 				</div>
-	</div>
-	
-</div>
-</div>
+
+			</div>
 		</div>
 	</div>
-	</div>
+</div>
+</div>
+</div>
 </body>
 </html>
 

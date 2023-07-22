@@ -39,11 +39,24 @@ input::placeholder {
     opacity: .5;
 
 }
-.datepicker { font-size: 13px; }
+.datepicker { font-size: 13px; 
+}
+
 .form-control:focus {
     box-shadow: none;
     border-color: #E6873C   
 }
+
+.alert {
+    left: 0;
+    margin: auto; 
+    position: absolute; 
+    right: 0;
+    text-align: center; 
+    width: 40%;
+    z-index: 1;   
+ }
+
 .profile-button {
     display: flex;
     align-items: center;
@@ -62,16 +75,6 @@ input::placeholder {
     font-size:medium;
 }
 
-.alert {
-    left: 0;
-    margin: auto; 
-    position: absolute; 
-    right: 0;
-    text-align: center; 
-    width: 40%;
-    z-index: 1;   
- }
- 
 .mt-3 input[type=submit]{
     font-weight: 500;
     font-size: 18px;
@@ -79,12 +82,15 @@ input::placeholder {
 }
 
 .profile-button:hover {
-    background: black;
+    background: rgb(86, 86, 86);
 }
+
 .profile-button:focus {
-    background: #FF731D;
+    background: #858585;
     box-shadow: none
 }
+
+
 .password-button{
     display: flex;
     align-items: center;
@@ -96,19 +102,27 @@ input::placeholder {
     outline: none;
     color: #fff;
     border-radius: 5px;
-    margin: 25px 0;
-    background-color: #E6873C;
+    margin: 25px 0 0 11px;
+    background-color: #858585;
     transition: all 0.3s linear;
     cursor: pointer;
     font-size:medium;
 }
+
+.mt-4 input[type=submit]{
+    font-weight: 500;
+    font-size: 18px;
+    color: #fff;
+}
+
 .password-button:hover{
-    background: black;
+    background: rgb(86, 86, 86);
 }
 .password-button:focus {
-    background: #FF731D;
+    background: #858585;
     box-shadow: none  
 }
+
 .color_left{
     background: #858585;
     color: white;
@@ -118,13 +132,18 @@ input::placeholder {
     background: white;
     font-family: sans-serif;
 }
+
+.color_end{
+    background: white;
+    font-family: sans-serif;
+}
 .profile-button:active {
-    background:#E6873C;
+    background:#858585;
     border-color: none;
 }
 
 .back:hover {
-    color: #E6873C;
+    color: #858585;
     cursor: pointer
     
 }
@@ -189,24 +208,24 @@ input::placeholder {
 .edit-profile:hover {
     background: #FF731D;
 }
-.nav-menu {
-    padding: 30px 0 0 0;
+.side-nav {
+    padding: 20px 0 20px 50px;
     margin-top: 20px;
   }
   
-  .nav-menu * {
+  .side-nav * {
     margin: 0;
     padding: 0;
     list-style: none;
   }
   
-  .nav-menu>ul>li {
+  .side-nav>ul>li {
     position: relative;
     white-space: nowrap;
   }
   
-  .nav-menu a,
-  .nav-menu a:focus {
+  .side-nav a,
+  .side-nav a:focus {
     display: flex;
     align-items: center;
     color: white;
@@ -216,26 +235,26 @@ input::placeholder {
     font-size: 15px;
   }
   
-  .nav-menu a i,
-  .nav-menu a:focus i {
+  .side-nav a i,
+  .side-nav a:focus i {
     font-size: 24px;
     padding-right: 8px;
     color: #B8E8FC;
   }
   
-  .nav-menu a:hover,
-  .nav-menu .active,
-  .nav-menu .active:focus,
-  .nav-menu li:hover>a {
+  .side-nav a:hover,
+  .side-nav .active,
+  .side-nav .active:focus,
+  .side-nav li:hover>a {
     text-decoration: none;
-    color: #333333;
+    color: #858585;
   }
   
-  .nav-menu a:hover i,
-  .nav-menu .active i,
-  .nav-menu .active:focus i,
-  .nav-menu li:hover>a i {
-    color: #333333;
+  .side-nav a:hover i,
+  .side-nav .active i,
+  .side-nav .active:focus i,
+  .side-nav li:hover>a i {
+    color: #858585;
   }
 /* Style The Dropdown Button */
 .dropbtn {

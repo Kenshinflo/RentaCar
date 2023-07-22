@@ -88,6 +88,7 @@
             if ($item['item_id'] == $item_id):
                 $_SESSION["item_n"] = $item['item_name'];
                 $_SESSION["item_p"] = $item['item_price'];
+                $_SESSION["item_l"] = $item['item_license_plate'];
                 $dF = isset($_SESSION["dateFrom"]) ? $_SESSION["dateFrom"]: $dated;
                 $dT = isset($_SESSION["dateTo"]) ? $_SESSION["dateTo"]: $dated;
  
@@ -145,6 +146,7 @@
                         $contact = $_SESSION["cont_num"];
                         
                         $vehicle = $_SESSION["item_n"];
+                        $license = $_SESSION["item_l"];
                         $seller = $value["seller_id"];
                         $event = $_POST['dateFrom'];
                         $events = $_POST["dateTo"];
@@ -160,7 +162,7 @@
                         // $overall = $total;
 
 
-                        $query = "INSERT INTO reservation (user_id,item_id,seller_id,user_name,number,brand,pickupdate,returndate,driver_stat,overall_price,status) VALUES ('$user_id','$item_id','$seller','$user_n','$contact','$vehicle','$event','$events','$driver_stat','$overall','Reserved')";
+                        $query = "INSERT INTO reservation (user_id,item_id,seller_id,user_name,number,brand,license_plate,pickupdate,returndate,driver_stat,overall_price,status) VALUES ('$user_id','$item_id','$seller','$user_n','$contact','$vehicle','$license','$event','$events','$driver_stat','$overall','Reserved')";
                         
                         
                         if (trim($_POST['dateTo'] ) == $dated){
