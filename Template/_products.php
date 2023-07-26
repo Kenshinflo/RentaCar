@@ -142,7 +142,7 @@
                         $dated = date("Y-m-d H:m");
                         $user_id = $_SESSION["user_id"];
                         $user_n = $_SESSION["user_name"];
-                        $car = $_SESSION["car_id"];
+                        // $car = $_SESSION["car_id"];
                         $contact = $_SESSION["cont_num"];
                         
                         $vehicle = $_SESSION["item_n"];
@@ -161,43 +161,62 @@
                         
                         // $overall = $total;
 
+                       
+                        $sql = "SELECT * from reservation where item_id = $item_id AND status ='Pending' AND user_id = $user_id";
+                        $result =$con->query($sql);
 
-                        $query = "INSERT INTO reservation (user_id,item_id,seller_id,user_name,number,brand,license_plate,pickupdate,returndate,driver_stat,overall_price,status) VALUES ('$user_id','$item_id','$seller','$user_n','$contact','$vehicle','$license','$event','$events','$driver_stat','$overall','Reserved')";
+                        
+                       
+                        $row = $result->fetch_assoc();
+                        $product=$row["item_id"];
+                        
+                            if(!$product==$item_id){
+                                echo $product;
+                                $query = "INSERT INTO reservation (user_id,item_id,seller_id,user_name,number,brand,license_plate,pickupdate,returndate,driver_stat,overall_price,status) VALUES ('$user_id','$item_id','$seller','$user_n','$contact','$vehicle','$license','$event','$events','$driver_stat','$overall','Pending')";
                         
                         
-                        if (trim($_POST['dateTo'] ) == $dated){
-                            header('Location: ../product.php?item_id=' .$item_id. '&&error=Pick-up Date and Return Date not yet set.1');
-                            exit();
+                                if (trim($_POST['dateTo'] ) == $dated){
+                                    header('Location: ../product.php?item_id=' .$item_id. '&&error=Pick-up Date and Return Date not yet set.1');
+                                    exit();
+        
+                                }  else if(trim($_POST['dateTo'] ) == "0000-00-00" && trim($_POST['dateFrom'] ) == "0000-00-00"){
+                                    header('Location: ../product.php?item_id=' .$item_id. '&&error=Pick-up Date and Return Date not yet set.2');
+                                    exit();
+                                } else if(trim($_POST['dateTo'] ) ==  trim($_POST['dateFrom'])){
+                                    header('Location: ../product.php?item_id=' .$item_id. '&&error=Pick-up Date and Return Date not yet set.3');
+                                    exit();
+                                } else if(empty($_POST["driver_stat"])){
+                                    header('Location: ../product.php?item_id=' .$item_id. '&&error=Please pick your driver status.');
+                                    exit();
+        
+                                } else {
+        
+                                    $queryupdate = "UPDATE product SET status = 0 WHERE item_id = $item_id";
+                                    // $queryupdate = "UPDATE product SET status = 1 WHERE item_id = $item_id";
+                                    $query_run1 = mysqli_query($con, $queryupdate);
+        
+                                    $query_run = mysqli_query($con, $query);
+                                    header("location: userreservation.php");
+                                    $stateRefresh = 0;
+                                    $_SESSION['state'] = $stateRefresh;
+                                
+                                    // if($query){
+                                    //     header("location: in_use.php");
+                                    // }
+                                    // else {
+                                    //     header("location: in_use.php");
+                                    // }
+                                } 
 
-                        }  else if(trim($_POST['dateTo'] ) == "0000-00-00" && trim($_POST['dateFrom'] ) == "0000-00-00"){
-                            header('Location: ../product.php?item_id=' .$item_id. '&&error=Pick-up Date and Return Date not yet set.2');
-                            exit();
-                        } else if(trim($_POST['dateTo'] ) ==  trim($_POST['dateFrom'])){
-                            header('Location: ../product.php?item_id=' .$item_id. '&&error=Pick-up Date and Return Date not yet set.3');
-                            exit();
-                        }
-
-                        else if(empty($_POST["driver_stat"])){
-                            header('Location: ../product.php?item_id=' .$item_id. '&&error=Please pick your driver status.');
-                            exit();
-
-                        }
+                            } else {
+                                    // echo "<script>alert(\"You cannot reserve this Item\");";
+                                    header('Location: ../product.php?item_id=' .$item_id. '&&error=You have already made a reservation.');
+                                    exit();
+                            }
+                            
                         
-                        else{
-
-                            $queryupdate = "UPDATE product SET status = 1 WHERE item_id = $item_id";
-                            $query_run1 = mysqli_query($con, $queryupdate);
-
-                            $query_run = mysqli_query($con, $query);
-                            header("location: userreservation.php");
-                            $stateRefresh = 0;
-                            $_SESSION['state'] = $stateRefresh;
-                        }
-                        
-                    
-                }
                 
-
+            }
     
 ?>
 <section id="product" class="py-3" onload="disableSubmit()">

@@ -65,8 +65,9 @@
                 $_SESSION["user_name"]=$user_name;
                 
                 if($row['user_name'] === $username && $row['pass_word'] === $password){
+
                     exit(header("Location:index.php"));
-                    // header();
+                    
                 } else {
 
                     exit(header("Location:_user-login.php?error=Incorrect Username or Password"));

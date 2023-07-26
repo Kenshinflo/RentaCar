@@ -9,25 +9,65 @@ $con = new mysqli($servername, $user, $password, $database);
 
 include ('connection.php');
 
+
+
+// if(isset($_POST['update_res'])){
+// 	$id = $_POST['id1'];
+// 	$item_id = $_POST['item_id1'];
+//     $name=$_POST['name1'];
+//     $number=$_POST['number1'];
+//     $vehicle=$_POST['vehicle1'];
+	
+//     $pickup=$_POST['pickup1'];
+// 	$return=$_POST['return1'];
+// 	$price=$_POST['price1'];
+// 	$reserve=$_POST['reserve1'];
+
+// 	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', pickupdate='$pickup', returndate='$return', overall_price='$price', status='$reserve' WHERE id='$id'");
+// 	$query =  mysqli_query($con,"UPDATE product SET status='1' WHERE item_id='$item_id'");
+
+// 	if($result){
+// 		//$_SESSION['status'] = "Your profile has been updated";
+// 		header("location:_manage-reservations2.php?error");
+// 	} else {
+// 		$error[]='Something went wrong';
+// 	}
+// 	if($query){
+// 		//$_SESSION['status'] = "Your profile has been updated";
+// 		header("location:_manage-reservations2.php?error");
+// 	} else {
+// 		$error[]='Something went wrong';
+// 	}
+		
+
+// }
 if(isset($_POST['update_res'])){
 	$id = $_POST['id1'];
-    $name=$_POST['name1'];
-    $number=$_POST['number1'];
-    $vehicle=$_POST['vehicle1'];
-	$license=$_POST['license1'];
-    $pickup=$_POST['pickup1'];
-	$return=$_POST['return1'];
-	$price=$_POST['price1'];
-
-	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', license_plate='$license', pickupdate='$pickup', returndate='$return', overall_price='$price' WHERE id='$id'");
+	$item_id = $_POST['item_id1'];
+    // $name=$_POST['name1'];
+    // $number=$_POST['number1'];
+    // $vehicle=$_POST['vehicle1'];
 	
+    // $pickup=$_POST['pickup1'];
+	// $return=$_POST['return1'];
+	// $price=$_POST['price1'];
+	// // $reserve=$_POST['reserve1'];
+
+	$result = mysqli_query($con,"UPDATE reservation SET status='Reserved' WHERE id='$id'");
+	$query =  mysqli_query($con,"UPDATE product SET status=1 WHERE item_id='$item_id'");
+
 	if($result){
 		//$_SESSION['status'] = "Your profile has been updated";
-			header("location:_manage-reservations2.php?error");
-		} else {
-			$error[]='Something went wrong';
-		}
-  
+		header("location:_pending-reservations2.php?error");
+	} else {
+		$error[]='Something went wrong';
+	}
+	if($query){
+		//$_SESSION['status'] = "Your profile has been updated";
+		header("location:_pending-reservations2.php?error1");
+	} else {
+		$error[]='Something went wrong';
+	}
 		
 
 }
@@ -259,12 +299,13 @@ if(isset($_POST['update_res'])){
 							<input type="checkbox" id="selectAll">
 							<label for="selectAll"></label></th>-->
 							<th scope="col" width="50">#</th>
+							<th scope="col">Item ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Contact Number</th>
                             <th scope="col">Vehicle</th>
 							<th scope="col">License Plate</th>
                             <th scope="col">Pick-up Date</th>
-                            <th scope="col">Reutrn Date</th>
+                            <th scope="col">Return Date</th>
                             <th scope="col">Total Amount</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
@@ -290,7 +331,7 @@ if(isset($_POST['update_res'])){
                             }
                             $com_id = $_SESSION['com_id'];
                             // echo $com_id;
-                            $sql = "SELECT * FROM approval WHERE status='Pending'";
+                            $sql = "SELECT * FROM reservation WHERE seller_id = $com_id AND status = 'Pending'";
                             $result =$connection->query($sql);
 
                             if (!$result){
@@ -299,6 +340,7 @@ if(isset($_POST['update_res'])){
 
                             while($row = $result->fetch_assoc()) {
                                 $id = $row["id"];
+								$item_id = $row["item_id"];
                                 $name = $row["user_name"];
                                 $number = $row["number"];
                                 $vehicle = $row["brand"];
@@ -312,6 +354,7 @@ if(isset($_POST['update_res'])){
                             <tr>
                                     
                                 <td><?php echo $id?></td>
+								<td><?php echo $item_id?></td>
                                 <td><?php echo $name?></td>
                                 <td><?php echo $number?></td>
                                 <td><?php echo $vehicle?></td>
@@ -322,8 +365,9 @@ if(isset($_POST['update_res'])){
                                 <td><?php echo $status?></td>
                                 <td>
 									<div class="row">
-										<form action="_manage-reservations2.php" class="d-inline" >
-										<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" data-bs-toggle="modal" data-bs-target="#editReservationModal" >
+										<form action="#" method="POST" class="d-inline" >
+										<!-- <button type="submit" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" > -->
+										<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" data-bs-toggle="modal" data-bs-target="#confirm_modal" >
 										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 										</button>
 									</form>
@@ -393,11 +437,11 @@ if(isset($_POST['update_res'])){
 					   
 					   
 				   <!----edit-modal start--------->
-<div class="modal fade" tabindex="-1" id="editReservationModal" role="dialog">
+<!-- <div class="modal fade" tabindex="-1" id="editReservationModal" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Employees</h5>
+        <h5 class="modal-title">Edit Car</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -407,6 +451,7 @@ if(isset($_POST['update_res'])){
 
 			<form method="POST" enctype="multipart/form-data">
 				<input type="hidden" id="id1" name="id1"  />
+				<input type="hidden" id="item_id1" name="item_id1"  />
 
 			<div class="form-group">
 				<label>Name</label>
@@ -438,17 +483,52 @@ if(isset($_POST['update_res'])){
 				<input type="text" class="form-control" autocomplete="off" name="price1" id="price1" <?php echo $price; ?>" readonly>
 			</div>
 
-      	</div>
+			<div class="form-group">
+				<label>Status</label>
+				<select name="reserve1" id="reserve1">
+					<option value="Pending">Pending</option>
+					<option value="Reserved">Reserve</option>
+					
+				</select>
+      		</div>
+
       <div class="modal-footer">
 	  	<button type="submit" name="update_res" id="update_res" class="btn btn-success">Save</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 					   <!----edit-modal end--------->	   
-					   
+
+<div class="modal fade" id="confirm_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<form method="POST" enctype="multipart/form-data">
+						<input type="hidden" id="id1" name="id1"  />
+						<input type="hidden" id="item_id1" name="item_id1"  />
+
+					<h5>Confirm Reservation</h5>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" name="update_res" id="update_res" class="btn btn-danger" >Reserve</button>
+				</div>
+			</form>
+	</div>
+
+	</div>
+</div>
 					   
 					 <!----delete-modal start--------->
 <div class="modal fade" tabindex="-1" id="deleteReservationModal" role="dialog">
@@ -531,13 +611,14 @@ if(isset($_POST['update_res'])){
 					console.log(data);
 
 					$('#id1').val(data[0]);
-					$('#name1').val(data[1]);
-					$('#number1').val(data[2]);
-					$('#vehicle1').val(data[3]);
-					$('#license1').val(data[4]);
-					$('#pickup1').val(data[5]);
-					$('#return1').val(data[6]);
-					$('#price1').val(data[7]);
+					$('#item_id1').val(data[1]);
+					$('#name1').val(data[2]);
+					$('#number1').val(data[3]);
+					$('#vehicle1').val(data[4]);
+					$('#license1').val(data[5]);
+					$('#pickup1').val(data[6]);
+					$('#return1').val(data[7]);
+					$('#price1').val(data[8]);
 				
 			});
 		  

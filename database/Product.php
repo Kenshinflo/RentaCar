@@ -288,7 +288,7 @@ public function getSellerItem($table = null){
     public function getReserveCount(){
         
             $userid = $_SESSION["user_id"];
-            $result = $this->db->con->query("SELECT * FROM reservation WHERE user_id = {$userid}  AND status= 'Reserved'");
+            $result = $this->db->con->query("SELECT * FROM reservation WHERE user_id = {$userid}  AND status= 'Pending' OR status= 'Reserved'");
             // WHERE user_id={$userid} 
             $resultArray = array();
     

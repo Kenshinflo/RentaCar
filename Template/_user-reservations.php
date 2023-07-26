@@ -64,21 +64,41 @@
         }
         if(isset($_POST['pay'])){
             
-           
+            try{
                 
                 $product = $_POST['pay'];
-        
-                $query = "UPDATE reservation SET status='In Use' WHERE item_id='$product' ";
-                $query = mysqli_query($con, $query);
-    
+                $pending = "Pending";
+                $sql = "SELECT * from reservation where item_id = $product AND status ='Pending' AND user_id = $userid";
+               
+                $result =$con->query($sql);
+                $row = $result->fetch_assoc();
+
+              
                 
+                $item_id=$row["item_id"];
+                
+                if(!$product==$item_id){
+                    $query = "UPDATE reservation SET status='In Use' WHERE item_id='$product' ";
+                    $query = mysqli_query($con, $query);
+                    $query1 = "UPDATE product SET status= 1 WHERE item_id='$product'";
+                    $query1 = mysqli_query($con, $query1);
+
+                    header("location: in_use.php");
+                } else {
+                    header('Location: ../userreservation.php?&&error=You have already made a reservation.');
+                    exit();
+                }
             
-                if($query_run){
-                    header("location: in_use.php");
-                }
-                else {
-                    header("location: in_use.php");
-                }
+                // if($query){
+                //     header("location: in_use.php");
+                // }
+                // else {
+                //     header("location: in_use.php");
+                // }
+                
+            } catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+            }
         }
     
     // $datet = strtolower($datet);
@@ -193,6 +213,8 @@
 
                         <p class = "text-muted"> Note: You can only cancel a reservation within 24 hours. Further cancellation above timeframe will ensue a cancellation fee per vehicle/s. </p>
                         
+                        <p class = "fw-bold fs-5" style="display: inline;"> Status:</p>
+                        <p class = "status fw-bold text-success text-decoration-underline fs-5" style="display: inline;" name="status">  <?php echo $value['status'] ?? 0; ?></p>
                     </div>
                     <hr>
                     
@@ -203,7 +225,7 @@
                          
                        
                         <form action="#" method="POST" class="d-inline">
-                            <button type="submit" name="pay"  class="btn btn-danger btn-sm" value="<?=$value['item_id'];?>">Pay</button>
+                            <button type="submit" name="pay"  class="pay btn btn-danger btn-sm" value="<?=$value['item_id'];?>">Pay</button>
                             <button type="submit" name="removeRes"  class="btn btn-danger btn-sm" onclick='return checkReserve()' value="<?=$value['item_id'];?>">Cancel</button>
                         </form>
                         <?php 
@@ -354,7 +376,39 @@
         }
     </script>
 </section>
-    
+<script>
+
+    $(document).ready(function(){
+           
+            $('.conf_button').click(function(e){
+                        // $('#editEmployeeModal').modal('show');
+
+                        $tr=$(this).closest('tr');
+
+                        var data = $tr.children("td").map(function(){
+                            return $(this).text();
+                        }).get();
+
+                        console.log(data);
+
+                        $('#id1').val(data[0]);
+                        $('#name1').val(data[1]);
+                        $('#number1').val(data[2]);
+                        $('#vehicle1').val(data[3]);
+                        $('#license1').val(data[4]);
+                        $('#pickup1').val(data[5]);
+                        $('#return1').val(data[6]);
+                        $('#price1').val(data[7]);
+                    
+                });
+
+            let button= document.querySelector('pay');
+            let input= document.querySelector('status');
+            if (input==="Pending"){
+                button.disabled= true;
+            }
+        });
+</script>
 <!----------------------------------------------PRODUCTS-------------------------------------------------------->
 <?php
     
