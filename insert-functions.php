@@ -64,7 +64,7 @@ if(isset($_POST['addDriver'])){
 
     if($result){
         echo '<script> alert("Data Saved Successfully!"); </script>';
-        header("location: _manage-drivers2.php");
+        header("location: /TemplateShop/_manage-drivers2.php");
     }
     else {
         echo '<script> alert("Data Was Not Successfully Saved!"); </script>';
@@ -112,7 +112,7 @@ if(isset($_POST['addCar'])){
 
     if($result){
         echo '<script> alert("Data Saved Successfully!"); </script>';
-        header("location: _manage-cars2.php");
+        header("location: /TemplateShop/_manage-cars2.php");
     }
     else {
         echo '<script> alert("Data Was Not Successfully Saved!"); </script>';

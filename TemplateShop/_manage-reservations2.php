@@ -7,7 +7,7 @@ $database = "rentacar";
 
 $con = new mysqli($servername, $user, $password, $database);
 
-include ('connection.php');
+include ('../connection.php');
 
 if(isset($_POST['update_res'])){
 	$id = $_POST['id1'];
@@ -23,13 +23,10 @@ if(isset($_POST['update_res'])){
 	
 	if($result){
 		//$_SESSION['status'] = "Your profile has been updated";
-			header("location:_manage-reservations2.php?error");
+			header("location:/TemplateShop/_manage-reservations2.php?error");
 		} else {
 			$error[]='Something went wrong';
 		}
-  
-		
-
 }
 ?>
 
@@ -42,9 +39,9 @@ if(isset($_POST['update_res'])){
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <title>Reservations</title>
 	    <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
 	    <!----css3---->
-        <link rel="stylesheet" href="css/custom.css">
+        <link rel="stylesheet" href="/css/custom.css">
 		
 		
 		<!--google fonts -->
@@ -81,9 +78,9 @@ if(isset($_POST['update_res'])){
 		  <li class="dash">
 		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
-
-          <li class="active">
-		  <a  href="#">
+		  
+		  <li class="approval">
+		  <a  href="_pending-reservations2.php">
 		  <i class="material-icons">summarize</i>Pending Reservations
 		  </a>
 		  </li>
@@ -94,8 +91,8 @@ if(isset($_POST['update_res'])){
 		  </a>
 		  </li>
 
-		  <li class="reserve">
-		  <a  href="_manage-reservations2.php">
+		  <li class="active">
+		  <a  href="#">
 		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
@@ -137,13 +134,13 @@ if(isset($_POST['update_res'])){
 		  <div class="top-navbar">
 		     <div class="xd-topbar">
 			     <div class="row">
-				     <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+				     <div class="col-2 col-md-1 col-lg-4 order-2 order-md-1 align-self-center">
 					    <div class="xp-menubar">
 						    <span class="material-icons text-white">signal_cellular_alt</span>
 						</div>
 					 </div>
 					 
-					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
+					 <!-- <div class="col-md-5 col-lg-3 order-3 order-md-2">
 					     <div class="xp-searchbar">
 						     <form>
 							    <div class="input-group">
@@ -156,7 +153,7 @@ if(isset($_POST['update_res'])){
 								</div>
 							 </form>
 						 </div>
-					 </div>
+					 </div> -->
 					 
 					 
 					 <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
@@ -189,7 +186,7 @@ if(isset($_POST['update_res'])){
 								  <span class="xp-user-live"></span>
 								 </a>
 								  <ul class="dropdown-menu small-menu">
-								     <li><a href="#">
+								     <li><a href="_company-profile.php">
 									 <span class="material-icons">person_outline</span>
 									 Profile
 									 </a></li>
@@ -237,7 +234,7 @@ if(isset($_POST['update_res'])){
 					   <div class="table-title">
 					     <div class="row">
 						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-							    <h2 class="ml-lg-2">Pending  Reservations</h2>
+							    <h2 class="ml-lg-2">Manage  Reservations</h2>
 							 </div>
 							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 							   <a href="_manage-reservations-chauffeur2.php" class="btn btn-success">
@@ -272,7 +269,7 @@ if(isset($_POST['update_res'])){
 						</thead>
 						  
 						  <tbody>
-						   
+						    
 							 <!--<th><span class="custom-checkbox">
 							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
 							 <label for="checkbox1"></label></th>-->
@@ -290,7 +287,7 @@ if(isset($_POST['update_res'])){
                             }
                             $com_id = $_SESSION['com_id'];
                             // echo $com_id;
-                            $sql = "SELECT * FROM approval WHERE status='Pending'";
+                            $sql = "SELECT * FROM reservation WHERE driver_stat='No' AND status='Reserved' AND seller_id = {$com_id}";
                             $result =$connection->query($sql);
 
                             if (!$result){
@@ -324,7 +321,7 @@ if(isset($_POST['update_res'])){
 									<div class="row">
 										<form action="_manage-reservations2.php" class="d-inline" >
 										<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" data-bs-toggle="modal" data-bs-target="#editReservationModal" >
-										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xe876;</i>
 										</button>
 									</form>
 
@@ -340,9 +337,8 @@ if(isset($_POST['update_res'])){
                         ;}
                                
                         ?>
-
-							 
-					</tbody>     
+						
+					</tbody>
 				</table>
 	</div>
 </div>
@@ -498,10 +494,10 @@ if(isset($_POST['update_res'])){
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="js/jquery-3.3.1.slim.min.js"></script>
-   <script src="js/popper.min.js"></script>
-   <script src="js/bootstrap.min.js"></script>
-   <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="/js/jquery-3.3.1.slim.min.js"></script>
+   <script src="/js/popper.min.js"></script>
+   <script src="/js/bootstrap.min.js"></script>
+   <script src="/js/jquery-3.3.1.min.js"></script>
    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">

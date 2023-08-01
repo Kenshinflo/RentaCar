@@ -85,7 +85,7 @@
 
                     header("location: in_use.php");
                 } else {
-                    header('Location: ../userreservation.php?&&error=You have already made a reservation.');
+                    header('Location: ../userreservation.php?&&error=Your reservation has not been approved yet');
                     exit();
                 }
             
@@ -137,7 +137,7 @@
             <!-- <h5 class="font-baloo font-size-25"><?php echo $_SESSION["days_rent"] ?? "Unknown"; ?></h5> -->
             <!-- <h5 class="font-baloo font-size-25"><?php echo $_SESSION["item_b"] ?? "Unknown"; ?></h5> -->
             <div class="col-sm-8 d-flex align-items-center justify-content-center">
-                <img src="<?php echo $item['item_image'] ?? "assets/products/1.png"; ?>" alt="product" class="img-fluid">
+                <img style="width:500px; height:auto;" src="../images/cars/<?php echo $item['item_image']; ?>" alt="product" class="img-fluid">
                 
             </div>
             
@@ -164,10 +164,10 @@
                         <td>Deal Price: </td>
                         <td class="font-size-20 text-danger">₱<span><?php echo $item['item_price'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;/day</small></td>
                     </tr>
-                    <tr class="font-rale font-size-16">
+                    <!-- <tr class="font-rale font-size-16">
                         <td>Units Available:</td>
                         <td><span class="font-size-16 text-danger"><?php echo $item['item_stock'] ?? 0; ?></span></td>
-                    </tr>
+                    </tr> -->
                     <tr class="font-rale font-size-16">
                         <td>License Plate:</td>
                         <td><span class="font-size-16 text-danger"><?php echo $item['item_license_plate'] ?? 0; ?></span></td>
@@ -225,12 +225,12 @@
                          
                        
                         <form action="#" method="POST" class="d-inline">
-                            <button type="submit" name="pay"  class="pay btn btn-danger btn-sm" value="<?=$value['item_id'];?>">Pay</button>
-                            <button type="submit" name="removeRes"  class="btn btn-danger btn-sm" onclick='return checkReserve()' value="<?=$value['item_id'];?>">Cancel</button>
+                            <button type="submit" name="pay"  class="pay btn btn-danger btn-sm mb-2" value="<?=$value['item_id'];?>">Pay</button>
+                            <button type="submit" name="removeRes"  class="btn btn-danger btn-sm mb-2" onclick='return checkReserve()' value="<?=$value['item_id'];?>">Cancel</button>
                         </form>
                         <?php 
                             if ($value['driver_stat'] == "Yes" && $value['driver_id'] != 0) {
-                            echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            echo '<button type="button" class="btn userinfo btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Driver details
                                 </button>';
                             } 
@@ -267,6 +267,7 @@
         endforeach;
 
         foreach ($product->getDriver($value['driver_id']??0) as $driver):
+            $driverid = $value['driver_id'];
         ?>
         
     
@@ -285,7 +286,16 @@
                 <div class="container ">
                     <div class = "d-flex align-items-center justify-content-center">
                         
-                        <img height="250" width="250" src="../assets/driver_pic/<?php echo $driver['driver_image'];?>">
+                    <?php
+                        $sql1 = "SELECT driver_image from drivers where driver_id='$driverid'";
+                        $result1 = mysqli_query($con,$sql1);
+                        $row1 = mysqli_fetch_array($result1);
+
+                        $image = $row1['driver_image'];
+                        $image_src = "/images/drivers/".$image;
+                    ?>
+
+                        <img height="170" width="250" src='<?php echo $image_src;?>'>
 
                     </div>
                     <hr>
@@ -410,6 +420,7 @@
         });
 </script>
 <!----------------------------------------------PRODUCTS-------------------------------------------------------->
+
 <?php
     
 endforeach;

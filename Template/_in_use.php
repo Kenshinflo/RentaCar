@@ -99,7 +99,7 @@
             <!-- <h5 class="font-baloo font-size-25"><?php echo $_SESSION["days_rent"] ?? "Unknown"; ?></h5> -->
             <!-- <h5 class="font-baloo font-size-25"><?php echo $_SESSION["item_b"] ?? "Unknown"; ?></h5> -->
             <div class="col-sm-8 d-flex align-items-center justify-content-center">
-                <img src="<?php echo $item['item_image'] ?? "assets/products/1.png"; ?>" alt="product" class="img-fluid">
+                <img style="width:500px; height:auto;" src="../images/cars/<?php echo $item['item_image']; ?>" alt="product" class="img-fluid">
                 
             </div>
             

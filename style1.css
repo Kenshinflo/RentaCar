@@ -53,9 +53,26 @@ input::placeholder {
     position: absolute; 
     right: 0;
     text-align: center; 
-    width: 40%;
+    width: 52%;
+    height:8%;
     z-index: 1;   
  }
+
+ .button #closebtn{
+    outline: none;
+ }
+
+ .alert strong{
+    text-align: center;
+ }
+
+ .alert-dismissible {
+    padding-right: 0rem;
+}
+
+button#pay{
+    margin-bottom: 2px;
+}
 
 .profile-button {
     display: flex;
@@ -68,11 +85,15 @@ input::placeholder {
     outline: none;
     color: #fff;
     border-radius: 5px;
-    margin: 25px 0 0 11px;
     background-color: #858585;
     transition: all 0.3s linear;
     cursor: pointer;
     font-size:medium;
+}
+
+button#closebtn{
+    border: none;
+    background-color: #FFF3CD;
 }
 
 .mt-3 input[type=submit]{
@@ -102,14 +123,13 @@ input::placeholder {
     outline: none;
     color: #fff;
     border-radius: 5px;
-    margin: 25px 0 0 11px;
     background-color: #858585;
     transition: all 0.3s linear;
     cursor: pointer;
     font-size:medium;
 }
 
-.mt-4 input[type=submit]{
+.btn input[type=submit]{
     font-weight: 500;
     font-size: 18px;
     color: #fff;
@@ -127,11 +147,19 @@ input::placeholder {
     background: #858585;
     color: white;
     font-size: large;
+    width: 25%;
 }
+
+.rounded-circle{
+    border: 2px solid #252525;
+}
+
 .color_right{
     background: white;
     font-family: sans-serif;
+    width: 51.4%;
 }
+
 
 .color_end{
     background: white;
@@ -211,6 +239,7 @@ input::placeholder {
 .side-nav {
     padding: 20px 0 20px 50px;
     margin-top: 20px;
+    margin-left:-5px;
   }
   
   .side-nav * {

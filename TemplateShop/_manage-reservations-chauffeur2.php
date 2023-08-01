@@ -7,7 +7,7 @@ $database = "rentacar";
 
 $con = new mysqli($servername, $user, $password, $database);
 
-include ('connection.php');
+include ('../connection.php');
 
 if(isset($_POST['update_res'])){
 	$id = $_POST['id1'];
@@ -18,12 +18,13 @@ if(isset($_POST['update_res'])){
     $pickup=$_POST['pickup1'];
 	$return=$_POST['return1'];
 	$price=$_POST['price1'];
+	$driver=$_POST['driver1'];
 
-	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', license_plate='$license', pickupdate='$pickup', returndate='$return', overall_price='$price' WHERE id='$id'");
+	$result = mysqli_query($con,"UPDATE reservation SET user_name='$name', number='$number', brand='$vehicle', license_plate='$license', pickupdate='$pickup', returndate='$return', overall_price='$price', driver_id='$driver' WHERE id='$id'");
 	
 	if($result){
 		//$_SESSION['status'] = "Your profile has been updated";
-			header("location:_manage-reservations2.php?error");
+			header("location:/TemplateShop/_manage-reservations-chauffeur2.php?error");
 		} else {
 			$error[]='Something went wrong';
 		}
@@ -42,9 +43,9 @@ if(isset($_POST['update_res'])){
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <title>Reservations</title>
 	    <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
 	    <!----css3---->
-        <link rel="stylesheet" href="css/custom.css">
+        <link rel="stylesheet" href="/css/custom.css">
 		
 		
 		<!--google fonts -->
@@ -82,8 +83,8 @@ if(isset($_POST['update_res'])){
 		  <a href=".dashboardCompany.php" class="dashboard"><i class="material-icons">dashboard</i>Dashboard </a>
 		  </li>
 
-          <li class="active">
-		  <a  href="#">
+		  <li class="approval">
+		  <a  href="_pending-reservations2.php">
 		  <i class="material-icons">summarize</i>Pending Reservations
 		  </a>
 		  </li>
@@ -94,8 +95,8 @@ if(isset($_POST['update_res'])){
 		  </a>
 		  </li>
 
-		  <li class="reserve">
-		  <a  href="_manage-reservations2.php">
+		  <li class="active">
+		  <a  href="#">
 		  <i class="material-icons">book_online</i>Car Reservation
 		  </a>
 		  </li>
@@ -137,13 +138,13 @@ if(isset($_POST['update_res'])){
 		  <div class="top-navbar">
 		     <div class="xd-topbar">
 			     <div class="row">
-				     <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+				     <div class="col-2 col-md-4 col-lg-4 order-2 order-md-1 align-self-center">
 					    <div class="xp-menubar">
 						    <span class="material-icons text-white">signal_cellular_alt</span>
 						</div>
 					 </div>
 					 
-					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
+					 <!-- <div class="col-md-5 col-lg-3 order-3 order-md-2">
 					     <div class="xp-searchbar">
 						     <form>
 							    <div class="input-group">
@@ -156,7 +157,7 @@ if(isset($_POST['update_res'])){
 								</div>
 							 </form>
 						 </div>
-					 </div>
+					 </div> -->
 					 
 					 
 					 <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
@@ -189,7 +190,7 @@ if(isset($_POST['update_res'])){
 								  <span class="xp-user-live"></span>
 								 </a>
 								  <ul class="dropdown-menu small-menu">
-								     <li><a href="#">
+								     <li><a href="_company-profile.php">
 									 <span class="material-icons">person_outline</span>
 									 Profile
 									 </a></li>
@@ -228,51 +229,52 @@ if(isset($_POST['update_res'])){
 
 		  
 
-		   <!------main-content-start-----------> 
-		      <div class="main-content">
-			     <div class="row">
-				    <div class="col-md-12">
-					   <div class="table-wrapper">
-					     
-					   <div class="table-title">
-					     <div class="row">
-						     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-							    <h2 class="ml-lg-2">Pending  Reservations</h2>
-							 </div>
-							 <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
-							   <a href="_manage-reservations-chauffeur2.php" class="btn btn-success">
-							   <i class="material-icons">&#xF217;</i>
-							   <span>Reservations with Driver</span>
-							   </a>
-							   <!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-							   <i class="material-icons">&#xE15C;</i>
-							   <span>Delete</span>
-							   </a>-->
-							 </div>
-					     </div>
-					   </div>
+<!------main-content-start-----------> 
+	<div class="main-content">
+		<div class="row">
+		<div class="col-md-12">
+			<div class="table-wrapper">
+				
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Manage  Reservations</h2>
+					</div>
+					<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<a href="_manage-reservations2.php" class="btn btn-success">
+					<i class="material-icons">&#xF217;</i>
+					<span>Reservations without Driver</span>
+					</a>
+					<!--<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+					<i class="material-icons">&#xE15C;</i>
+					<span>Delete</span>
+					</a>-->
+					</div>
+				</div>
+			</div>
 					   
-					<table class="table table-striped table-hover" id="myTable">
-					    <thead>
-						    <tr>
-							<!--<th><span class="custom-checkbox">
-							<input type="checkbox" id="selectAll">
-							<label for="selectAll"></label></th>-->
-							<th scope="col" width="50">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Contact Number</th>
-                            <th scope="col">Vehicle</th>
-							<th scope="col">License Plate</th>
-                            <th scope="col">Pick-up Date</th>
-                            <th scope="col">Reutrn Date</th>
-                            <th scope="col">Total Amount</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
-							</tr>
-						</thead>
+				<table class="table table-striped table-hover" id="myTable">
+					<thead>
+						
+						<!--<th><span class="custom-checkbox">
+						<input type="checkbox" id="selectAll">
+						<label for="selectAll"></label></th>-->
+						<th scope="col" width="50">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Contact Number</th>
+						<th scope="col">Vehicle</th>
+						<th scope="col">License Plate</th>
+						<th scope="col">Pick-up Date</th>
+						<th scope="col">Reutrn Date</th>
+						<th scope="col">Total Amount</th>
+						<th scope="col">Driver</th>
+						<th scope="col">Status</th>
+						<th scope="col">Action</th>
+						</tr>
+					</thead>
 						  
 						  <tbody>
-						   
+						
 							 <!--<th><span class="custom-checkbox">
 							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
 							 <label for="checkbox1"></label></th>-->
@@ -290,7 +292,7 @@ if(isset($_POST['update_res'])){
                             }
                             $com_id = $_SESSION['com_id'];
                             // echo $com_id;
-                            $sql = "SELECT * FROM approval WHERE status='Pending'";
+                            $sql = "SELECT * FROM reservation WHERE driver_stat='YES' AND status='Reserved' AND seller_id = {$com_id}";
                             $result =$connection->query($sql);
 
                             if (!$result){
@@ -305,6 +307,7 @@ if(isset($_POST['update_res'])){
 								$license = $row["license_plate"];
                                 $pickup = $row["pickupdate"];
                                 $return = $row["returndate"];
+								$driver = $row["driver_id"];
                                 $price = $row["overall_price"];
                                 $status = $row["status"];
                             ?>
@@ -319,6 +322,7 @@ if(isset($_POST['update_res'])){
                                 <td><?php echo $pickup?></td>
                                 <td><?php echo $return?></td>
                                 <td><?php echo $price?></td>
+								<td><?php echo $driver?></td>
                                 <td><?php echo $status?></td>
                                 <td>
 									<div class="row">
@@ -340,9 +344,8 @@ if(isset($_POST['update_res'])){
                         ;}
                                
                         ?>
-
 							 
-					</tbody>     
+					</tbody>
 				</table>
 	</div>
 </div>
@@ -424,6 +427,11 @@ if(isset($_POST['update_res'])){
 			</div>
 
 			<div class="form-group">
+				<label>Vehicle</label>
+				<input type="text" class="form-control" autocomplete="off" name="license1" id="license1" <?php echo $license; ?>">
+			</div>
+
+			<div class="form-group">
 				<label>Pick-up Date</label>
 				<input type="text" class="form-control" autocomplete="off" name="pickup1" id="pickup1" <?php echo $pickup; ?>">
 			</div>
@@ -431,6 +439,11 @@ if(isset($_POST['update_res'])){
 			<div class="form-group">
 				<label>Return Date</label>
 				<input type="text" class="form-control" autocomplete="off" name="return1" id="return1" <?php echo $return; ?>">
+			</div>
+
+			<div class="form-group">
+				<label>Driver</label>
+				<input type="text" class="form-control" autocomplete="off" name="driver1" id="driver1" <?php echo $driver; ?>">
 			</div>
 
 			<div class="form-group">
@@ -498,10 +511,10 @@ if(isset($_POST['update_res'])){
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="js/jquery-3.3.1.slim.min.js"></script>
-   <script src="js/popper.min.js"></script>
-   <script src="js/bootstrap.min.js"></script>
-   <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="/js/jquery-3.3.1.slim.min.js"></script>
+   <script src="/js/popper.min.js"></script>
+   <script src="/js/bootstrap.min.js"></script>
+   <script src="/js/jquery-3.3.1.min.js"></script>
    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
@@ -538,6 +551,7 @@ if(isset($_POST['update_res'])){
 					$('#pickup1').val(data[5]);
 					$('#return1').val(data[6]);
 					$('#price1').val(data[7]);
+					$('#driver1').val(data[8]);
 				
 			});
 		  

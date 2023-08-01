@@ -1,34 +1,15 @@
 <?php
 
   ob_start();
-  //include header.php file
+
   include ('connection.php');
-
-//   if(isset($_POST['update_cart'])){
-
-//     $update_id = $_POST['user_id'];
-// 	$fullname=$_POST['fullname'];
-// 	$username=$_POST['username'];
-//     $email=$_POST['email'];
-//     $number=$_POST['number'];
-//     $address=$_POST['address'];
-// 	$dateofbirth=$_POST['datebirth'];
-// 	$Gender=$_POST['Gender'];
-
-//     mysqli_query($conn, "UPDATE user SET full_name = '$fullname', username = '$username',  email = '$email', phonenumber = '$number', address = '$address', dateofbirth = '$dateofbirth', gender = '$Gender' 
-// 					WHERE id = '$update_id'") or die('query failed');
-					
-//     $message[] = 'quantity updated!';
-// 	}
-
 
 $id=$_SESSION["user_id"];
   $findresult = mysqli_query($con, "SELECT * FROM user WHERE user_id= '$id'");
 	if($res = mysqli_fetch_array($findresult))
 {
 $id = $res['user_id'];
-$firstname = $res['first_name'];
-$lastname = $res['last_name']; 
+$fullname = $res['fullname'];
 $username =$res['user_name'];
 $oldusername =$res['user_name'];
 $email = $res['email'];   
@@ -43,7 +24,7 @@ $image= $res['pic_ID'];
 <html>
 <head>
 	<title>User Profile</title>
-	<link rel="stylesheet" type="text/css" href="user_profile/css/style1.css">
+	<link rel="stylesheet" type="text/css" href="style1.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
@@ -62,8 +43,8 @@ $image= $res['pic_ID'];
 	{
 		?>
 		<div class="alert alert-warning alert-dismissible fade show center-block" role="alert">
-  			<strong>Success!</strong> <?php echo $_SESSION['status']; ?>
-  				<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
+  			<strong class>Success! </strong> <?php echo $_SESSION['status']; ?>
+  				<button type="button" id="closebtn" class="close" data-bs-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span>
   			</button>
 		</div>
 		<?php
@@ -75,8 +56,7 @@ $image= $res['pic_ID'];
 		
 	<?php
 	if(isset($_POST['update_prof'])){
-		$firstname=$_POST['first_name'];
-		$lastname=$_POST['last_name']; 
+		$fullname=$_POST['fullname'];
 		$username=$_POST['user_name'];  
 		$email=$_POST['email'];
 		$phonenumber=$_POST['contact_num'];
@@ -122,7 +102,7 @@ $image= $res['pic_ID'];
 				move_uploaded_file($file, $folder . $new_image_name); 
 				mysqli_query($con,"UPDATE user SET pic_ID='$new_image_name' WHERE user_id='$id'");
 			}
-			 $result = mysqli_query($con,"UPDATE user SET first_name='$firstname', last_name='$lastname', user_name='$username', email='$email', contact_num='$phonenumber' WHERE user_id='$id'");
+			 $result = mysqli_query($con,"UPDATE user SET fullname='$fullname', user_name='$username', email='$email', contact_num='$phonenumber' WHERE user_id='$id'");
 			 if($result){
 				$_SESSION['status'] = "Your profile has been updated";
 		 		header("location:profile.php");
@@ -151,10 +131,11 @@ $image= $res['pic_ID'];
 						?>
 					<div class="row mt-1"></div>
 				<div class="row mt-2"></div>	
-					<span class="font-weight-bold"><?php echo $firstname;?></span><span class=><?php echo $email;?></span><span> </span></div>
+					<span class="font-weight-bold"><?php echo $fullname;?></span><span class=><?php echo $email;?></span><span> </span></div>
 					<nav class="side-nav navbar">
 						<ul style="list-style: none;">
 						  <li><a href="index.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+						  <li><a href="profile.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-user"></i> <span>Profile</span></a></li>
 						  <li><a href="userreservation.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-calendar-check"></i> <span>My Reservation</span></a></li>
 						  <li><a href="in_use.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-key"></i> <span style="padding-left:5px">My Rented Cars</span></a></li>
 						  <li><a href="password.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-user"></i> <span>Change Password</span></a></li>
@@ -170,32 +151,32 @@ $image= $res['pic_ID'];
 						<div class="row mt-2 border-top">
 							<input type="hidden" name="user_id" value="<?php echo $fetch_user['user_id'];?>">
 
-							<div class="mt-3 col-md-6"><label class="labels">First Name</label>
-								<input type="text" name="first_name" placeholder="Enter your first name" class="form-control" value="<?php echo $firstname;?>">
-							</div>
-
-							<div class="mt-3 col-md-6"><label class="labels">Last Name</label>
-								<input type="text" name="last_name" placeholder="Enter your last name" class="form-control" value="<?php echo $lastname;?>">
+							<div class="mt-3 col-md-6"><label class="labels">full Name</label>
+								<input type="text" name="fullname" placeholder="Enter your full name" autocomplete="off" class="form-control" value="<?php echo $fullname;?>">
 							</div>
 
 							<div class="mt-3 col-md-6"><label class="labels">Username</label>
-								<input type="text" name="user_name" placeholder="Enter your username" class="form-control" value="<?php echo $username;?>">
+								<input type="text" name="user_name" placeholder="Enter your username" autocomplete="off" class="form-control" value="<?php echo $username;?>">
 							</div>
 
 							<div class="mt-2 col-md-6"><label class="labels">Email Address</label>
-								<input type="text" name="email" placeholder="Enter your email address" class="form-control" value="<?php echo $email;?>">
+								<input type="text" name="email" placeholder="Enter your email address" autocomplete="off" class="form-control" value="<?php echo $email;?>">
 							</div>
 
-							<div class="mt-2 col-md-6"><label class="labels">Mobile Number</label>
-								<input type="text" name="contact_num" placeholder="Enter your mobile number" class="form-control" value="<?php echo $phonenumber;?>">
+							<div class="mt-2 mb-4 col-md-6"><label class="labels">Mobile Number</label>
+								<input type="text" name="contact_num" placeholder="Enter your mobile number" autocomplete="off" class="form-control" value="<?php echo $phonenumber;?>">
 							</div>
 
-						<div class="row mt-2 border-top mt-4" id = "buttonUp">
-							<div class="mt-4 col-md-2 text-center profile-button">
-								<input type="submit" value="Update" name="update_prof">
+						
+						<div class="container border-top" id="buttonUp">
+						<br>
+						<label for="update">
+							<div class="btn col-md-2 text-center profile-button">
+								<input id="update" type="submit" value="Update" name="update_prof">
 							</div>
+						</label>
 						</div>
-
+						
 						
 						
 					</div>

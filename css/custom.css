@@ -168,6 +168,164 @@ overflow:auto;
 	  
   }
 
+.color_left{
+	color: white;
+	margin-bottom: 50px;
+	margin-top: 50px;
+    background: #353B48;
+    font-family: sans-serif;
+	border-radius: 5px;
+}
+
+.color_right{
+	margin-left: 50px;
+	height: 50%;
+	color: white;
+	margin-bottom: 50px;
+	margin-top: 50px;
+    background: #353B48;
+    font-family: sans-serif;
+	border-radius: 5px;
+}
+
+.main-row{
+max-width: 100%;
+}
+
+.btn1 .btn input[type="submit"]{
+	background-color: transparent;
+	font-weight: 500;
+	font-size: 18px;
+	color:#fff;
+	border:none;
+	cursor: pointer;
+}
+
+.btn1 .btn button[type="submit"]{
+	background-color: transparent;
+	font-weight: 500;
+	font-size: 18px;
+	color:#fff;
+	border:none;
+	cursor: pointer;
+}
+
+.col-6 .btn input[type="button"]{
+	background-color: transparent;
+	font-weight: 500;
+	font-size: 18px;
+	color:#fff;
+	border:none;
+	cursor: pointer;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #009E60;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    font-size:medium;
+}
+
+.profile-button:hover {
+    background: #4ab86f;
+}
+
+.profile-button:focus {
+    background: #858585;
+    box-shadow: none
+}
+
+.password-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #009E60;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    font-size:medium;
+}
+
+.password-button:hover {
+    background: #4ab86f;
+}
+
+.password-button:focus {
+    background: #858585;
+    box-shadow: none
+}
+
+.passbtn{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #D22B2B;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    font-size:medium;
+}
+
+.passbtn:hover {
+    background: #CC5500;
+}
+
+.passbtn:focus {
+    background: #858585;
+    box-shadow: none
+}
+
+.backbtn{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #D22B2B;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    font-size:medium;
+}
+
+.backbtn:hover {
+    background: #CC5500;
+}
+
+.backbtn:focus {
+    background: #858585;
+    box-shadow: none
+}
+
+.erralert{
+	margin: auto;
+}
   .boxes{
 	display: flex;
 	justify-content: center;

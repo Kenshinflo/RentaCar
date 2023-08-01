@@ -153,7 +153,7 @@
     <div class="container">
 
         <div class="forms-container">
-        <button onclick="window.location='_company-login.php';" id="seller-login account" type="submit" class="btn1 btn-primary" name="submit">Company Login</button>
+        <button onclick="window.location='/TemplateShop/_company-login.php';" id="seller-login account" type="submit" class="btn1 btn-primary" name="submit">Company Login</button>
 
                 <div class="signin-signup  p-4">
                     
