@@ -1,8 +1,14 @@
 <?php
 
+<<<<<<< Updated upstream
   ob_start();
   //include header.php file
   include ('connection.php');
+=======
+ob_start();
+
+include ('connection.php');
+>>>>>>> Stashed changes
 
 //   if(isset($_POST['update_cart'])){
 
@@ -23,9 +29,10 @@
 
 
 $id=$_SESSION["user_id"];
-  $findresult = mysqli_query($con, "SELECT * FROM user WHERE user_id= '$id'");
-	if($res = mysqli_fetch_array($findresult))
-{
+
+$findresult = mysqli_query($con, "SELECT * FROM user WHERE user_id= '$id'");
+if($res = mysqli_fetch_array($findresult)) {
+	
 $id = $res['user_id'];
 $firstname = $res['first_name'];
 $lastname = $res['last_name']; 
