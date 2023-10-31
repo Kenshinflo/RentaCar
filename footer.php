@@ -1,11 +1,12 @@
 </main>
 <!-----------------------------------------------FOOTER------------------------------------------------------------->
-<footer class="footer mt-auto bg-dark bg-gradient">
+<!-- <footer class="footer mt-auto bg-dark bg-gradient fixed-bottom">
     <section>
-        <div class="container">
+        <!-- <div class="container">
+
             <div class="row">
 
-                <div class="footer-col">
+                <div class="col-sm">
                     <h4>company</h4>
                     <ul>
                         <li><a href="#">about us</a></li>
@@ -14,7 +15,7 @@
                         <li><a href="#">contact</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="col-sm">
                     <h4>get help</h4>
                     <ul>
                         <li><a href="#">FAQ</a></li>
@@ -24,7 +25,7 @@
                     </ul>
                 </div>
 
-                <div class="footer-col">
+                <div class="col-sm">
                     <h4>follow us</h4>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -34,26 +35,71 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </div> -->
+        
+    <!-- </section> -->
 	
+<!-- </footer> --> 
+
+  <footer class="row align-items-baseline justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 ms-0 border-top mt-auto footer">
+    <div class="col-lg-2 mb-3 ms-3 center-footer">
+      
+      <h5 class="">RentaCar</h5>
+      <p class="">&copy; 2023</p>
+    </div>
+
+    <div class="col-md-2 col-lg-2 mb-3">
+
+    </div>
+
+    <div class="col-lg-2 mb-3 text-right justify-content-end">
+      <h5>Customer Service</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Help & FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Contact Us</a></li>
+       
+      </ul>
+    </div>
+
+    <div class="col-lg-2 mb-3 text-right justify-content-end">
+      <h5>Company Info</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About RentaCar</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Meet Our People</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
+        
+      </ul>
+    </div>
+
+    <div class="col-lg-2 mb-3 text-right justify-content-end">
+      <h5>Security & Privacy</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Terms of Use</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Privacy Notice</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Copyright Notices</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Fraud & Scams</a></li>
+      </ul>
+    </div>
+  </footer>
+
+<footer class="copyright text-center bg-dark text-white mt-auto ">
+  <div class="container p-1">
+    <p class="font-rale font-size-14 mt-2">&copy;Copyrights 2023, RentaCar</p>
+  </div>
 </footer>
-<!-- <div class="copyright text-center bg-dark text-white py-1">
-    <p class="font-rale font-size-14">&copy;Copyrights 2022, RentaCar</p>
-</div> -->
 <!----------------------------------------------FOOTER------------------------------------------------------------->
 
 
 
 <!-----------------------------------------------JAVASCRIPT--------------------------------------------------------->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
 
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script> -->
+
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
 <!-----Owl Carousel Js file----->
@@ -72,7 +118,29 @@
 <script src="index.js" defer></script>
 <!-- <script src="js/bootstrap.bundle.min.js"></script> -->
 
+<!-- <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "PAGE-ID");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
 
+
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'API-VERSION'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script> -->
 
 </body>
 

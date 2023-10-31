@@ -7,84 +7,69 @@ $database = "rentacar";
 
 $con = new mysqli($servername, $user, $password, $database);
 
-if(isset($_POST['update'])){
-	$id = $_POST['user_id1'];
-    $namef=$_POST['namef1'];
-	$namel=$_POST['namel1'];
-    $username=$_POST['username1'];
-	$passwords=$_POST['password1'];
-	$email=$_POST['email1'];
-    $contact=$_POST['contact1'];
-    $verified=$_POST['verified1'];
-	$regdate=$_POST['regdate1'];
 
-	// $folder='images/drivers/';
-	// $file = $_FILES['pic_ID']['tmp_name'];
-    // $file_name = $_FILES['pic_ID']['name'];
-    // $file_name_array = explode(".", $file_name); 
-	// 	$extension = end($file_name_array);
+$admin_id=$_SESSION["admin_id"];
 
-	// 	$new_image_name ='license_'.rand() . '.' . $extension;
-	// 	if ($_FILES["pic_ID"]["size"] >10000000) {
-	// 	$error[] = 'Sorry, your image is too large. Upload less than 10 MB in size .';
-	// 	}
+include ('../connection.php');
 
-	// $file1 = $_FILES['pic_PROFILE']['tmp_name'];
-    // $file_name1 = $_FILES['pic_PROFILE']['name'];
-    // $file_name_array1 = explode(".", $file_name1); 
-	// 	$extension1 = end($file_name_array1);
+$findresult = mysqli_query($con, "SELECT * FROM admin WHERE admin_id= '$admin_id'");
 
-	// 	$new_image_name1 ='profile_'.rand() . '.' . $extension1;
-	// 	if ($_FILES["pic_PROFILE"]["size"] >10000000) {
-	// 	$error1[] = 'Sorry, your image is too large. Upload less than 10 MB in size .';
-	// 	}
+if($res = mysqli_fetch_array($findresult)){
+$id = $res['admin_id'];
+$username = $res['user_name'];
+$adminname = $res['admin_name'];
+$pass = $res['admin_pass']; 
+$img = $res['admin_image'];
+}
 
-	// 	if($file != ""){
-	// 		if($extension!= "jpg" && $extension!= "png" && $extension!= "jpeg"
-	// 		&& $extension!= "gif" && $extension!= "PNG" && $extension!= "JPG" && $extension!= "GIF" && $extension!= "JPEG"){
-	// 			$error[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';   
-	// 		}
-	// 	}
+$admin_id=$_SESSION["admin_id"];
 
-	// 	if($file1 != ""){
-	// 		if($extension1!= "jpg" && $extension1!= "png" && $extension1!= "jpeg"
-	// 		&& $extension1!= "gif" && $extension1!= "PNG" && $extension1!= "JPG" && $extension1!= "GIF" && $extension1!= "JPEG"){
-	// 			$error1[] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed';   
-	// 		}
-	// 	}
+include ('../connection.php');
 
-	// 	if(!isset($error)){ 
-	// 		if($file!= ""){
-	// 		  	$stmt = mysqli_query($con,"SELECT driver_license FROM drivers WHERE driver_id='$id'");
-	// 		  	$row = mysqli_fetch_array($stmt); 
-	// 		  	$deleteimage=$row['driver_license'];
-	// 			unlink($folder.$deleteimage);
-	// 			move_uploaded_file($file, $folder . $new_image_name); 
-	// 			mysqli_query($con,"UPDATE drivers SET driver_license='$new_image_name' WHERE driver_id='$id'");
-	// 		}
+$findresult = mysqli_query($con, "SELECT * FROM admin WHERE admin_id= '$admin_id'");
 
-	// 	if($file1!= ""){
-	// 			$stmt1 = mysqli_query($con,"SELECT driver_image FROM drivers WHERE driver_id='$id'");
-	// 			$row1 = mysqli_fetch_array($stmt1); 
-	// 			$deleteimage=$row1['driver_image'];
-	// 		  	unlink($folder.$deleteimage);
-	// 		  	move_uploaded_file($file1, $folder . $new_image_name1); 
-	// 		  	mysqli_query($con,"UPDATE drivers SET driver_image='$new_image_name1' WHERE driver_id='$id'");
-	// 	  	}
-		  
-		$result = mysqli_query($con,"UPDATE user SET first_name='$namef', last_name='$namel', user_name='$username', pass_word='$passwords', email='$email', contact_num='$contact', verified='$verified' WHERE user_id='$id'");
-		
-		if($result){
-		//$_SESSION['status'] = "Your profile has been updated";
-			header("location:_manage-users2.php");
-		} else {
-			header("location:_manage-users2.php?error");
-		}
-  
-	  }
-
+if($res = mysqli_fetch_array($findresult)){
+$id = $res['admin_id'];
+$username = $res['user_name'];
+$adminname = $res['admin_name'];
+$pass = $res['admin_pass']; 
+$img = $res['admin_image'];
+}
 
 ?>
+
+<?php
+if(isset($_POST['removeUser'])){
+    $id = $_POST['user_id1'];
+
+    $query = "DELETE FROM user WHERE user_id='$id'";
+    $query = mysqli_query($con, $query);
+
+    if($query_run){
+        header("location: /TemplateAdmin/_manage-users2.php");
+    }
+    else {
+        header("location: /TemplateAdmin/_manage-users2.php");
+    }   
+}?>
+
+
+<?php
+if(isset($_POST['removeUser'])){
+    $product = $_POST['user_id2'];
+
+    $query = "DELETE FROM user WHERE user_id='$product'";
+    $query = mysqli_query($con, $query);
+
+    if($query_run){
+        header("location: /TemplateAdmin/_manage-users2.php");
+    }
+    else {
+        header("location: /TemplateAdmin/_manage-users2.php");
+    }   
+}?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +78,9 @@ if(isset($_POST['update'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>Drivers</title>
+
+        <title>Users</title>
+
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/css/bootstrap.min.css">
 	    <!----css3---->
@@ -107,6 +94,9 @@ if(isset($_POST['update'])){
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+    	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+
 
 
 	   <!--google material icon-->
@@ -125,7 +115,9 @@ if(isset($_POST['update'])){
 	 
 	 <div id="sidebar">
 	    <div class="sidebar-header">
-		   <h3><img src="img/temp.webp" class="img-fluid"/><span>RentaCar</span></h3>
+		<h3><img style="width:40px; height:auto;" src="../images/admin/<?php echo $res['admin_image']; ?>"
+                        class="img-fluid"><span><?php echo $_SESSION['user_name']; ?></span></h3>
+
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="dash">
@@ -168,7 +160,8 @@ if(isset($_POST['update'])){
 					 </div>
 					 
 					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
-					     <div class="xp-searchbar">
+					     <!-- <div class="xp-searchbar">
+
 						     <form>
 							    <div class="input-group">
 								  <input type="search" class="form-control"
@@ -179,7 +172,8 @@ if(isset($_POST['update'])){
 								  </div>
 								</div>
 							 </form>
-						 </div>
+						 </div> -->
+
 					 </div>
 					 
 					 
@@ -187,12 +181,13 @@ if(isset($_POST['update'])){
 					     <div class="xp-profilebar text-right">
 						    <nav class="navbar p-0">
 							   <ul class="nav navbar-nav flex-row ml-auto">
-							   <li class="dropdown nav-item active">
+							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								  <span class="material-icons">notifications</span>
-								  <span class="notification">4</span>
+								  <span class="notification">0</span>
 								 </a>
-								  <ul class="dropdown-menu">
+								  <ul class="dropdown-menu dropdown-notif">
+
 								     <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
@@ -200,28 +195,29 @@ if(isset($_POST['update'])){
 								  </ul>
 							   </li>
 							   
-							   <li class="nav-item">
+							   <!-- <li class="nav-item">
 							     <a class="nav-link" href="#">
 								   <span class="material-icons">question_answer</span>
 								 </a>
-							   </li>
+							   </li> -->
 
-							   <i class="fas"></i><?php echo $_SESSION['shopname'] ?>
+							   <i class="fas"></i><?php echo "<p>" . $_SESSION['user_name'] . "</p>"; ?>
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
-								  <img src="/img/admin.png" style="width:40px; border-radius:50%;"/>
+								 <img style="width:40px; height:auto;" src="../images/admin/<?php echo $res['admin_image']; ?>">
 								  <span class="xp-user-live"></span>
 								 </a>
 								  <ul class="dropdown-menu small-menu">
-								     <li><a href="#">
+								     <li><a href="_admin-profile.php">
 									 <span class="material-icons">person_outline</span>
 									 Profile
 									 </a></li>
-									 <li><a href="#">
+									  <li><a href="#">
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
-									 <li><a href="_company-login.php">
+									 <li><a href="_admin-login.php">
+
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -238,7 +234,8 @@ if(isset($_POST['update'])){
 				 </div>
 				 
 				 <div class="xp-breadcrumbbar text-center">
-				    <h4 class="page-title">Drivers</h4>
+				    <h4 class="page-title">Customers</h4>
+
 					<!--<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
 					  <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
@@ -266,7 +263,8 @@ if(isset($_POST['update'])){
 					     </div>
 					   </div>
 					   
-					<table class="table table-striped table-hover">
+					<table class="table table-striped table-hover" id="myTable">
+
 					    <thead>
 						    <tr>
 							<!--<th><span class="custom-checkbox">
@@ -278,15 +276,16 @@ if(isset($_POST['update'])){
                             <th scope="col">Password</th>
                             <th scope="col">Email</th>
                             <th scope="col">Contact Number</th>
-                            <th scope="col">Verified</th>
                             <th scope="col">Register Date</th>
                             <th scope="col">Picture</th>
+							<th scope="col">Legal ID</th>
+
                             <th scope="col">Action</th>
 							</tr>
 						</thead>
 						  
 						  <tbody>
-						      <tr>
+
 							 <!--<th><span class="custom-checkbox">
 							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
 							 <label for="checkbox1"></label></th>-->
@@ -312,36 +311,40 @@ if(isset($_POST['update'])){
 
                             while($row = $result->fetch_assoc()) {
                                 $id=$row["user_id"];
-                                $namef=$row["first_name"];
-                                $namel=$row["last_name"];
+                                $fullname=$row["fullname"];
+
                                 $username=$row["user_name"];
                                 $passwords=$row["pass_word"];
                                 $email=$row["email"];
                                 $contact=$row["contact_num"];
-                                $verified=$row["verified"];
                                 $regdate=$row["register_date"];
                                 $pic=$row["pic_ID"];
+								$legalid=$row["legal_id"];
+
                             ?>
 
                             <tr>     
                                 <td><?php echo $id?></td>
-                                <td><?php echo $namef?></td>
-								<td><?php echo $namel?></td>
+                                <td><?php echo $fullname?></td>
+
                                 <td><?php echo $username?></td>
                                 <td class="content_td"><?php echo $passwords?></td>
                                 <td><?php echo $email?></td>
                                 <td><?php echo $contact?></td>
-                                <td><?php echo $verified?></td>
                                 <td><?php echo $regdate?></td>
-                                <td class="content_td"><?php echo $pic?></td>
+								<?php echo "<td><img height='150' width='150' id='image1' src='/images/user/{$row['pic_ID']}' onclick='imageClicked(\"/images/user/{$row['pic_ID']}\")'></td>";?>
+								<?php echo "<td><img height='150' width='250' id='image2' src='/images/legal_id/{$row['legal_id']}' onclick='imageClicked(\"/images/legal_id/{$row['legal_id']}\")'></td>";?>
+								
                                 <td>
 
-								<div class="row">
+								<!-- <div class="row">
+
 								<form action="_manage-users2.php" class="d-inline" >
                                 	<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" data-bs-toggle="modal" data-bs-target="#editEmployeeModal" >
 										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 									</button>
-                                </form>
+                                </form> -->
+
 
 								<form action="_manage-users2.php" class="d-inline">
                                     <button type="button" name="del_button" id="del_button" class="btn btn-danger del_button btn-sm" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal">
@@ -349,7 +352,8 @@ if(isset($_POST['update'])){
 									</button>
                                 </form>
 
-								</div>
+								
+
 
                                 </td>
                             </tr>
@@ -358,129 +362,35 @@ if(isset($_POST['update'])){
                                
                         ?>
 							 
-						  </tbody>
-						  
-					      
-					   </table>
-					   
-					   <div class="clearfix">
-					     <div class="hint-text">showing <b>3</b> out of <b>3</b></div>
-					     <ul class="pagination">
-						    <li class="page-item disabled"><a href="#">Previous</a></li>
-							<li class="page-item "><a href="#"class="page-link">1</a></li>
-							<li class="page-item "><a href="#"class="page-link">2</a></li>
-							<li class="page-item active"><a href="#"class="page-link">3</a></li>
-							<li class="page-item "><a href="#"class="page-link">4</a></li>
-							<li class="page-item "><a href="#"class="page-link">5</a></li>
-							<li class="page-item "><a href="#" class="page-link">Next</a></li>
-						 </ul>
-					   </div>  
+						  </tbody>		      
+					   </table> 
 					</div>
 				</div>
-									   
-				   <!----edit-modal start--------->
+   
 
-
-<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Driver Information</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-
-		<form method="POST" enctype="multipart/form-data">
-			<input type="hidden" id="user_id1" name="user_id1"  />
-
-			<div class="form-group">
-				<label>First Name</label>
-				<input type="text" class="form-control" autocomplete="off" name="namef1" id="namef1" <?php echo $namef; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Last Name</label>
-				<input type="text" class="form-control" autocomplete="off" name="namel1" id="namel1" <?php echo $namel; ?>">
-			</div>
-			
-			<div class="form-group">
-				<label>Username</label>
-				<input type="text" class="form-control" autocomplete="off" name="username1" id="username1" <?php echo $username; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Password</label>
-				<input type="text" class="form-control" autocomplete="off" name="password1" id="password1" <?php echo $passwords; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Email</label>
-				<input type="text" class="form-control" autocomplete="off" name="email1" id="email1" <?php echo $email; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Contact Number</label>
-				<input type="text" class="form-control" autocomplete="off" name="contact1" id="contact1" <?php echo $contact; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Verified</label>
-				<input type="text" class="form-control" autocomplete="off" name="verified1" id="verified1" <?php echo $verified; ?>">
-			</div>
-
-			<div class="form-group">
-				<label>Register Date</label>
-				<input type="text" class="form-control" autocomplete="off" name="regdate1" id="regdate1" <?php echo $regdate; ?>">
-			</div>
-
-			<div class="row">
-				<div class="form-group mb-5 border-bottom-0 col-6 mt-5">
-					<label for="pic_ID" style="font-size:20px; font-weight:bold;">Upload Picture of Driver's License</label><br>
-					<input type="file" class="form-control-file mt-3" id="pic_ID" name="pic_ID">
-				</div>
-						
-						
-				<div class="form-group mb-5 border-bottom-0 col-6 mt-5">
-					<label for="pic_PROFILE" style="font-size:20px; font-weight:bold;">Upload Picture of Driver</label><br>
-					<input type="file" class="form-control-file mt-3" id="pic_PROFILE" name="pic_PROFILE">
-				</div>
-			</div>
-		</div>
-		
-			<div class="modal-footer">
-				<button type="submit" name="update"  id="update" class="btn btn-success">Save</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" href="_manage-drivers2.php">Cancel</button>			
-			</div>
-	  	</form>
-    </div>
-  </div>
-</div>
-
-					   <!----edit-modal end--------->	   
-					   
 					   
 					 <!----delete-modal start--------->
 <div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Delete Employees</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title">Remove User</h5>
+        <button type="button" class="close mr-3 mt-2" data-bs-dismiss="modal" aria-label="Close">
+
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-	<form action="delete-functions.php" method="POST" class="d-inline">
+	<form method="POST" class="d-inline">
+
 		
     	<div class="modal-body">
 
 			<input type="hidden" id="driver_id2" name="driver_id2"/>
 
         	<p>Are you sure you want to delete this Record</p>
-			<p class="text-warning"><medium>this action Cannot be Undone</medium></p>
+			<p class="text-danger"><medium>this action Cannot be Undone</medium></p>
+
     	</div>
 
     	<div class="modal-footer">
@@ -495,7 +405,24 @@ if(isset($_POST['update'])){
 </div>
 
 					   <!----edit-modal end--------->   
-					   
+					   <div id="myModal" class="modal">
+                        <div class="modal-content modals">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <!-- <p id="modalContent"></p> -->
+                            <img id="modalImage" src="" alt="Image">
+                        </div>
+                    </div>
+
+					<div id="myModal1" class="modal">
+                        <div class="modal-content modals">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <!-- <p id="modalContent"></p> -->
+                            <img id="modalImage1" src="" alt="Image">
+                        </div>
+                    </div>
+
+
+
 					
 					
 				 
@@ -538,10 +465,18 @@ if(isset($_POST['update'])){
    <script src="/js/popper.min.js"></script>
    <script src="/js/bootstrap.min.js"></script>
    <script src="/js/jquery-3.3.1.min.js"></script>
+   <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 	</script>
-  
+
+<script>
+        $(document).ready(function(){
+			$('#myTable').dataTable();
+        });
+</script>
+
+
 
 
 <script>
@@ -549,7 +484,8 @@ if(isset($_POST['update'])){
 
 			$('.del_button').click(function(e){
 					
-				$('#deleteEmployeeModal').modal('show');
+				// $('#deleteEmployeeModal').modal('show');
+
 
 					$tr=$(this).closest('tr');
 
@@ -564,6 +500,16 @@ if(isset($_POST['update'])){
 			});
 		});
 </script>
+
+<script>
+	$(document).ready(function() {
+		$.noConflict();
+		$('#myTable').dataTable();
+	});
+</script>
+
+
+
   
   <script type="text/javascript">
         	$(document).ready(function(){
@@ -606,6 +552,107 @@ if(isset($_POST['update'])){
             return confirm('Are you sure you want to delete this record?');
         }
 	</script>
+
+
+<script>
+    function imageClicked(imageUrl) {
+        var modal = document.getElementById("myModal");
+        var modalImage = document.getElementById("modalImage");
+
+        modalImage.src = imageUrl;
+     
+
+        modalImage.style.width = "500px";
+        modalImage.style.height = "auto";
+        // Display the modal
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        // Get a reference to the modal
+        var modal = document.getElementById("myModal");
+
+        // Close the modal by hiding it
+        modal.style.display = "none";
+
+        modalImage.src = "";
+        modalImage.style.width = "auto";
+        modalImage.style.height = "auto";
+    }
+    </script>
+
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+// Function to fetch and display notifications
+function fetchNotifications() {
+    $.ajax({
+        url: 'fetch_notifications.php', // Create a new PHP file to handle fetching notifications
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var notificationDropdown = $('.dropdown-notif'); // Replace with the appropriate selector for your dropdown
+
+            // Clear existing notifications
+            notificationDropdown.empty();
+
+            // Loop through the fetched notifications and add them to the dropdown
+			if (data.length === 0) {
+                var noNotificationsItem = '<li><a href="#">No notifications</a></li>';
+                notificationDropdown.append(noNotificationsItem);
+            } else {
+            $.each(data, function (index, notification) {
+                var notificationItem = '<li><a href="#" class="notification-link" data-notification-id="' + notification.notification_id + '" data-account-type="' +notification.account_type + '">' + notification.message + '</a></li>';
+                notificationDropdown.append(notificationItem);
+            });
+		}
+
+		$('.notification').text(data.length);
+
+			$('.notification-link').click(function (event) {
+                    event.preventDefault();
+                    var notificationId = $(this).data('notification-id');
+                    var accountType = $(this).data('account-type');
+
+                    // Determine the URL to redirect to based on the account type
+                    var redirectUrl = accountType === 'customer' ? '_manage-users2.php' : '_manage-shops2.php';
+
+                    // Redirect to the appropriate page
+                    window.location.href = redirectUrl;
+
+                // Send an AJAX request to mark the notification as read
+                $.ajax({
+                        url: 'delete_notification.php',
+                        type: 'POST',
+                        data: { notification_id: notificationId },
+                        success: function (response) {
+                            if (response === 'success') {
+                                console.log('Notification deleted successfully.');
+                            } else {
+                                console.error('Error deleting notification.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX request failed:', error);
+                        }
+                });
+            });
+        }
+    });
+}
+
+// Call the fetchNotifications function when the page loads
+$(document).ready(function () {
+    fetchNotifications();
+
+    // Set an interval to periodically fetch notifications (e.g., every 5 seconds)
+    setInterval(fetchNotifications, 5000);
+});
+
+</script>
+
 
   </body>
   

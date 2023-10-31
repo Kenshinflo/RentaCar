@@ -52,25 +52,32 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
 }
 ?>
 <section class="banner-section" id="banner">
-    <div class="masthead justify-content-center  align-items-center" id="backg"  style="background-image: url('assets/6wall.jpg'); ">
+    <div class="masthead justify-content-center align-items-center" id="backg" >
         <div class="container" id="parallax">
             <div class = "row justify-content-center">
                 
                 <div class ="container pb-3 col-12" id="text1"> 
-                    <p class="pt-5 " style="display:inline; padding-bottom:10px;">Looking for a</p> <span style="display:inline;">vehicle</span><p style="display:inline;">?</p>
-                    <p class="pt-1 pb-1" style=" font-size: 50px;">Find the suitable car for you.</p>
-                    <!-- <p class="pt-1 pb-1" style=" font-size: 50px;">Time to venture our beautiful region.</p> -->
+                    <p class="pt-1" style="display:inline; font-family:Gabarito, sans-serif;">Looking to </p> <span style="display:inline;">Rent-a-Car</span><p style="display:inline;">?</p>
+                    <p class="pt-1 pb-5" style="font-weight:100; font-size: 30px; font-family:Gabarito, sans-serif;">Travel Leyte & Samar with RentaCar</p>
 
-                    <!-- <h5 class="font-baloo font-size-25"><?php echo $dated ?? 0; ?></h5>
-                    <h5 class="font-baloo font-size-25">//<?php echo $_SESSION["dateFrom"]?? 0; ?></h5> -->
+
+                    <p class="txt" style="">We will help you find the best offers from different shops in Leyte & Samar</p>
+                    
                 </div>
-                
-                <div class="form-container mb-5 col-12 h-100 font-family row">
-                    <form action="" method="post" class="justify-content-center row align-items-center pt-5 pb-4" >
+
+
+             
+
+                <div class="form-container mb-5 col-12 h-100 font-family" >
+                    <form action="" method="post" class="d-flex justify-content-start row " style = "" >
+
                         <div class="row  ">
+                        
+
                             <div class="input-box col-md-4 ">
                                 <span>Location</span>
-                                <input type="search" name="" id="" placeholder="Search Places">
+                                <input type="search" name="location" id="location" placeholder="Search Places">
+
                             </div> 
 
                            <div class="input-box col-md-4">
@@ -84,10 +91,11 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                                 <input type="datetime-local" name="dateTo" id="dateTo" min="<?php echo $dated;?>" value="<?php echo $dT ?? $dated;?>">
                             </div>
                         </div>
-                        <!-- <input type="submit" name="" id="" class="btn" value="" placeholder="Continue"> -->
-                        <div class="container">
-                           <div class="d-flex justify-content-end text-center pe-2">
-                                <button id="" type="submit" class="btn btn-primary "  name="submit">Continue</button>
+
+                        <div class="container pt-2">
+                           <div class="d-flex  text-center pe-2 sub-button">
+                                <button id="" type="submit" class="btn btn-primary "  name="submit" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Tooltip on left">Continue</button>
+
 
                            </div>
                                
@@ -96,12 +104,23 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                     </form>
                 </div>
 
-                <div>
 
+
+                <div class = "result-box"  >
+                    
                 </div>
             </div>
         </div>
     </div>
+
+
+    
+    <!-- <div id="fb-root"></div>
+
+    <div id="fb-customer-chat" class="fb-customerchat"></div> -->
+
+
+
 </section>
 <script type="text/javascript">
     
@@ -117,21 +136,25 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
         var bgParallax = document.getElementsByClassName('masthead')[0];
         var limit = bgParallax.offsetTop + bgParallax.offsetHeight;  
         if (scrollPosition > bgParallax.offsetTop && scrollPosition <= limit){
-            bgParallax.style.backgroundPositionY = (50 - 10*scrollPosition/limit) + '%';   
+            bgParallax.style.backgroundPositionY = (70 - 30*scrollPosition/limit) + '%';   
         }else{
-            bgParallax.style.backgroundPositionY = '50%';    
+            bgParallax.style.backgroundPositionY = '100%';    
         }
-        var scrollPosition1 = window.pageYOffset;
-        var bgParallax1 = document.getElementsByClassName('wallp3')[0];
-        if (scrollPosition1 > bgParallax1.offsetTop && scrollPosition1 <= limit){
-            bgParallax1.style.backgroundPositionY = (50 - 10*scrollPosition1/limit) + '%';   
-        }else{
-            bgParallax1.style.backgroundPositionY = '50%';    
-        }
+        // var scrollPosition1 = window.pageYOffset;
+        // var bgParallax1 = document.getElementsByClassName('wallp3')[0];
+        // if (scrollPosition1 > bgParallax1.offsetTop && scrollPosition1 <= limit){
+        //     bgParallax1.style.backgroundPositionY = (70 - 30*scrollPosition1/limit) + '%';   
+        // }else{
+        //     bgParallax1.style.backgroundPositionY = '70%';    
+        // }
     });
+    // observer.observe(cards[0]);
     // $(function() {
     //     $("#dateFrom").datepicker(
 
     //     ).datepicker('setDate', '0');
     // });
+
 </script>
+
+

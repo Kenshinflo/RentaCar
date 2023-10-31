@@ -24,10 +24,11 @@ if(isset($_POST['removeRes'])){
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-reservations2.php");
+        header("location: /TemplateShop/_manage-reservations2.php");
     }
     else {
-        header("location: _manage-reservations2.php");
+        header("location: /TemplateShop/_manage-reservations2.php");
+
     }
 }
 
@@ -66,10 +67,11 @@ if(isset($_POST['removeCar'])){
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-cars2.php");
+        header("location:/TemplateShop/ _manage-cars2.php");
     }
     else {
-        header("location: _manage-cars2.php");
+        header("location: /TemplateShop/_manage-cars2.php");
+
     }
 }
 
@@ -80,10 +82,11 @@ if(isset($_POST['removeDriver'])){
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-drivers2.php");
+        header("location: /TemplateShop/_manage-drivers2.php");
     }
     else {
-        header("location: _manage-drivers2.php");
+        header("location: /TemplateShop/_manage-drivers2.php");
+
     }
 }
 

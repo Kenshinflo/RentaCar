@@ -6,10 +6,11 @@ $seller = $_SESSION['com_id'];
 
 if(isset($_POST['addDriver'])){
     
-    $name = $_POST['driver_name2'];
-    $age = $_POST['driver_age2'];
-    $contact = $_POST['driver_contact2'];
-    $address = $_POST['driver_address2'];
+    $name2 = $_POST['driver_name2'];
+    $age2 = $_POST['driver_age2'];
+    $contact2 = $_POST['driver_contact2'];
+    $address2 = $_POST['driver_address2'];
+
 
     $folder='images/drivers/';
 
@@ -59,12 +60,14 @@ if(isset($_POST['addDriver'])){
         }
            
            $sql = "INSERT INTO drivers (seller_id, driver_name, driver_age, driver_contact, driver_address, driver_license, driver_image) 
-            VALUES ('$seller', '$name', '$age', '$contact', '$address', '$new_image_name', '$new_image_name1')";
+            VALUES ('$seller', '$name2', '$age2', '$contact2', '$address2', '$new_image_name', '$new_image_name1')";
+
             $result = $con->query($sql);
 
     if($result){
         echo '<script> alert("Data Saved Successfully!"); </script>';
-        header("location: _manage-drivers2.php");
+        header("location: /TemplateShop/_manage-drivers2.php");
+
     }
     else {
         echo '<script> alert("Data Was Not Successfully Saved!"); </script>';
@@ -112,7 +115,8 @@ if(isset($_POST['addCar'])){
 
     if($result){
         echo '<script> alert("Data Saved Successfully!"); </script>';
-        header("location: _manage-cars2.php");
+        header("location: /TemplateShop/_manage-cars2.php");
+
     }
     else {
         echo '<script> alert("Data Was Not Successfully Saved!"); </script>';

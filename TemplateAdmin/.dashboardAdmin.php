@@ -1,5 +1,27 @@
 <?php
 session_start();
+
+$servername = "localhost";
+$user = "root";
+$password = "";
+$database = "rentacar";
+
+$con = new mysqli($servername, $user, $password, $database);
+
+$admin_id=$_SESSION["admin_id"];
+
+include ('../connection.php');
+
+$findresult = mysqli_query($con, "SELECT * FROM admin WHERE admin_id= '$admin_id'");
+
+if($res = mysqli_fetch_array($findresult)){
+$id = $res['admin_id'];
+$username = $res['user_name'];
+$adminname = $res['admin_name'];
+$pass = $res['admin_pass']; 
+$img = $res['admin_image'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +56,9 @@ session_start();
   
 
 
-<div class="wrapper">
+
+<div class="wrapper1">
+
      
 	  <div class="body-overlay"></div>
 	 
@@ -42,7 +66,11 @@ session_start();
 	 
 	 <div id="sidebar">
 	    <div class="sidebar-header">
-		   <h3><img src="img/temp.webp" class="img-fluid"/><span>RentaCar</span></h3>
+
+		<h3><img style="width:40px; height:auto;" src="../images/admin/<?php echo $res['admin_image']; ?>"
+                        class="img-fluid"><span><?php echo $_SESSION['user_name']; ?></span></h3>
+		
+
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="active">
@@ -84,7 +112,9 @@ session_start();
 					 </div>
 					 
 					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
-					     <div class="xp-searchbar">
+
+					     <!-- <div class="xp-searchbar">
+
 						     <form>
 							    <div class="input-group">
 								  <input type="search" class="form-control"
@@ -95,7 +125,9 @@ session_start();
 								  </div>
 								</div>
 							 </form>
-						 </div>
+
+						 </div> -->
+
 					 </div>
 					 
 					 
@@ -103,12 +135,15 @@ session_start();
 					     <div class="xp-profilebar text-right">
 						    <nav class="navbar p-0">
 							   <ul class="nav navbar-nav flex-row ml-auto">
-							   <li class="dropdown nav-item active">
+
+								
+							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
 								  <span class="material-icons">notifications</span>
-								  <span class="notification">4</span>
+								  <span class="notification">0</span>
 								 </a>
-								  <ul class="dropdown-menu">
+								  <ul class="dropdown-menu dropdown-notif">
+
 								     <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
@@ -116,20 +151,23 @@ session_start();
 								  </ul>
 							   </li>
 							   
-							   <li class="nav-item">
+
+							   <!-- <li class="nav-item">
 							     <a class="nav-link" href="#">
 								   <span class="material-icons">question_answer</span>
 								 </a>
-							   </li>
+							   </li> -->
 
-							   <i class="fas ml-3 me-2"></i><?php echo $_SESSION['user_name'] ?>
+							   <i class="fas"></i><?php echo "<p>" . $_SESSION['user_name'] . "</p>"; ?>
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
-								  <img src="/img/admin.png" style="width:40px; border-radius:50%;"/>
+								 <img style="width:40px; height:auto;" src="../images/admin/<?php echo $res['admin_image']; ?>">
+								  <!-- <img src="/img/admin.png" style="width:40px; border-radius:50%;"/> -->
 								  <span class="xp-user-live"></span>
 								 </a>
 								  <ul class="dropdown-menu small-menu">
-								     <li><a href="#">
+								     <li><a href="_admin-profile.php">
+
 									 <span class="material-icons">person_outline</span>
 									 Profile
 									 </a></li>
@@ -137,7 +175,9 @@ session_start();
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
-									 <li><a href="_company-login.php">
+
+									 <li><a href="_admin-login.php">
+
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -169,6 +209,9 @@ session_start();
 		  <!------boxes-start-----------> 
 		<div class="boxes">
 			
+
+		<a href="/TemplateAdmin/_manage-shops2.php">
+
 		<div class="col-div-6">
 		<div class="box1">
         <p><?php
@@ -183,6 +226,10 @@ session_start();
 			
 		</div>
 		</div>
+
+		</a>
+
+		<a href="/TemplateAdmin/_manage-users2.php">
 
 		<div class="col-div-6">
 		<div class="box1">
@@ -199,6 +246,9 @@ session_start();
 			
 		</div>
 		</div>
+
+		</a>
+
 
 		
 
@@ -254,6 +304,78 @@ session_start();
   </script>
   
   
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+// Function to fetch and display notifications
+function fetchNotifications() {
+    $.ajax({
+        url: 'fetch_notifications.php', // Create a new PHP file to handle fetching notifications
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var notificationDropdown = $('.dropdown-notif'); // Replace with the appropriate selector for your dropdown
+
+            // Clear existing notifications
+            notificationDropdown.empty();
+
+            // Loop through the fetched notifications and add them to the dropdown
+			if (data.length === 0) {
+                var noNotificationsItem = '<li><a href="#">No notifications</a></li>';
+                notificationDropdown.append(noNotificationsItem);
+            } else {
+            $.each(data, function (index, notification) {
+                var notificationItem = '<li><a href="#" class="notification-link" data-notification-id="' + notification.notification_id + '" data-account-type="' +notification.account_type + '">' + notification.message + '</a></li>';
+                notificationDropdown.append(notificationItem);
+            });
+		}
+
+		$('.notification').text(data.length);
+
+			$('.notification-link').click(function (event) {
+                    event.preventDefault();
+                    var notificationId = $(this).data('notification-id');
+                    var accountType = $(this).data('account-type');
+
+                    // Determine the URL to redirect to based on the account type
+                    var redirectUrl = accountType === 'customer' ? '_manage-users2.php' : '_manage-shops2.php';
+
+                    // Redirect to the appropriate page
+                    window.location.href = redirectUrl;
+
+                // Send an AJAX request to mark the notification as read
+                $.ajax({
+                        url: 'delete_notification.php',
+                        type: 'POST',
+                        data: { notification_id: notificationId },
+                        success: function (response) {
+                            if (response === 'success') {
+                                console.log('Notification deleted successfully.');
+                            } else {
+                                console.error('Error deleting notification.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX request failed:', error);
+                        }
+                });
+            });
+        }
+    });
+}
+
+// Call the fetchNotifications function when the page loads
+$(document).ready(function () {
+    fetchNotifications();
+
+    // Set an interval to periodically fetch notifications (e.g., every 5 seconds)
+    setInterval(fetchNotifications, 5000);
+});
+
+
+</script>
 
 
 
