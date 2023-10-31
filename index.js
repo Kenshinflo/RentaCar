@@ -196,14 +196,15 @@ $(document).ready(function(){
     //     }else{
     //         bgParallax.style.backgroundPositionY = '50%';    
     //     }
+
         
-    //     var bgParallax1 = document.getElementsByClassName('wallp3')[0];
-    //     if (scrollPosition > bgParallax1.offsetTop && scrollPosition <= limit){
-    //         bgParallax1.style.backgroundPositionY = (50 - 10*scrollPosition1/limit) + '%';   
-    //     }else{
-    //         bgParallax1.style.backgroundPositionY = '50%';    
-    //     }
-    // });
+        var bgParallax1 = document.getElementsByClassName('wallp3')[0];
+        if (scrollPosition > bgParallax1.offsetTop && scrollPosition <= limit){
+            bgParallax1.style.backgroundPositionY = (50 - 10*scrollPosition1/limit) + '%';   
+        }else{
+            bgParallax1.style.backgroundPositionY = '50%';    
+        }
+    });
 // banner owl carousel
     $("#banner-area .owl-carousel").owlCarousel({
         dots: true,
@@ -480,6 +481,7 @@ $(document).ready(function(){
 // }, navOptions);
 
 // observer.observe(cards[0]);
+
 // cards[0]);
 
 // const newObserver = new IntersectionObserver((ent) =>{

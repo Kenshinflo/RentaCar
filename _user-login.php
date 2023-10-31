@@ -131,6 +131,7 @@
                 //  Process Login
                 $row = $resultSet->fetch(PDO::FETCH_ASSOC);
 
+
                 
                 $verified = $row['verified'];
                 $user_id= $row['user_id'];
@@ -148,6 +149,7 @@
 
                 
                 if($row['user_name'] === $username && $row['pass_word'] === $password){
+
 
                     exit(header("Location:index.php"));
                     
@@ -229,6 +231,8 @@
 
 
 ?>
+
+
 
 
 

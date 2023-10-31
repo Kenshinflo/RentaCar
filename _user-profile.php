@@ -254,6 +254,7 @@ $image= $res['pic_ID'];
 						?>
 					<div class="row mt-1"></div>
 				<div class="row mt-2"></div>	
+
 					<span class="font-weight-bold"><?php echo $fullname;?></span><span class=><?php echo $email;?></span><span> </span></div>
 					<nav class="side-nav navbar">
 						<ul style="list-style: none;">
@@ -264,6 +265,7 @@ $image= $res['pic_ID'];
 						  <li><a href="in_use.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-key"></i><span>My Rented Cars</span></a></li>
 						  <li><a href="completed_trans.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-key"></i><span>Completed Transactions</span></a></li>
 						  <li><a href="password.php" class="nav-link scrollto ml-4"><i class="fa-solid fa-lock"></i> <span>Change Password</span></a></li>
+
 						</ul>
 					</nav>
 				</div>
@@ -292,12 +294,14 @@ $image= $res['pic_ID'];
 								<input type="text" name="contact_num" placeholder="Enter your mobile number" autocomplete="off" class="form-control" value="<?php echo $phonenumber;?>">
 							</div>
 
+
 						
 						<div class="container border-top" id="buttonUp">
 						<br>
 						<label for="update">
 							<div class="btn col-md-2 text-center profile-button">
 								<input id="update" type="submit" value="Update" name="update_prof">
+
 							</div>
 						</label>
 						</div>

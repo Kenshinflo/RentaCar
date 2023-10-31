@@ -33,11 +33,11 @@
             $_SESSION['com_id'] = $com_id;
             if($verified == 1){
                 
-                header('Location:.indexCompany.php');
+                header('Location:.dashboardCompany.php');
                // echo "<center>Account Has been Verified, Login Successfull</center>";
             }else{
                 
-                header('Location:.indexCompany.php');
+                header('Location:.dashboardCompany.php');
             }
 
          }else{

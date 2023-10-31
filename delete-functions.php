@@ -28,6 +28,7 @@ if(isset($_POST['removeRes'])){
     }
     else {
         header("location: /TemplateShop/_manage-reservations2.php");
+
     }
 }
 
@@ -70,6 +71,7 @@ if(isset($_POST['removeCar'])){
     }
     else {
         header("location: /TemplateShop/_manage-cars2.php");
+
     }
 }
 
@@ -84,6 +86,7 @@ if(isset($_POST['removeDriver'])){
     }
     else {
         header("location: /TemplateShop/_manage-drivers2.php");
+
     }
 }
 

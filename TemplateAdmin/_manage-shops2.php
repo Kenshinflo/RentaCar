@@ -7,6 +7,7 @@ $database = "rentacar";
 
 $con = new mysqli($servername, $user, $password, $database);
 
+
 $admin_id=$_SESSION["admin_id"];
 
 include ('../connection.php');
@@ -103,9 +104,11 @@ if(isset($_POST['update'])){
 		$result = mysqli_query($con,"UPDATE seller SET shopname='$shopname', username='$username', password='$password', address='$address', email='$email', contact_num='$contact', verified='$verified' WHERE seller_id='$id'");
 		
 		if($result){
+
             $notificationMessage = "Your account has been verified";
             $insertNotification =  mysqli_query($con,"INSERT INTO notifications (message, timestamp, status, seller_id, notif_for) VALUES ('$notificationMessage', NOW(), 'unread', '$id', 'shop')");
 			header("location:_manage-shops2.php?");
+
 		} else {
 			$error[]='Something went wrong';
 		}
@@ -114,6 +117,7 @@ if(isset($_POST['update'])){
 
 
 ?>
+
 
 <?php
 if(isset($_POST['removeShop'])){
@@ -345,6 +349,7 @@ if(isset($_POST['removeShop'])){
 							 <label for="checkbox1"></label></th>-->
 
                                     <?php
+
                             $servername = "localhost";
                             $user = "root";
                             $password = "";
@@ -373,6 +378,7 @@ if(isset($_POST['removeShop'])){
                                 $contact=$row["contact_num"];
 								$verified=$row["verified"];
 								$regdate=$row["register_date"];
+
 								$logo=$row["shop_logo"];
                                 $dtipic=$row["dti_pic"];
 								$bpermit=$row["bp_pic"];
@@ -419,16 +425,20 @@ if(isset($_POST['removeShop'])){
 									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i> -->
 
                                             <!-- <form action="_update-driver2.php" class="d-inline">
+
                                     <button type="submit" name="updateDriver" value="<?=$row['driver_id'];?>" class="btn btn-primary btn-sm">
 									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 									</button>
                                 </form> -->
 
+
                                             <!-- <form action="insert.php" method="POST" class="d-inline">
+
                                     <button type="submit" name="removeDriver" value="<?=$row['driver_id'];?>" class="btn btn-danger btn-sm" onclick='return checkDelete()'>
 									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE872;</i>
 									</button>
                                 </form> -->
+
                                         </td>
                                     </tr>
                                     <?php
@@ -436,6 +446,7 @@ if(isset($_POST['removeShop'])){
                                
                         ?>
                                     <!--<th>
+
 							    <a href="#editEmployeeModal" class="edit" data-toggle="modal">
 							   <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 							   </a>
@@ -444,6 +455,7 @@ if(isset($_POST['removeShop'])){
 							   </a>
 							 </th>
 							 </tr>-->
+
 
 
                                 </tbody>
@@ -623,6 +635,7 @@ if(isset($_POST['removeShop'])){
             <!----footer-design------------->
 
             <!--<footer class="footer">
+
 		    <div class="container-fluid">
 			   <div class="footer-in">
 			      <p class="mb-0">© RentaCar 2023 . All Rights Reserved.</p>

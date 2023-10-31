@@ -3,6 +3,7 @@
 <!-- <footer class="footer mt-auto bg-dark bg-gradient fixed-bottom">
     <section>
         <!-- <div class="container">
+
             <div class="row">
 
                 <div class="col-sm">

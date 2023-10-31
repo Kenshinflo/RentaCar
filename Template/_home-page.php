@@ -60,9 +60,11 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                     <p class="pt-1" style="display:inline; font-family:Gabarito, sans-serif;">Looking to </p> <span style="display:inline;">Rent-a-Car</span><p style="display:inline;">?</p>
                     <p class="pt-1 pb-5" style="font-weight:100; font-size: 30px; font-family:Gabarito, sans-serif;">Travel Leyte & Samar with RentaCar</p>
 
+
                     <p class="txt" style="">We will help you find the best offers from different shops in Leyte & Samar</p>
                     
                 </div>
+
 
              
 
@@ -75,6 +77,7 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                             <div class="input-box col-md-4 ">
                                 <span>Location</span>
                                 <input type="search" name="location" id="location" placeholder="Search Places">
+
                             </div> 
 
                            <div class="input-box col-md-4">
@@ -88,9 +91,11 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
                                 <input type="datetime-local" name="dateTo" id="dateTo" min="<?php echo $dated;?>" value="<?php echo $dT ?? $dated;?>">
                             </div>
                         </div>
+
                         <div class="container pt-2">
                            <div class="d-flex  text-center pe-2 sub-button">
                                 <button id="" type="submit" class="btn btn-primary "  name="submit" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Tooltip on left">Continue</button>
+
 
                            </div>
                                
@@ -108,10 +113,13 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
         </div>
     </div>
 
+
     
     <!-- <div id="fb-root"></div>
 
     <div id="fb-customer-chat" class="fb-customerchat"></div> -->
+
+
 
 </section>
 <script type="text/javascript">
@@ -146,5 +154,7 @@ if(!isset($_SESSION["dateFrom"]) && !isset($_SESSION["dateTo"])){
 
     //     ).datepicker('setDate', '0');
     // });
+
 </script>
+
 

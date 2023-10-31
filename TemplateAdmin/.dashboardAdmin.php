@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $servername = "localhost";
 $user = "root";
 $password = "";
@@ -20,6 +21,7 @@ $adminname = $res['admin_name'];
 $pass = $res['admin_pass']; 
 $img = $res['admin_image'];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +56,9 @@ $img = $res['admin_image'];
   
 
 
+
 <div class="wrapper1">
+
      
 	  <div class="body-overlay"></div>
 	 
@@ -62,9 +66,11 @@ $img = $res['admin_image'];
 	 
 	 <div id="sidebar">
 	    <div class="sidebar-header">
+
 		<h3><img style="width:40px; height:auto;" src="../images/admin/<?php echo $res['admin_image']; ?>"
                         class="img-fluid"><span><?php echo $_SESSION['user_name']; ?></span></h3>
 		
+
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="active">
@@ -106,7 +112,9 @@ $img = $res['admin_image'];
 					 </div>
 					 
 					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
+
 					     <!-- <div class="xp-searchbar">
+
 						     <form>
 							    <div class="input-group">
 								  <input type="search" class="form-control"
@@ -117,7 +125,9 @@ $img = $res['admin_image'];
 								  </div>
 								</div>
 							 </form>
+
 						 </div> -->
+
 					 </div>
 					 
 					 
@@ -125,6 +135,7 @@ $img = $res['admin_image'];
 					     <div class="xp-profilebar text-right">
 						    <nav class="navbar p-0">
 							   <ul class="nav navbar-nav flex-row ml-auto">
+
 								
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
@@ -132,6 +143,7 @@ $img = $res['admin_image'];
 								  <span class="notification">0</span>
 								 </a>
 								  <ul class="dropdown-menu dropdown-notif">
+
 								     <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
@@ -139,6 +151,7 @@ $img = $res['admin_image'];
 								  </ul>
 							   </li>
 							   
+
 							   <!-- <li class="nav-item">
 							     <a class="nav-link" href="#">
 								   <span class="material-icons">question_answer</span>
@@ -154,6 +167,7 @@ $img = $res['admin_image'];
 								 </a>
 								  <ul class="dropdown-menu small-menu">
 								     <li><a href="_admin-profile.php">
+
 									 <span class="material-icons">person_outline</span>
 									 Profile
 									 </a></li>
@@ -161,7 +175,9 @@ $img = $res['admin_image'];
 									 <span class="material-icons">settings</span>
 									 Settings
 									 </a></li>
+
 									 <li><a href="_admin-login.php">
+
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -193,7 +209,9 @@ $img = $res['admin_image'];
 		  <!------boxes-start-----------> 
 		<div class="boxes">
 			
+
 		<a href="/TemplateAdmin/_manage-shops2.php">
+
 		<div class="col-div-6">
 		<div class="box1">
         <p><?php
@@ -208,9 +226,11 @@ $img = $res['admin_image'];
 			
 		</div>
 		</div>
+
 		</a>
 
 		<a href="/TemplateAdmin/_manage-users2.php">
+
 		<div class="col-div-6">
 		<div class="box1">
 		<p>
@@ -226,7 +246,9 @@ $img = $res['admin_image'];
 			
 		</div>
 		</div>
+
 		</a>
+
 
 		
 
@@ -282,6 +304,7 @@ $img = $res['admin_image'];
   </script>
   
   
+
 <!-- Include jQuery library -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -353,6 +376,7 @@ $(document).ready(function () {
 
 
 </script>
+
 
 
   </body>

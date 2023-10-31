@@ -11,6 +11,7 @@ if(isset($_POST['addDriver'])){
     $contact2 = $_POST['driver_contact2'];
     $address2 = $_POST['driver_address2'];
 
+
     $folder='images/drivers/';
 
 	$file = $_FILES['pic_ID']['tmp_name'];
@@ -60,11 +61,13 @@ if(isset($_POST['addDriver'])){
            
            $sql = "INSERT INTO drivers (seller_id, driver_name, driver_age, driver_contact, driver_address, driver_license, driver_image) 
             VALUES ('$seller', '$name2', '$age2', '$contact2', '$address2', '$new_image_name', '$new_image_name1')";
+
             $result = $con->query($sql);
 
     if($result){
         echo '<script> alert("Data Saved Successfully!"); </script>';
         header("location: /TemplateShop/_manage-drivers2.php");
+
     }
     else {
         echo '<script> alert("Data Was Not Successfully Saved!"); </script>';
@@ -113,6 +116,7 @@ if(isset($_POST['addCar'])){
     if($result){
         echo '<script> alert("Data Saved Successfully!"); </script>';
         header("location: /TemplateShop/_manage-cars2.php");
+
     }
     else {
         echo '<script> alert("Data Was Not Successfully Saved!"); </script>';

@@ -60,6 +60,7 @@ body,html{
   
   
   h1,h2,h3,h4,h5,h6,.h1,.h3,.h4{
+
 	   font-weight:400;
 	   line-height:1.5em;
   }
@@ -124,6 +125,7 @@ body,html{
   }
   
 
+
   .totalrow{
 	background-color: #8A9A5B;
 	color: white;
@@ -162,6 +164,7 @@ body,html{
   @media only screen and (min-width:992px){
 
 
+
 	  #sidebar.active{
 		  left:-260px;
 		  height:100%!important;
@@ -185,6 +188,7 @@ body,html{
 	  }
 	  
   }
+
 
 .color_left{
 	color: white;
@@ -344,13 +348,14 @@ max-width: 100%;
 .erralert{
 	margin: auto;
 }
+
   .boxes{
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
   }
 
-  
+
   .box{
 	margin-top: 10px;
 	height: 100px;
@@ -368,6 +373,7 @@ max-width: 100%;
 	transition-delay:0.1s;
   }
 
+
 .box1{
 	width: 350px;
 	margin-top: 10px;
@@ -383,6 +389,7 @@ max-width: 100%;
 .boxes .box p{
 	font-size: 25px;
 	margin-top: 50px;
+
   }
 
 .fa{
@@ -423,6 +430,7 @@ max-width: 100%;
 	  color:#333;
 	  font-size:17px;
 	  margin:0px;
+
 	  transition:all 0.5s ease;
 	  font-weight:600;
   }
@@ -469,6 +477,7 @@ max-width: 100%;
 	left: auto !important;
     right: 0 !important;
    }
+
 
      #sidebar ul.component{
 		 padding:20px 0px;  
@@ -555,6 +564,7 @@ max-width: 100%;
 		font-weight: 400;
 		font-family: 'Poppins',sans-serif;
 	}
+
 	 
 	 .breadcrumb{
 		 display:inline-flex;
@@ -581,6 +591,7 @@ max-width: 100%;
 			margin-top: 100px;
 			margin-bottom: 15px;
 			height:100vh;
+
 	   }
 
 	   .main-content1{
@@ -610,6 +621,7 @@ max-width: 100%;
 	   font-weight: 400;
 	}
 	
+
 	   
 	   .navbar-brand{
 		   color:#fff;
@@ -689,6 +701,7 @@ background-color:rgba(0,0,0,0.09);
 		display: flex;
 	  }
 
+
 	  @media only screen and (max-width:768px){
 		.main-content{
 			margin-top: 5px;
@@ -728,6 +741,7 @@ background-color:rgba(0,0,0,0.09);
 	.box{
 		width: 20vw;
 		height: 10vw;
+
 	}
 
 	  .navbar-nav > li.show .dropdown-menu{
@@ -791,6 +805,7 @@ background-color:rgba(0,0,0,0.09);
 		padding:4px 10px!important;
 		font-family:'Poppins',sans-serif;
 	}
+
 	   
 	  .nav-item .nav-link .material-icons{
 		  position:relative;
@@ -803,6 +818,7 @@ background-color:rgba(0,0,0,0.09);
 		top:10px;
 		font-size:19px;
 	}
+
 	  
 	  .xp-user-live{
 		  position:absolute;
@@ -914,6 +930,7 @@ background-color:rgba(0,0,0,0.09);
 		   cursor:pointer;
 	   }
 	   
+
 	   table.table td a{
 		   font-weight:bold;
 		   display:inline-block;
@@ -1102,6 +1119,7 @@ background-color:rgba(0,0,0,0.09);
 			background-color: rgba(0, 0, 0, 0.7);
 		}
 		
+
 	   .modal .modal-dialog{
 		   width: 150%;
 
@@ -1170,7 +1188,7 @@ background-color:rgba(0,0,0,0.09);
 		   #sidebar.show-nav, .body-overlay.show-nav{
 			   transform:translatex(0%);
 			   opacity:1;
-			   /* display:block; */
+
 			   visibility:visible;
 			   z-index:15;
 		   }
@@ -1180,6 +1198,7 @@ background-color:rgba(0,0,0,0.09);
 			color: #fff; /* Set your desired text color */
 			/* Add any other styling as needed */
 		}
+
 	   
 	   
 	  
@@ -1250,5 +1269,6 @@ display: flex;
 }
 
 }
+
 
 	  

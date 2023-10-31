@@ -7,6 +7,7 @@ $database = "rentacar";
 
 $con = new mysqli($servername, $user, $password, $database);
 
+
 $admin_id=$_SESSION["admin_id"];
 
 include ('../connection.php');
@@ -69,6 +70,7 @@ if(isset($_POST['removeUser'])){
 }?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,7 +78,9 @@ if(isset($_POST['removeUser'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
         <title>Users</title>
+
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/css/bootstrap.min.css">
 	    <!----css3---->
@@ -92,6 +96,7 @@ if(isset($_POST['removeUser'])){
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
     	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+
 
 
 	   <!--google material icon-->
@@ -112,6 +117,7 @@ if(isset($_POST['removeUser'])){
 	    <div class="sidebar-header">
 		<h3><img style="width:40px; height:auto;" src="../images/admin/<?php echo $res['admin_image']; ?>"
                         class="img-fluid"><span><?php echo $_SESSION['user_name']; ?></span></h3>
+
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="dash">
@@ -155,6 +161,7 @@ if(isset($_POST['removeUser'])){
 					 
 					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
 					     <!-- <div class="xp-searchbar">
+
 						     <form>
 							    <div class="input-group">
 								  <input type="search" class="form-control"
@@ -166,6 +173,7 @@ if(isset($_POST['removeUser'])){
 								</div>
 							 </form>
 						 </div> -->
+
 					 </div>
 					 
 					 
@@ -179,6 +187,7 @@ if(isset($_POST['removeUser'])){
 								  <span class="notification">0</span>
 								 </a>
 								  <ul class="dropdown-menu dropdown-notif">
+
 								     <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
 									 <li><a href="#">You Have 4 New Messages</a></li>
@@ -208,6 +217,7 @@ if(isset($_POST['removeUser'])){
 									 Settings
 									 </a></li>
 									 <li><a href="_admin-login.php">
+
 									 <span class="material-icons">logout</span>
 									 Logout
 									 </a></li>
@@ -225,6 +235,7 @@ if(isset($_POST['removeUser'])){
 				 
 				 <div class="xp-breadcrumbbar text-center">
 				    <h4 class="page-title">Customers</h4>
+
 					<!--<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
 					  <li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
@@ -253,6 +264,7 @@ if(isset($_POST['removeUser'])){
 					   </div>
 					   
 					<table class="table table-striped table-hover" id="myTable">
+
 					    <thead>
 						    <tr>
 							<!--<th><span class="custom-checkbox">
@@ -267,11 +279,13 @@ if(isset($_POST['removeUser'])){
                             <th scope="col">Register Date</th>
                             <th scope="col">Picture</th>
 							<th scope="col">Legal ID</th>
+
                             <th scope="col">Action</th>
 							</tr>
 						</thead>
 						  
 						  <tbody>
+
 							 <!--<th><span class="custom-checkbox">
 							 <input type="checkbox" id="checkbox1" name="option[]" value="1">
 							 <label for="checkbox1"></label></th>-->
@@ -298,6 +312,7 @@ if(isset($_POST['removeUser'])){
                             while($row = $result->fetch_assoc()) {
                                 $id=$row["user_id"];
                                 $fullname=$row["fullname"];
+
                                 $username=$row["user_name"];
                                 $passwords=$row["pass_word"];
                                 $email=$row["email"];
@@ -305,11 +320,13 @@ if(isset($_POST['removeUser'])){
                                 $regdate=$row["register_date"];
                                 $pic=$row["pic_ID"];
 								$legalid=$row["legal_id"];
+
                             ?>
 
                             <tr>     
                                 <td><?php echo $id?></td>
                                 <td><?php echo $fullname?></td>
+
                                 <td><?php echo $username?></td>
                                 <td class="content_td"><?php echo $passwords?></td>
                                 <td><?php echo $email?></td>
@@ -321,11 +338,13 @@ if(isset($_POST['removeUser'])){
                                 <td>
 
 								<!-- <div class="row">
+
 								<form action="_manage-users2.php" class="d-inline" >
                                 	<button type="button" name="conf_button" id="conf_button" class="btn btn-success conf_button mr-2" data-bs-toggle="modal" data-bs-target="#editEmployeeModal" >
 										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
 									</button>
                                 </form> -->
+
 
 								<form action="_manage-users2.php" class="d-inline">
                                     <button type="button" name="del_button" id="del_button" class="btn btn-danger del_button btn-sm" data-bs-toggle="modal" data-bs-target="#deleteEmployeeModal">
@@ -334,6 +353,7 @@ if(isset($_POST['removeUser'])){
                                 </form>
 
 								
+
 
                                 </td>
                             </tr>
@@ -347,6 +367,7 @@ if(isset($_POST['removeUser'])){
 					</div>
 				</div>
    
+
 					   
 					 <!----delete-modal start--------->
 <div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
@@ -355,11 +376,13 @@ if(isset($_POST['removeUser'])){
       <div class="modal-header">
         <h5 class="modal-title">Remove User</h5>
         <button type="button" class="close mr-3 mt-2" data-bs-dismiss="modal" aria-label="Close">
+
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
 	<form method="POST" class="d-inline">
+
 		
     	<div class="modal-body">
 
@@ -367,6 +390,7 @@ if(isset($_POST['removeUser'])){
 
         	<p>Are you sure you want to delete this Record</p>
 			<p class="text-danger"><medium>this action Cannot be Undone</medium></p>
+
     	</div>
 
     	<div class="modal-footer">
@@ -396,6 +420,7 @@ if(isset($_POST['removeUser'])){
                             <img id="modalImage1" src="" alt="Image">
                         </div>
                     </div>
+
 
 
 					
@@ -453,12 +478,14 @@ if(isset($_POST['removeUser'])){
 
 
 
+
 <script>
 		$(document).ready(function(){
 
 			$('.del_button').click(function(e){
 					
 				// $('#deleteEmployeeModal').modal('show');
+
 
 					$tr=$(this).closest('tr');
 
@@ -480,6 +507,7 @@ if(isset($_POST['removeUser'])){
 		$('#myTable').dataTable();
 	});
 </script>
+
 
 
   
@@ -624,6 +652,7 @@ $(document).ready(function () {
 });
 
 </script>
+
 
   </body>
   

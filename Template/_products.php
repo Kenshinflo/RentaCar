@@ -236,12 +236,14 @@
                         // $total = $price * $_SESSION["days_rent"];
                         
                         // $overall = $total;
+
                         $sql = "SELECT * from reservation where item_id = $item_id AND status ='Pending' AND user_id = $userid";
                         $result =$con->query($sql);
                         // $row = $result->fetch_assoc();
                         if($row = mysqli_fetch_array($result)){
                             $product = $row["item_id"];
                         }
+
                         
                        
                         

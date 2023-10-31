@@ -17,6 +17,7 @@ $image= $res['pic_ID'];
 ?>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +41,7 @@ $image= $res['pic_ID'];
 	<div class="alert alert-warning alert-dismissible fade show center-block text-center" role="alert">
   			<strong>Error!</strong> <?php echo $_GET['error']; ?>
   				<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" id="closebtn"> <span aria-hidden="true">&times;</span>
+
   			</button>
 		</div>
 	<?php } ?>
@@ -54,6 +56,7 @@ $image= $res['pic_ID'];
 	
 		<div class="row">
 			<div class="col-3 color_left">
+
 
 			<?php
   				if(isset($_POST['change_pass'])){
@@ -102,6 +105,7 @@ $image= $res['pic_ID'];
 				
 				<div class="d-flex flex-column align-items-center text-center p-3 py-1">
 						<?php if($image==NULL){
+
 							echo '<img src="assets/user_profile/profile.png" style="height:150px; width: 150px;" class="rounded-circle mt-5">';
 						} else { 
 							echo '<img src="images/'.$image.'" style="height:150px; width: 150px;" class="rounded-circle mt-5">';
@@ -130,6 +134,7 @@ $image= $res['pic_ID'];
 
 						<div class="row mt-2 border-top">
 							<input type="hidden" name="user_id" value="<?php echo $fetch_cart['user_id'];?>">
+
 
 						<div class="mt-3 col-md-6"><label class="labels" style="font-size: 17px;">Current Password</label>
 							<input type="password" class="form-control"  name = "current_password" placeholder="Enter Old Password">
@@ -162,6 +167,7 @@ $image= $res['pic_ID'];
 			</div>
 		</div>
 		</form>
+
 </body>
 </html>
 

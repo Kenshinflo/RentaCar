@@ -74,6 +74,7 @@ button#pay{
     margin-bottom: 2px;
 }
 
+
 .profile-button {
     display: flex;
     align-items: center;
@@ -95,6 +96,7 @@ button#closebtn{
     border: none;
     background-color: #FFF3CD;
 }
+
 
 .mt-3 input[type=submit]{
     font-weight: 500;
@@ -123,6 +125,7 @@ button#closebtn{
     outline: none;
     color: #fff;
     border-radius: 5px;
+
     background-color: #858585;
     transition: all 0.3s linear;
     cursor: pointer;
@@ -130,6 +133,7 @@ button#closebtn{
 }
 
 .btn input[type=submit]{
+
     font-weight: 500;
     font-size: 18px;
     color: #fff;
@@ -158,6 +162,7 @@ button#closebtn{
 .rounded-circle{
     border: 2px solid #252525;
 }
+
 
 .color_left{
     background: #202020;
@@ -291,6 +296,11 @@ button#closebtn{
     background: white;
     font-family: sans-serif;
 }
+
+.color_end{
+    background: white;
+    font-family: sans-serif;
+}
 .profile-button:active {
     background:#858585;
     border-color: none;
@@ -364,12 +374,14 @@ button#closebtn{
 }
 .side-nav {
     /* padding: 20px 0 20px 30px; */
+
     margin-top: 20px;
     /* margin-left:-5px; */
   }
   
   .side-nav * {
     /* margin: 0; */
+
     padding: 0;
     list-style: none;
   }
@@ -416,6 +428,7 @@ button#closebtn{
     .side-nav li:hover>a i {
         color: #858585;
     } */
+
 /* Style The Dropdown Button */
 .dropbtn {
     background-color: #E6873C;

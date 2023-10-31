@@ -119,6 +119,7 @@
     
 ?>
 <section class="reserve_sect" class="py-3">
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -129,6 +130,7 @@
             </div>
         </div>
     </div>
+
 
     
     <?php
