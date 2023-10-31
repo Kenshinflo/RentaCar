@@ -4,31 +4,188 @@ $(document).ready(function(){
 // alert("hi");
 
 // products.php(Reload Price)
-    $('#addBtn').click(function(){
+    // $('#addBtn').click(function(){
    
-        var price= document.getElementById("price");
-        var datee1 = document.getElementById("dateFrom");
-        var date2 = document.getElementById("dateTo");
+    //     var price= document.getElementById("price");
+    //     var datee1 = document.getElementById("dateFrom");
+    //     var date2 = document.getElementById("dateTo");
     
-        $.ajax({
-            type:'POST',
-            url:'total.php',
-            data:{
-                num1:$(datee1).val(),
-                num2:$(date2).val(),
-                price:$(price).val(),
-            },
-            beforeSend:function(){
-                $("#loading").show();
-                $("#addBtn").hide();
-            },
-            success:function(data){
-                $('#total_num').html(data);
-                $("#loading").hide();
-                $("#addBtn").show(); 
-            }
-        })
-    });
+    //     $.ajax({
+    //         type:'POST',
+    //         url:'total.php',
+    //         data:{
+    //             num1:$(datee1).val(),
+    //             num2:$(date2).val(),
+    //             price:$(price).val(),
+    //         },
+    //         beforeSend:function(){
+    //             $("#loading").show();
+    //             $("#addBtn").hide();
+    //         },
+    //         success:function(data){
+    //             $('#total_num').html(data);
+    //             $("#loading").hide();
+    //             $("#addBtn").show(); 
+    //         }
+    //     })
+    // });
+    $('#send1').click(function(){
+        // $("#form12").on("submit",(function(e) {   
+    
+            var messages = document.getElementById("mytext");
+            // var message = messages.value;        
+            var cust_email = document.getElementById("cust_email");
+            var cust_id = document.getElementById("cust_id");
+
+            var seller_email = document.getElementById("seller_email");
+            var seller_id = document.getElementById("seller_id");
+
+            // var attachment = document.getElementById("attachment");
+            
+            $.ajax({
+                type:'POST',
+                url:'../send_data_user.php',
+                data:{
+                    messages:$(messages).val(),
+                    email:$(cust_email).val(),
+                    to_email:$(seller_email).val(),
+                    cust_id:$(cust_id).val(),
+                    seller_id:$(seller_id).val(),
+                    // attachment:$(attachment).val(),
+                },beforeSend:function(){
+                        $("#loading").show();
+                        // $("#send1").hide();
+                },
+                success: function(data){
+                    $(messages).val("");
+                    // $('#title').html(data);
+                    // $("#convo").load(location.href + " #convo");
+                    $("#loading").hide();
+                    $("#send1").show(); 
+                },
+            });
+             
+    });   
+    $('#send2').click(function(){
+        // $("#form12").on("submit",(function(e) {   
+    
+            var messages1 = document.getElementById("mytext1");
+            var cust_email1 = document.getElementById("cust_email1");
+            var cust_id1 = document.getElementById("cust_id1");
+
+            var seller_email1 = document.getElementById("seller_email1");
+            var seller_id1 = document.getElementById("seller_id1");
+
+            
+            // var attachment = document.getElementById("attachment");
+            
+            $.ajax({
+                type:'POST',
+                url:'../send_data_shop.php',
+                data:{
+                    messages1:$(messages1).val(),
+                    email:$(seller_email1).val(),
+                    to_email:$(cust_email1).val(),
+                    cust_id:$(cust_id1).val(),
+                    seller_id:$(seller_id1).val(),
+                    // attachment:$(attachment).val(),
+                },beforeSend:function(){
+                        $("#loading").show();
+                        // $("#send1").hide();
+                },
+                success: function(data){
+                    $(messages1).val("");
+                    // $('#title').html(data);
+                    // $("#convo").load(location.href + " #convo");
+                    $("#loading").hide();
+                    $("#send2").show(); 
+                },
+                
+            });
+             
+    }); 
+    $('#send3').click(function(){
+        // $("#form12").on("submit",(function(e) {   
+    
+            var messages = document.getElementById("mytext");
+            // var message = messages.value;        
+            var cust_email = document.getElementById("cust_email");
+            var cust_id = document.getElementById("cust_id");
+
+            var seller_email = document.getElementById("seller_email");
+            var seller_id = document.getElementById("seller_id");
+
+            // var attachment = document.getElementById("attachment");
+            
+            $.ajax({
+                type:'POST',
+                url:'../send_data_user.php',
+                data:{
+                    messages:$(messages).val(),
+                    email:$(cust_email).val(),
+                    to_email:$(seller_email).val(),
+                    cust_id:$(cust_id).val(),
+                    seller_id:$(seller_id).val(),
+                    // attachment:$(attachment).val(),
+                },beforeSend:function(){
+                        $("#loading").show();
+                        // $("#send1").hide();
+                },
+                success: function(data){
+                    $(messages).val("");
+                    // $('#title').html(data);
+                    // $("#convo").load(location.href + " #convo");
+                    $("#loading").hide();
+                    $("#send1").show(); 
+                    $(".side-nav").load(window.location.href + " .side-nav" );
+
+                },
+            });
+             
+    }); 
+    // var input = document.getElementById("mytext");
+    // input.addEventListener("keypress", function(event) {
+    //      // $("#form12").on("submit",(function(e) {   
+    //         if (event.key === "Enter") {
+    //             event.preventDefault();
+              
+    //      var messages = document.getElementById("mytext");
+    //      // var message = messages.value;        
+    //      var cust_email = document.getElementById("cust_email");
+    //      var cust_id = document.getElementById("cust_id");
+
+    //      var seller_email = document.getElementById("seller_email");
+    //      var seller_id = document.getElementById("seller_id");
+
+    //      // var attachment = document.getElementById("attachment");
+         
+    //      $.ajax({
+    //          type:'POST',
+    //          url:'../send_data_user.php',
+    //          data:{
+    //              messages:$(messages).val(),
+    //              email:$(cust_email).val(),
+    //              to_email:$(seller_email).val(),
+    //              cust_id:$(cust_id).val(),
+    //              seller_id:$(seller_id).val(),
+    //              // attachment:$(attachment).val(),
+    //          },beforeSend:function(){
+    //                  $("#loading").show();
+    //                  // $("#send1").hide();
+    //          },
+    //          success: function(data){
+    //              $(messages).val("");
+    //              // $('#title').html(data);
+    //              // $("#convo").load(location.href + " #convo");
+    //              $("#loading").hide();
+    //              $("#send1").show(); 
+    //              $(".side-nav").load(window.location.href + " .side-nav" );
+
+    //          },
+    //      });
+    //     }
+    // });
+    
     // window.addEventListener('scroll', function(){
     //     var scrollPosition = window.pageYOffset;
     //     // var bgParallax = document.getElementById('backg')[0];
@@ -82,7 +239,8 @@ $(document).ready(function(){
         fitRows:{
             equalheight: true,
             resizeContainer: false
-        }
+        },
+        
     });
 
     // var $grid = $(".gride").isotope({
@@ -110,7 +268,7 @@ $(document).ready(function(){
                 items:1
             },
             600:{
-                items:3
+                items:4
             },
             1000:{
                 items:5
@@ -304,7 +462,24 @@ $(document).ready(function(){
 //         });
 // })
 
+// const navOptions={
+//     threshold: .25,
+// };
 
+// const nav = document.querySelector('nav');
+// const cards = document.querySelectorAll("#backg");
+// const fade = document.querySelector(".fade-up");
+// const navbar = document.querySelector("#backyy");
+// const products=  document.querySelectorAll("#special-offers");
+
+// const observer = new IntersectionObserver(entries =>{
+//     console.log(entries[0].isIntersecting)
+//     nav.classList.toggle('active', !entries[0].isIntersecting)
+//     navbar.classList.toggle('active', !entries[0].isIntersecting)
+//     fade.classList.toggle('faded', !entries[0].isIntersecting)
+// }, navOptions);
+
+// observer.observe(cards[0]);
 // cards[0]);
 
 // const newObserver = new IntersectionObserver((ent) =>{

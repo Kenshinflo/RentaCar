@@ -24,10 +24,10 @@ if(isset($_POST['removeRes'])){
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-reservations.php");
+        header("location: _manage-reservations2.php");
     }
     else {
-        header("location: _manage-reservations.php");
+        header("location: _manage-reservations2.php");
     }
 }
 
@@ -38,10 +38,10 @@ if(isset($_POST['removeUser'])){
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-users.php");
+        header("location: _manage-users2.php");
     }
     else {
-        header("location: _manage-users.php");
+        header("location: _manage-users2.php");
     }
 }
 
@@ -66,24 +66,24 @@ if(isset($_POST['removeCar'])){
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-cars.php");
+        header("location: _manage-cars2.php");
     }
     else {
-        header("location: _manage-cars.php");
+        header("location: _manage-cars2.php");
     }
 }
 
 if(isset($_POST['removeDriver'])){
-    $product = $_POST['removeDriver'];
+    $id = $_POST['driver_id2'];
 
-    $query = "DELETE FROM drivers WHERE driver_id='$product' ";
+    $query = "DELETE FROM drivers WHERE driver_id='$id' ";
     $query = mysqli_query($con, $query);
 
     if($query_run){
-        header("location: _manage-drivers.php");
+        header("location: _manage-drivers2.php");
     }
     else {
-        header("location: _manage-drivers.php");
+        header("location: _manage-drivers2.php");
     }
 }
 

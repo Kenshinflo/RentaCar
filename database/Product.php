@@ -46,7 +46,25 @@ class Product
 
 public function getProds($table = 'product'){
     $userid = $_SESSION["user_id"];
-    $result = $this->db->con->query("SELECT * FROM {$table} WHERE status = 0");
+    $result = $this->db->con->query("SELECT * FROM {$table} WHERE status = 0 ORDER by item_price asc");
+    // WHERE user_id={$userid}
+    $resultArray = array();
+
+    //fetch product data one by one
+    while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+        $resultArray[] = $item;
+    }
+
+    return $resultArray;
+
+    // $result = mysqli_query($this->db->con,"SELECT * FROM product WHERE status = '0' ");
+
+    // return $resultArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+}
+public function getProdsDesc($table = 'product'){
+    $userid = $_SESSION["user_id"];
+    $result = $this->db->con->query("SELECT * FROM {$table} WHERE status = 0 ORDER by item_price DESC");
     // WHERE user_id={$userid}
     $resultArray = array();
 
@@ -141,11 +159,14 @@ public function getSellerAllCount($table = 'seller'){
     // return $resultArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
    
 }
-public function getSellerCount($table = 'seller'){
+public function getAllSellers($table = 'seller'){
 
     
     
-        $result = $this->db->con->query("SELECT * FROM {$table}");
+        // $result = $this->db->con->query("SELECT * FROM {$table} LEFT JOIN product ON seller.seller_id=product.seller_id WHERE product.status = 0");
+        // // WHERE user_id={$userid}
+        // $resultArray = array();
+        $result = $this->db->con->query("SELECT seller.seller_id, seller.shopname FROM {$table} LEFT JOIN product ON seller.seller_id=product.seller_id WHERE product.status = 0");
         // WHERE user_id={$userid}
         $resultArray = array();
 
@@ -153,7 +174,8 @@ public function getSellerCount($table = 'seller'){
         while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)){
             $resultArray[] = $item;
         }
-
+        array_filter($resultArray);
+        array_unique($resultArray, SORT_REGULAR);
         return $resultArray;
     
 
@@ -163,6 +185,55 @@ public function getSellerCount($table = 'seller'){
     
 }
 
+public function getRating($item = null){
+
+    
+    
+    // $result = $this->db->con->query("SELECT * FROM {$table} LEFT JOIN product ON seller.seller_id=product.seller_id WHERE product.status = 0");
+    // // WHERE user_id={$userid}
+    // $resultArray = array();
+    $result = $this->db->con->query("SELECT * FROM rating WHERE item_id = $item");
+    // WHERE user_id={$userid}
+    $resultArray = array();
+
+    //fetch product data one by one
+    while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+        $resultArray[] = $item;
+    }
+    array_filter($resultArray);
+    array_unique($resultArray, SORT_REGULAR);
+    return $resultArray;
+
+
+// $result = mysqli_query($this->db->con,"SELECT * FROM product WHERE status = '0' ");
+
+// return $resultArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+}
+public function getSellerCount($table = 'seller'){
+
+    
+    
+    // $result = $this->db->con->query("SELECT * FROM {$table} LEFT JOIN product ON seller.seller_id=product.seller_id WHERE product.status = 0");
+    // // WHERE user_id={$userid}
+    // $resultArray = array();
+    $result = $this->db->con->query("SELECT * FROM {$table}");
+    // WHERE user_id={$userid}
+    $resultArray = array();
+
+    //fetch product data one by one
+    while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+        $resultArray[] = $item;
+    }
+    
+    return $resultArray;
+
+
+// $result = mysqli_query($this->db->con,"SELECT * FROM product WHERE status = '0' ");
+
+// return $resultArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+}
 public function getSellerItem($table = null){
 
     
@@ -288,7 +359,7 @@ public function getSellerItem($table = null){
     public function getReserveCount(){
         
             $userid = $_SESSION["user_id"];
-            $result = $this->db->con->query("SELECT * FROM reservation WHERE user_id = {$userid}  AND status= 'Reserved'");
+            $result = $this->db->con->query("SELECT * FROM reservation WHERE user_id = {$userid}  AND (status= 'Pending' OR status= 'Reserved')");
             // WHERE user_id={$userid} 
             $resultArray = array();
     
@@ -304,6 +375,27 @@ public function getSellerItem($table = null){
         // return $resultArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
     
         
+    }
+
+    public function getCompleteCount(){
+        
+        $userid = $_SESSION["user_id"];
+        $result = $this->db->con->query("SELECT * FROM salesreport WHERE user_id = {$userid} ");
+        // WHERE user_id={$userid} 
+        $resultArray = array();
+
+        //fetch product data one by one
+        while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+            $resultArray[] = $item;
+        }
+
+        return $resultArray;
+    
+    // $result = mysqli_query($this->db->con,"SELECT * FROM product WHERE status = '0' ");
+
+    // return $resultArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    
     }
 
     public function getInUseCount(){

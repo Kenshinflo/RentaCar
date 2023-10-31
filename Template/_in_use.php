@@ -56,10 +56,10 @@
 
         
             if($query_run){
-                header("location: userreservation.php");
+                header("location: in_use.php");
             }
             else {
-                header("location: userreservation.php");
+                header("location: in_use.php");
             }
         }
     
@@ -68,10 +68,16 @@
     
 ?>
 <section class="reserve_sect" class="py-3">
-    <div class="container">
-
-        <h1 class="font-size-25 my-5 fw-bold">Your Rented Cars</h1>
+<div class="container profile-p">
+    <div class="row">
+        <div class="col">
+            <h1 class="font-size-25 mt-5 fw-bold">Your Rented Cars</h1>
+        </div>
+        <div class="col-1">
+        <a class="btn btn-danger font-size-20 px-4 mt-5" href="profile.php">Back</a>
+        </div>
     </div>
+</div>
     
    
 
@@ -93,7 +99,7 @@
             <!-- <h5 class="font-baloo font-size-25"><?php echo $_SESSION["days_rent"] ?? "Unknown"; ?></h5> -->
             <!-- <h5 class="font-baloo font-size-25"><?php echo $_SESSION["item_b"] ?? "Unknown"; ?></h5> -->
             <div class="col-sm-8 d-flex align-items-center justify-content-center">
-                <img src="<?php echo $item['item_image'] ?? "assets/products/1.png"; ?>" alt="product" class="img-fluid">
+                <img style="width:500px; height:auto;" src="../images/cars/<?php echo $item['item_image']; ?>" alt="product" class="img-fluid">
                 
             </div>
             
@@ -156,18 +162,18 @@
                     </div> -->
                     <div class="input-box">
                         <span>Pickup Date</span>
-                        <input type="datetime-local" name="dateFrom" id="dateFrom" value="<?php echo $dF ?? $dated;?>" readonly>
+                        <p class="fw-bold  ml-3 p-1 border rounded"> <?php echo date('m/d/Y\ H:i a', strtotime($value['pickupdate']))?? 0; ?></p>
                     </div>
 
                     <div class="input-box">
                         <span>Return Date</span>
-                        <input type="datetime-local" name="dateTo" id="dateTo" value="<?php echo $dT ?? $dated;?>" readonly>
+                        <p class="fw-bold  ml-3 p-1 border rounded"> <?php echo date('m/d/Y\ H:i a', strtotime($value['returndate']))?? 0; ?></p>
                     </div>
                     
                     <div class="form-group mt-4 align-self-start">
                         <p class = "fw-bold  ml-3"> With Driver: <?php echo $value['driver_stat'] ?? 0; ?></p>
 
-                        <p class = "text-muted"> Note: You can only cancel a reservation within 24 hours. Further cancellation above timeframe will ensue a cancellation fee per vehicle/s. </p>
+                        <!-- <p class = "text-muted"> Note: You can only cancel a reservation within 24 hours. Further cancellation above timeframe will ensue a cancellation fee per vehicle/s. </p> -->
                         
                     </div>
                     <hr>
@@ -183,7 +189,7 @@
                         </form>
                         <?php 
                             if ($value['driver_stat'] == "Yes" && $value['driver_id'] != 0) {
-                            echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            echo '<button type="button" class="btn btn-primary" style="float: right;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Driver details
                                 </button>';
                             } 
@@ -215,11 +221,10 @@
     <?php
         // }, $product->getProdCount($value['item_id']));
                     
-                endforeach;
-            endforeach;
-        endforeach;
+                
 
         foreach ($product->getDriver($value['driver_id']??0) as $driver):
+            $driverid = $value['driver_id'];
         ?>
         
     
@@ -260,10 +265,16 @@
                                 <td class="font-size-20 text-dark"><span><?php echo $driver['driver_contact'] ?? 0; ?></span></td>
                             </tr>
                             
+                            
+                            
                     </table>
+                    <br>
+                    <p>Note: Take a screenshot or download the driver details for verification.</p>
                     <div class="d-flex me-auto">
                         <div class="me-auto">
-                            <button type="button" class="btn btn-primary">Download</button>
+                                <a target="_blank" href="Template/sample_pdf.php?driver_id=<?=$driver['driver_id']?>" class="btn btn-danger"><i class="fa fa-download" style="font-size: 13px;">
+                                    Download
+                                </i></a>
                         </div>
                         
                     </div>
@@ -272,8 +283,8 @@
                 
             </div>
             <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
             </div>
         </div>
@@ -295,19 +306,19 @@
                     <table class="my-3 d-flex align-items-center justify-content-center">
                         <tr class="font-rale font-size-16">
                                 <td>Shop Name: </td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['shopname'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['shopname'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
                             </tr>
                             <tr class="font-rale font-size-16">
                                 <td>Email: </td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['email'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['email'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
                             </tr>
                             <tr class="font-rale font-size-16">
                                 <td>Contact Number: </td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['contact_num'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['contact_num'] ?? 0; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;</small></td>
                             </tr>
                             <tr class="font-rale font-size-16">
                                 <td>Address:</td>
-                                <td class="font-size-20 text-dark"><span><?php echo $value['address'] ?? 0; ?></span></td>
+                                <td class="font-size-20 text-dark"><span><?php echo $shop['address'] ?? 0; ?></span></td>
                             </tr>
                             
                     </table>
@@ -318,7 +329,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
             </div>
             </div>
         </div>
@@ -332,7 +343,9 @@
     
 <!----------------------------------------------PRODUCTS-------------------------------------------------------->
 <?php
-    
+    endforeach;
+endforeach;
+endforeach;
 endforeach;
     ?>
 

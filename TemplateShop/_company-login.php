@@ -29,6 +29,7 @@
             $date = date('M d Y', $date);
 
             $_SESSION['shopname'] = $shop;
+            $_SESSION['email'] = $email;
             $_SESSION['com_id'] = $com_id;
             if($verified == 1){
                 
@@ -103,10 +104,11 @@
     <div class="container">
 
         <div class="forms-container">
-        <button onclick="window.location='../_user-login.php';" id="seller-login account" type="submit" class="btn1 btn-primary" name="submit">User Login</button>
-        
+       
+            <div class=" div-holder">
 
-                <div class="signin-signup p-4">
+
+                <div class="left-side p-5">
                     
                     <form action="#" class="sign-in-form" method="post">
                         <h2 class="title mb-3">Company Login</h2>
@@ -121,12 +123,12 @@
                             <input type="password" placeholder="Password" class="form-control" name="password" autocomplete="off"required/>
                         </div>
 
-                        <button id="company-login account" type="submit" class="btn btn-primary btn-block" name="submit" style ="background-color: #3b5998; border-radius:30px">Login</button>
+                        <button id="company-login account" type="submit" class="submit-b" name="submit" style ="background-color: #3b5998; border-radius:30px">Login</button>
                         <!-- <input type="submit" value="Login" class="btn solid" name="submit">-->
                         <!-- <button type="submit" class="btn solid" name="submit">Login</button> -->
                     
 
-                        <p class="social-text">Don`t have an account? <a href="_company-create-account.php?signup=free">Register Here!</p>
+                        <p class="social-text">Don`t have an account? <a href="_company-create-account.php?error=free">Register Here!</p>
                         
                     </form>
 
@@ -137,9 +139,9 @@
                             <input type="text" placeholder="Username" class="form-control" name="username1" autocomplete="off">
                         </div>
                         <!-- <div class="input-field">
-                <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="Email" />
-                </div> -->
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" />
+                    </div> -->
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
                             <input type="password" placeholder="Password" class="form-control" name="password1"autocomplete="off">
@@ -147,7 +149,7 @@
 
                         <input type="submit" class="btn" value="Login" name="seller-submit">
 
-                        <p class="social-text">Don`t have an account? <a href="_company-create-account.php?signup=free">Register Here!</p>
+                        <p class="social-text">Don`t have an account? <a href="_company-create-account.php?error=free">Register Here!</p>
                         <div class="social-media">
                             <a href="#" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
@@ -158,7 +160,16 @@
                             </a>
                             
                     </div>
-                </form>
+                    </form>
+                </div>
+                <div class="right-side ps-5 pt-3 pe-5">
+                    <div class="brand">
+                        <h6>RentaCar &reg;</h6>
+                    </div>
+                    <div class="footer-div1 pb-4">
+                        <button onclick="window.location='../_user-login.php';" id="seller-login account" type="submit" class="btn1 btn-primary" name="submit">User Login</button>
+                    </div>
+                </div>
             </div>
         </div>
         <!--
